@@ -1,0 +1,29 @@
+﻿@{
+  ViewBag.Title = "BKLayout";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page">
+  <div id="header">
+    <div id="title">
+      <h1>校园网二手交易平台——后台管理</h1>
+    </div>
+    <div id="logindisplay">
+      @Html.Partial("_LogOnPartial")
+    </div>
+    <div id="menucontainer">
+      <ul id="menu">
+        <li>@Html.ActionLink("主页", "Index", "Home")</li>
+        <li>@Html.ActionLink("商品类别", "List", "Category")</li>
+      </ul>
+    </div>
+  </div>
+  <div id="main">
+    @RenderBody()
+  </div>
+  <div id="footer">
+  </div>
+</div>
+@section scripts {
+  @RenderSection("scripts", false)
+}

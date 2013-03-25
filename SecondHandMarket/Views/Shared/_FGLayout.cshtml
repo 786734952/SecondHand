@@ -1,0 +1,18 @@
+﻿@{
+  ViewBag.Title = "FGLayout";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<div class="page">
+  <div class="top-banner">
+    @Html.Partial("~/Views/Shared/Header.cshtml")
+  </div>
+  <div class="main">
+    @RenderBody()
+  </div>
+</div>
+@section scripts {
+  @RenderSection("scripts", false)
+}
+
