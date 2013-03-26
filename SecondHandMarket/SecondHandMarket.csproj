@@ -100,9 +100,12 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BuyController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CollectController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReleaseController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -129,11 +132,15 @@
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\images\404.gif" />
+    <Content Include="Content\images\header-back.png" />
     <Content Include="Content\images\home1.png" />
     <Content Include="Content\images\home2.png" />
+    <Content Include="Content\images\newest1.jpg" />
+    <Content Include="Content\images\newest2.jpg" />
+    <Content Include="Content\images\newest3.jpg" />
+    <Content Include="Content\images\newest4.jpg" />
     <Content Include="Content\images\raindrops2.png" />
     <Content Include="Content\images\raindrops3.png" />
-    <Content Include="Content\images\segmentation.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\less\wells.less" />
     <Content Include="Content\less\variables.less" />
@@ -183,6 +190,11 @@
     <Content Include="Content\font\fontawesome-webfont.woff" />
     <Content Include="Content\pagecss\Shared\header.less" />
     <Content Include="Content\pagecss\Home\index.less" />
+    <Content Include="Content\pagecss\Buy\index.less" />
+    <Content Include="Content\pagecss\Release\index.less" />
+    <Content Include="Content\pagecss\Collect\index.less" />
+    <Content Include="Content\pagecss\Account\LogOn.less" />
+    <Content Include="Content\pagecss\Account\Register.less" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -216,7 +228,6 @@
     <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
     <Content Include="Views\Account\LogOn.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LogOnPartial.cshtml" />
@@ -229,6 +240,10 @@
     <Content Include="Views\Shared\Header.cshtml" />
     <Content Include="Views\Shared\_FGLayout.cshtml" />
     <Content Include="Views\Shared\_BKLayout.cshtml" />
+    <Content Include="Views\Buy\Index.cshtml" />
+    <Content Include="Views\Release\Index.cshtml" />
+    <Content Include="Views\Collect\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutWithoutHead.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

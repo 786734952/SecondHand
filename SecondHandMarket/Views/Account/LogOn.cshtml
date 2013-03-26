@@ -1,8 +1,11 @@
 ﻿@model SecondHandMarket.Models.LogOnModel
 @{
   ViewBag.Title = "登录";
+  Layout = "~/Views/Shared/_LayoutWithoutHead.cshtml";
 }
-
+<header>
+  <link href="@Url.Content("~/Content/pagecss/Account/LogOn.less")" rel="stylesheet" />
+</header>
 <h2>登录</h2>
 <p>
   请输入用户名和密码。如果您没有帐户，请 @Html.ActionLink("注册", "Register")。
