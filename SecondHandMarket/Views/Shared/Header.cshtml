@@ -11,30 +11,30 @@
   <div class="mainmenu">
     <ul class="mainnav">
       <li class="nav1">
-        <a class="index" href="#">
+        <a class="index @(Request.CurrentExecutionFilePath =="/Home/Index"?"active":"")" href="../Home/Index">
           <span>首页</span>
         </a>
       </li>
       <li class="nav2">
-        <a class="buy" href="#">
+        <a class="buy @(Request.CurrentExecutionFilePath =="/Buy/Index"?"active":"")" href="../Buy/Index">
           <span>商品求购</span>
         </a>
       </li>
       <li class="nav3">
-        <a class="release" href="#">
+        <a class="release @(Request.CurrentExecutionFilePath =="/Release/Index"?"active":"")" href="../Release/Index">
           <span>商品发布</span>
         </a>
       </li>
       <li class="nav4">
-        <a class="collect" href="#">
+        <a class="collect @(Request.CurrentExecutionFilePath =="/Collect/Index"?"active":"")" href="../Collect/Index">
           <span>我的收藏</span>
         </a>
       </li>
     </ul>
   </div>
   <div class="operate">
-    <a class="login" href="#">登录  |</a>
-    <a class="register" href="#">注册</a>
+    <a class="login" href="../Account/LogOn">登录  |</a>
+    <a class="register" href="../Account/Register">注册</a>
   </div>
 </div>
 @section scripts {
