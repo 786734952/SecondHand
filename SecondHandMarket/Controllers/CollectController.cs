@@ -15,6 +15,13 @@ namespace SecondHandMarket.Controllers
         {
             return View();
         }
-
+        public ActionResult Release()
+        {
+            return View();
+        }
+        public ActionResult Buy()
+        {
+            return View();
+        }
     }
 }

@@ -1,20 +1,18 @@
 ﻿.header{
 	width:980px;
-	height:88px;
+	height:80px;
 	color:#C0C0C0;
 	margin:auto;
-	background-color:black;
-	background:url(../../images/header-back.png) 0 -32px repeat-x;
+	border-bottom:1px solid silver;
 }
 .header .header-title{
-	width:360px;
+	width:330px;
 	font-size:28px;
 	float:left;
 }
 .header .mainmenu{
-	width:424px;
-	font-size:24px;
-	margin-left:60px;
+	width:421px;
+	font-size:20px;
 	float:left;
 	li{
 		list-style:none;
@@ -27,13 +25,25 @@
 		}
 	}
 }
+.prompt{
+	width:199px;
+	float:right;
+	
+	.search{
+		float:right;
+
+		input{
+			height:16px;
+			width:125px;
+		}
+		button{
+			color:#52A82B;
+		}
+	}
+}
 
 .header .operate{
-	width:100px;
-	margin-left:20px;
-	font-size:18px;
 	float:right;
-	line-height:100px;
 	a{
 		text-decoration:none;
 		color:#C0C0C0;
@@ -44,5 +54,5 @@
 }
 a.active span{
 	color:#52A82B;
-	border-bottom:2px solid #EE3636;
+	border-bottom:2px solid #52A82B;
 }  

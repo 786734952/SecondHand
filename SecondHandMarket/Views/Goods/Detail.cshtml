@@ -1,0 +1,95 @@
+﻿@{
+  ViewBag.Title = "商品详情";
+  Layout = "~/Views/Shared/_FGLayout.cshtml";
+}
+
+<header>
+  <link href="@Url.Content("~/Content/pagecss/Goods/detail.less")" rel="stylesheet" />
+</header>
+
+<div class="content">
+  <div class="layout-left">
+    <div class="navBars">
+      <a href="#"><span>二手运动/图书</span></a>
+      <span>></span>
+      <a href="#"><span>二手书籍</span></a>
+      <span>></span>
+      <a href="#"><span>小说文学类</span></a>
+    </div>
+    <div class="goods">
+      <div class="name">
+        <h3>四大名著 全套四册 全新 低价转让 - 30元</h3>
+        <a href="#" class="btn btn-info btn-mini" id="collect">
+          <i class="icon-briefcase"></i>
+          收藏
+        </a>
+      </div>
+      <div class="detail">
+        <ul>
+          <li><span>价格：30元</span></li>
+          <li><span>地点：中心校区  一期</span></li>
+          <li><span>联系人：张小姐</span></li>
+          <li><span>联系电话：15262016114</span></li>
+          <li><span>QQ号：72345612</span></li>
+        </ul>
+      </div>
+      <div class="describe tabbable">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#tab1" data-toggle="tab">详情描述</a></li>
+          <li><a href="#tab2" data-toggle="tab">物品照片</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="tab1">
+            <p>
+              全新 原价58元,现30元低价转让,不还价,谢谢。
+          中心校区一期食堂附件交易。
+            </p>
+          </div>
+          <div class="tab-pane" id="tab2">
+            <div class="img">
+              <img src="../../Content/images/book1.png" />
+            </div>
+            <div class="img">
+              <img src="../../Content/images/book2.png" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="layout-right">
+    <div class="title">
+      <span>新品推荐</span>
+    </div>
+    <div class="img">
+      <a href="#">
+        <img src="../../Content/images/newest1.jpg" />
+        <span>4分钟  1980元</span>
+      </a>
+    </div>
+    <div class="img">
+      <a href="#">
+        <img src="../../Content/images/newest1.jpg" />
+        <span>4分钟  1980元</span>
+      </a>
+    </div>
+    <div class="img">
+      <a href="#">
+        <img src="../../Content/images/newest1.jpg" />
+        <span>4分钟  1980元</span>
+      </a>
+    </div>
+  </div>
+</div>
+@section scripts{
+  <script>
+    $('#collect').click(function () {
+      alert('收藏成功，可在"我的收藏"中查看您所收藏的信息');
+    });
+    $('.layout-right .img').on('mouseenter', function () {
+      $(this).find('span').slideToggle();
+    });
+  </script>
+}

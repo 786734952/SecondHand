@@ -1,0 +1,35 @@
+﻿@using SecondHandMarket.Models;
+@model List<Category>
+<div class="navigationBar">
+  <div class="quick-main">
+    <span>快速导航</span>
+  </div>
+  <ul class="" role="menu">
+    @foreach (var category in Model)
+    {
+      <li class="dropdown-submenu">
+        <span>
+          <a href="#" tabindex="-1">@category.Name</a>
+        </span>
+        <ul class="dropdown-menu">
+          @foreach (var secCategory in category.SubCategories)
+          {
+            <li>
+              <dl>
+                <dt>@secCategory.Name</dt>
+                <dd>
+                  <ul>
+                    @foreach (var thirdCategory in secCategory.SubCategories)
+                    {
+                      <li><a href="#">@thirdCategory.Name</a></li>
+                    }
+                  </ul>
+                </dd>
+              </dl>
+            </li>
+          }
+        </ul>
+      </li>
+    }
+  </ul>
+</div>

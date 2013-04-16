@@ -1,41 +1,58 @@
 ﻿@{
-    ViewBag.Title = "header";
+  ViewBag.Title = "header";
 }
 <header>
-    <link href="@Url.Content("~/Content/pagecss/Shared/header.less")" rel="stylesheet" />
+  <link href="@Url.Content("~/Content/pagecss/Shared/header.less")" rel="stylesheet" />
 </header>
 <div class="header menu">
+
   <div class="header-title">
     <h2>二手交易购物平台</h2>
+
   </div>
   <div class="mainmenu">
     <ul class="mainnav">
       <li class="nav1">
-        <a class="index @(Request.CurrentExecutionFilePath =="/Home/Index"?"active":"")" href="../Home/Index">
+        <a class="index @(Request.CurrentExecutionFilePath=="/"||Request.CurrentExecutionFilePath.IndexOf("Home") >= 0 ? "active" : "")" href="../Home/Index">
           <span>首页</span>
         </a>
       </li>
       <li class="nav2">
-        <a class="buy @(Request.CurrentExecutionFilePath =="/Buy/Index"?"active":"")" href="../Buy/Index">
-          <span>商品求购</span>
+        <a class="index @(Request.CurrentExecutionFilePath.IndexOf("Goods") >= 0 ? "active" : "")" href="../Goods/Index">
+          <span>发现</span>
         </a>
       </li>
       <li class="nav3">
-        <a class="release @(Request.CurrentExecutionFilePath =="/Release/Index"?"active":"")" href="../Release/Index">
+        <a class="buy @(Request.CurrentExecutionFilePath.IndexOf("Buy") >= 0 ? "active" : "")" href="../Buy/Index">
+          <span>商品求购</span>
+        </a>
+      </li>
+      <li class="nav4">
+        <a class="release @(Request.CurrentExecutionFilePath.IndexOf("Release") >= 0 ? "active" : "")" href="../Release/Index">
           <span>商品发布</span>
         </a>
       </li>
       <li class="nav4">
-        <a class="collect @(Request.CurrentExecutionFilePath =="/Collect/Index"?"active":"")" href="../Collect/Index">
+        <a class="collect @(Request.CurrentExecutionFilePath.IndexOf("Collect") >= 0 ? "active" : "")" href="../Collect/Index">
           <span>我的收藏</span>
         </a>
       </li>
     </ul>
   </div>
-  <div class="operate">
-    <a class="login" href="../Account/LogOn">登录  |</a>
-    <a class="register" href="../Account/Register">注册</a>
+  <div class="prompt">
+    <div class="operate">
+      <div id="logindisplay">
+        @Html.Partial("_LogOnPartial")
+      </div>
+    </div>
+    <form action="" class="form-search">
+      <div class="search input-append">
+        <input type="text" class="input-medium search-query" placeholder="请输入名称或关键字" />
+        <button class="btn btn-small" type="submit">Go!</button>
+      </div>
+    </form>
   </div>
+
 </div>
 @section scripts {
   @RenderSection("scripts", false)

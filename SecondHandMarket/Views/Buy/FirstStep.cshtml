@@ -1,0 +1,60 @@
+﻿@{
+  ViewBag.Title = "商品求购";
+  Layout = "../Shared/_FGLayout.cshtml";
+}
+<header>
+  <link href="@Url.Content("~/Content/pagecss/Buy/index.less")" rel="stylesheet" />
+</header>
+<div>
+  <div class="content">
+    <div class="process">
+      <div class="step1 step">
+        <div class="rectangle"></div>
+        <div class="right-triangle"></div>
+        <a href="#">
+          <span>选择大类</span>
+        </a>
+      </div>
+      <div class="step2 step">
+        <div class="right-triangle transparent"></div>
+        <div class="rectangle"></div>
+        <div class="right-triangle"></div>
+        <a href="#">
+          <span>选择小类</span>
+        </a>
+      </div>
+      <div class="step3 step">
+        <div class="right-triangle transparent"></div>
+        <div class="rectangle" style="width:340px"></div>
+        <a href="#">
+          <span>填写详情</span>
+        </a>
+      </div>
+    </div>
+    <div class="title">
+      <span>选择大类</span>
+    </div>
+    <div class="classify">
+      <ul>
+        <li>
+          <a href="./SecondStep">二手手机/手机号码</a>
+        </li>
+        <li>
+          <a href="./SecondStep">二手电脑/配件</a>
+        </li>
+        <li>
+          <a href="./SecondStep">二手自行车/电动车</a>
+        </li>
+        <li>
+          <a href="./SecondStep">二手运动/图书</a>
+        </li>
+        <li>
+          <a href="./SecondStep">二手服装/箱包</a>
+        </li>
+        <li>
+          <a href="./SecondStep">其他</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

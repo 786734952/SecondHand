@@ -1,0 +1,62 @@
+﻿@{
+  ViewBag.Title = "商品求购";
+  Layout = "../Shared/_FGLayout.cshtml";
+}
+<header>
+  <link href="@Url.Content("~/Content/pagecss/Buy/index.less")" rel="stylesheet" />
+</header>
+<div>
+  <div class="content">
+    <div class="process">
+      <div class="step1 step">
+        <div class="rectangle"></div>
+        <div class="right-triangle"></div>
+        <a href="./FirstStep">
+          <span>选择大类</span>
+        </a>
+      </div>
+      <div class="step2 step">
+        <div class="right-triangle transparent"></div>
+        <div class="rectangle"></div>
+        <div class="right-triangle"></div>
+        <a href="#">
+          <span>选择小类</span>
+        </a>
+      </div>
+      <div class="step3 step">
+        <div class="right-triangle transparent"></div>
+        <div class="rectangle" style="width: 340px"></div>
+        <a href="#">
+          <span>填写详情</span>
+        </a>
+      </div>
+    </div>
+    <div class="title">
+      <span>选择小类</span>
+    </div>
+    <div class="classify">
+      <dl class="dl-horizontal">
+        <dt>二手手机</dt>
+        <dd>
+          <ul>
+            <li><a href="./Detail">iphone</a></li>
+            <li>诺基亚</li>
+            <li>诺基亚</li>
+            <li>诺基亚</li>
+            <li>诺基亚</li>
+          </ul>
+        </dd>
+        <dt>手机号码</dt>
+        <dd>
+          <ul>
+            <li>全球通</li>
+            <li>全球通</li>
+            <li>全球通</li>
+            <li>全球通</li>
+
+          </ul>
+        </dd>
+      </dl>
+    </div>
+  </div>
+</div>

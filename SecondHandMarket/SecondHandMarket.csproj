@@ -104,6 +104,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CollectController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\GoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReleaseController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
@@ -114,12 +115,35 @@
     <Compile Include="Migrations\201301271228156_InitialCreate.Designer.cs">
       <DependentUpon>201301271228156_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201304151324307_ddd.cs" />
+    <Compile Include="Migrations\201304151324307_ddd.Designer.cs">
+      <DependentUpon>201304151324307_ddd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201304161436389_adfs.cs" />
+    <Compile Include="Migrations\201304161436389_adfs.Designer.cs">
+      <DependentUpon>201304161436389_adfs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201304161450180_adfs1.cs" />
+    <Compile Include="Migrations\201304161450180_adfs1.Designer.cs">
+      <DependentUpon>201304161450180_adfs1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201304161514372_adf.cs" />
+    <Compile Include="Migrations\201304161514372_adf.Designer.cs">
+      <DependentUpon>201304161514372_adf.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\Buy.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Collect.cs" />
     <Compile Include="Models\MarketContext.cs" />
+    <Compile Include="Models\Pictures.cs" />
+    <Compile Include="Models\Release.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\ReleaseViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-responsive.css" />
@@ -127,6 +151,12 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font\fontawesome-webfont.svg" />
+    <Content Include="Content\images\10.jpg" />
+    <Content Include="Content\images\bk2.jpg" />
+    <Content Include="Content\images\bk.jpg" />
+    <Content Include="Content\images\blackheaderbg.jpg" />
+    <Content Include="Content\images\book1.png" />
+    <Content Include="Content\images\book2.png" />
     <Content Include="Content\images\clouds1.png" />
     <Content Include="Content\images\clouds2.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
@@ -135,6 +165,14 @@
     <Content Include="Content\images\header-back.png" />
     <Content Include="Content\images\home1.png" />
     <Content Include="Content\images\home2.png" />
+    <Content Include="Content\images\item1.jpg" />
+    <Content Include="Content\images\item2.jpg" />
+    <Content Include="Content\images\item3.jpg" />
+    <Content Include="Content\images\item4.jpg" />
+    <Content Include="Content\images\item5.jpg" />
+    <Content Include="Content\images\item6.jpg" />
+    <Content Include="Content\images\item7.jpg" />
+    <Content Include="Content\images\Leaf_Brushes_by_bmjewell_stock.png" />
     <Content Include="Content\images\newest1.jpg" />
     <Content Include="Content\images\newest2.jpg" />
     <Content Include="Content\images\newest3.jpg" />
@@ -190,11 +228,13 @@
     <Content Include="Content\font\fontawesome-webfont.woff" />
     <Content Include="Content\pagecss\Shared\header.less" />
     <Content Include="Content\pagecss\Home\index.less" />
-    <Content Include="Content\pagecss\Buy\index.less" />
     <Content Include="Content\pagecss\Release\index.less" />
     <Content Include="Content\pagecss\Collect\index.less" />
     <Content Include="Content\pagecss\Account\LogOn.less" />
     <Content Include="Content\pagecss\Account\Register.less" />
+    <Content Include="Content\pagecss\Goods\detail.less" />
+    <Content Include="Content\pagecss\Goods\index.less" />
+    <Content Include="Content\pagecss\Buy\index.less" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -202,6 +242,7 @@
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.masonry.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\less.min.js" />
@@ -244,6 +285,16 @@
     <Content Include="Views\Release\Index.cshtml" />
     <Content Include="Views\Collect\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutWithoutHead.cshtml" />
+    <Content Include="Views\Buy\Detail.cshtml" />
+    <Content Include="Views\Release\Detail.cshtml" />
+    <Content Include="Views\Goods\Index.cshtml" />
+    <Content Include="Views\Goods\Detail.cshtml" />
+    <Content Include="Views\Collect\Release.cshtml" />
+    <Content Include="Views\Collect\Buy.cshtml" />
+    <Content Include="Views\Shared\CategoryNavigator.cshtml" />
+    <Content Include="Views\Buy\FirstStep.cshtml" />
+    <Content Include="Views\Buy\SecondStep.cshtml" />
+    <Content Include="Views\Release\SecondStep.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -254,6 +305,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201301271228156_InitialCreate.resx">
       <DependentUpon>201301271228156_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304151324307_ddd.resx">
+      <DependentUpon>201304151324307_ddd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304161436389_adfs.resx">
+      <DependentUpon>201304161436389_adfs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304161450180_adfs1.resx">
+      <DependentUpon>201304161450180_adfs1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304161514372_adf.resx">
+      <DependentUpon>201304161514372_adf.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -272,7 +335,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>3776</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:12104/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

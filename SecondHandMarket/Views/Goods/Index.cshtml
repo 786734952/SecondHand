@@ -1,0 +1,82 @@
+﻿@using SecondHandMarket.Models
+@{
+    ViewBag.Title = "商品展示";
+    Layout = "~/Views/Shared/_FGLayout.cshtml";
+  var firstLevelCategories = ViewBag.FirstLevelCategories as List<Category>;
+}
+
+<header>
+  <link href="@Url.Content("~/Content/pagecss/Goods/index.less")" rel="stylesheet" />
+</header>
+
+<div class="content">
+  <div class="layout">
+    <div class="layout left">
+      @Html.Partial("CategoryNavigator", firstLevelCategories)
+    </div>
+    <div class="goods">
+      <div id="container" class="clearfix masonry">
+        <div class="item col1 masonry-brick">
+          <a href="#">
+            <img src="../../Content/images/item1.jpg" />
+            <span>充电器 220元</span>
+          </a>
+        </div>
+        <div class="item col1 masonry-brick">
+          <a href="#">
+            <img src="../../Content/images/item2.jpg" />
+            <span></span>
+          </a>
+        </div>
+        <div class="item col1 masonry-brick">
+          <a href="#">
+            <img src="../../Content/images/item3.jpg" />
+            <span></span>
+          </a>
+        </div>
+        <div class="item col1 masonry-brick">
+          <a href="#">
+            <img src="../../Content/images/item4.jpg" />
+            <span></span>
+          </a>
+        </div>
+        <div class="item col1 masonry-brick">
+          <a href="#">
+            <img src="../../Content/images/item5.jpg" />
+            <span></span>
+          </a>
+        </div>
+        <div class="item col1 masonry-brick">
+          <a href="#">
+            <img src="../../Content/images/item6.jpg" />
+            <span></span>
+          </a>
+        </div>
+        <div class="item col1 masonry-brick">
+          <a href="#">
+            <img src="../../Content/images/item7.jpg" />
+            <span></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+@section scripts{
+  <script>
+    var $container = $('#container');
+    $container.imagesLoaded(function () {
+      $container.masonry({
+        itemSelector: '.item',
+        columnWidth: 170,
+        gutterWidth:30
+      });
+    });
+    $('#container').on('mouseenter', 'img', function () {
+      $(this).closest('a').find('span').slideToggle();
+    });
+    $('#container').on('mouseleave', 'img', function () {
+      $(this).closest('a').find('span').slideToggle();
+    })
+  </script>
+}
