@@ -1,9 +1,11 @@
-﻿@{
-  ViewBag.Title = "商品求购";
+﻿@using SecondHandMarket.Models
+@{
+  ViewBag.Title = "商品发布";
   Layout = "../Shared/_FGLayout.cshtml";
+  var categories = ViewBag.Categories as List<Category>;
 }
 <header>
-  <link href="@Url.Content("~/Content/pagecss/Buy/index.less")" rel="stylesheet" />
+  <link href="@Url.Content("~/Content/pagecss/Release/index.less")" rel="stylesheet" />
 </header>
 <div>
   <div class="content">
@@ -11,7 +13,7 @@
       <div class="step1 step">
         <div class="rectangle"></div>
         <div class="right-triangle"></div>
-        <a href="./FirstStep">
+        <a href="./Index">
           <span>选择大类</span>
         </a>
       </div>
@@ -25,38 +27,31 @@
       </div>
       <div class="step3 step">
         <div class="right-triangle transparent"></div>
-        <div class="rectangle unactive" style="width: 340px"></div>
+        <div class="rectangle" style="width: 340px"></div>
         <a href="#">
           <span>填写详情</span>
         </a>
       </div>
     </div>
     <div class="title">
-      <span>选择小类</span>
+      <span>选择大类</span>
     </div>
     <div class="classify">
       <dl class="dl-horizontal">
-        <dt>二手手机</dt>
-        <dd>
-          <ul>
-            <li><a href="./Detail">iphone</a></li>
-            <li>诺基亚</li>
-            <li>诺基亚</li>
-            <li>诺基亚</li>
-            <li>诺基亚</li>
-          </ul>
-        </dd>
-        <dt>手机号码</dt>
-        <dd>
-          <ul>
-            <li>全球通</li>
-            <li>全球通</li>
-            <li>全球通</li>
-            <li>全球通</li>
-
-          </ul>
-        </dd>
+        @foreach (var category in categories)
+        { 
+          <dt>@category.Name</dt>
+          <dd>
+            <ul>
+              @foreach (var subCate in category.SubCategories)
+              {
+                <li><a href="@Url.Action("Detail")?categoryId=@subCate.Id">@subCate.Name</a></li>
+              }
+            </ul>
+          </dd>
+        }
       </dl>
     </div>
   </div>
 </div>
+

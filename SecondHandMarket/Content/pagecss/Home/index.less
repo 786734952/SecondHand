@@ -19,8 +19,8 @@
 
 .navigationBar {
     border: 1px solid #52A82B;
-	-webkit-box-shadow: 0px -1px 1px 1px #8ED184;
-	box-shadow: 0px -1px 1px 1px #8ED184;
+    -webkit-box-shadow: 0px -1px 1px 1px #8ED184;
+    box-shadow: 0px -1px 1px 1px #8ED184;
 
     .quick-main {
         background-color: #52A82B;
@@ -32,8 +32,8 @@
             color: white;
             margin-left: 48px;
             line-height: 30px;
-			-webkit-text-shadow:-1px -1px 0px black;
-			text-shadow:-1px -1px 0px black;
+            -webkit-text-shadow: -1px -1px 0px black;
+            text-shadow: -1px -1px 0px black;
         }
     }
 }
@@ -41,7 +41,6 @@
     .navigationBar ul.dropdown-menu {
         background-color: black;
         border: 1px solid #52A82B;
-        border-left: none;
         width: 290px;
         margin-left: 1px;
         margin-top: -1px;
@@ -67,10 +66,6 @@
             }
         }
     }
-
-    /*.dropdown-submenu{
-    border: 1px solid #52A82B;
-}*/
 
     .navigationBar ul {
         li {
@@ -134,8 +129,8 @@
 .goods .tag {
     height: 30px;
     background-color: #52A82B;
-	-webkit-box-shadow: 0px 0px 1px 1px #A7A7A7;
-	box-shadow: 0px 0px 1px 1px #A7A7A7;
+    -webkit-box-shadow: 0px 0px 1px 1px #A7A7A7;
+    box-shadow: 0px 0px 1px 1px #A7A7A7;
 
     span {
         font-size: 18px;
@@ -143,8 +138,8 @@
         color: white;
         line-height: 30px;
         margin-left: 10px;
-		-webkit-text-shadow:0px -1px 0px black;
-		text-shadow:0px -1px 0px black;
+        -webkit-text-shadow: 0px -1px 0px black;
+        text-shadow: 0px -1px 0px black;
     }
 }
 
@@ -162,9 +157,27 @@ li.dropdown-submenu {
     border-right: 1px solid #52A82B;
 }
 
-    li.dropdown-submenu:hover {
-        border-bottom: 1px solid #52A82B;
-        border-top: 1px solid #52A82B;
-        border-right: 1px solid black;
+li.dropdown-submenu:hover {
+    border-bottom: 1px solid #52A82B;
+    border-top: 1px solid #52A82B;
+    border-right: 1px solid black;
+    background-color: black;
+    height: 64px;
+	padding:0px;
+
+	span{
+		display:inline-block;
+		width:100%;
+		height:100%;
+		position:relative;
+		right:-10px;
+		z-index:1001;
 		background-color:black;
-    }
+
+		a{
+			display:inline-block;
+			padding:10px;
+			padding-left:15px;
+		}
+	}
+}

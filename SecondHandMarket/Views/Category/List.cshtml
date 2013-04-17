@@ -19,7 +19,7 @@
       <label style="display:inline-block;margin-right:10px">
         @(ParentCategory == null ? "商品分类" : "子类别")</label>
       <input type="hidden" name="ParentId" 
-        value="@(ParentCategory == null ? "" : ParentCategory.Id.ToIntString())" autofocus />
+        value="@(ParentCategory == null ? "" : ParentCategory.Id.ToString())" autofocus />
       <input type="text" name="Name" />
     </div>
     <div class="modal-footer form-actions">

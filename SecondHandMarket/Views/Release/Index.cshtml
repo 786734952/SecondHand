@@ -1,0 +1,51 @@
+﻿@using SecondHandMarket.Models
+@{
+  ViewBag.Title = "商品发布";
+  Layout = "../Shared/_FGLayout.cshtml";
+  var categories = ViewBag.Categories as List<Category>;
+}
+<header>
+  <link href="@Url.Content("~/Content/pagecss/Release/index.less")" rel="stylesheet" />
+</header>
+<div>
+  <div class="content">
+    <div class="process">
+      <div class="step1 step active">
+        <div class="rectangle"></div>
+        <div class="right-triangle"></div>
+        <a href="#" >
+          <span>选择大类</span>
+        </a>
+      </div>
+      <div class="step2 step">
+        <div class="right-triangle transparent"></div>
+        <div class="rectangle"></div>
+        <div class="right-triangle"></div>
+        <a href="#">
+          <span>选择小类</span>
+        </a>
+      </div>
+      <div class="step3 step">
+        <div class="right-triangle transparent"></div>
+        <div class="rectangle" style="width:340px"></div>
+        <a href="#">
+          <span>填写详情</span>
+        </a>
+      </div>
+    </div>
+    <div class="title">
+      <span><i class="icon-info-sign"></i>&nbsp;选择大类</span>
+    </div>
+    <div class="classify">
+      <ul>
+        @foreach (var category in categories)
+        {
+          <li>
+            <a href="@Url.Action("SecondStep")?categoryId=@category.Id">@category.Name</a>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</div>
+
