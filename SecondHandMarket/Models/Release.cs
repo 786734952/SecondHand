@@ -19,7 +19,7 @@ namespace SecondHandMarket.Models
         /// <summary>
         /// 发布人
         /// </summary>
-        public User User { get; set; }
+        public string UserName { get; set; }
 
         /// <summary>
         /// 商品分类
@@ -34,7 +34,7 @@ namespace SecondHandMarket.Models
         /// <summary>
         /// 商品价格
         /// </summary>
-        public float Price { get; set; }
+        public decimal Price { get; set; }
 
         /// <summary>
         /// 商品描述
@@ -49,7 +49,7 @@ namespace SecondHandMarket.Models
         /// <summary>
         /// 交易地点
         /// </summary>
-        public string TradePlace { get; set; }
+        public Address TradePlace { get; set; }
 
         /// <summary>
         /// 联系人电话

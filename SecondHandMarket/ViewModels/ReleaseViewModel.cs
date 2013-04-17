@@ -35,6 +35,12 @@ namespace SecondHandMarket.ViewModels
         public string Description { get; set; }
 
         /// <summary>
+        /// 类别
+        /// </summary>
+        [Required]
+        public int CategoryId { get; set; }
+
+        /// <summary>
         /// 交易地址
         /// </summary>
         [DisplayName("地址")]
@@ -44,12 +50,14 @@ namespace SecondHandMarket.ViewModels
         /// 联系电话
         /// </summary>
         [DisplayName("联系电话")]
+        [Required]
         public string Mobile { get; set; }
 
         /// <summary>
         /// 联系人
         /// </summary>
         [DisplayName("联系人")]
+        [Required]
         public string Linkman { get; set; }
 
         /// <summary>

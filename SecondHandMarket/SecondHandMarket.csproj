@@ -101,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BuyController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
@@ -133,6 +134,10 @@
     <Compile Include="Migrations\201304161514372_adf.Designer.cs">
       <DependentUpon>201304161514372_adf.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201304171510131_ddddd.cs" />
+    <Compile Include="Migrations\201304171510131_ddddd.Designer.cs">
+      <DependentUpon>201304171510131_ddddd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Address.cs" />
@@ -144,6 +149,7 @@
     <Compile Include="Models\Release.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AddressViewModel.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />
     <Compile Include="ViewModels\ReleaseViewModel.cs" />
   </ItemGroup>
@@ -297,6 +303,7 @@
     <Content Include="Views\Buy\FirstStep.cshtml" />
     <Content Include="Views\Buy\SecondStep.cshtml" />
     <Content Include="Views\Release\SecondStep.cshtml" />
+    <Content Include="Views\Address\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -319,6 +326,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201304161514372_adf.resx">
       <DependentUpon>201304161514372_adf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304171510131_ddddd.resx">
+      <DependentUpon>201304171510131_ddddd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

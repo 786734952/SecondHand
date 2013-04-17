@@ -1,0 +1,81 @@
+﻿@using SecondHandMarket.Models
+@{
+    ViewBag.Title = "交易地点";
+    Layout = "~/Views/Shared/_BKLayout.cshtml";
+    var addresses = ViewBag.Addresses as List<Address>;
+  var parentAddress = ViewBag.ParentAddress as Address;
+}
+
+<h1>@(parentAddress == null ? "交易地点" : parentAddress.Name + "的详细地点")</h1>
+<a href="#addAddress" role="button" class="btn btn-primary" data-toggle="modal">
+  <i class="icon-plus icon-white"></i>新建@(parentAddress == null ? "交易地点" : "的详细地点")
+</a>
+
+@if (parentAddress != null)
+{
+  var pId = parentAddress.ParentAddress == null ? "" : parentAddress.ParentAddress.Id.ToString();
+  <a href="@Url.Action("List")?addressId=@pId " class="btn">
+    <i class="icon-reply"></i>&nbsp;返回
+  </a>
+}
+
+<form action="Add" method="post">
+  <div id="addAddress" class="modal hide fade" style="width:450px">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>新增@(parentAddress == null ? "交易地点" : parentAddress.Name + "详细地点")</h3>
+    </div>
+    <div class="modal-body">
+      <label style="display:inline-block;margin-right:10px">
+        @(parentAddress == null ? "交易地点" : "详细地点")</label>
+      <input type="hidden" name="parentId" 
+             value="@(parentAddress == null ? "" : parentAddress.Id.ToString())" />
+      <input type="text" name="address"  autofocus/>
+    </div>
+    <div class="modal-footer form-actions">
+      <input type="submit" value="保存" class="btn bt-primary" />
+      <button type="button" class="btn btn-warning" data-dismiss="modal" aria-hidden="true">取消</button>
+    </div>
+  </div>
+</form>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>交易地点</th>
+      <th>详细地点</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var address in addresses)
+    {
+      <tr>
+        <td>@address.Name</td>
+        <td>@String.Join("、", address.SubAddresses.Select(c => c.Name))</td>
+        <td>
+          <form action="@Url.Action("Delete")" method="post" style="display: inline">
+            <input type="hidden" value="@address.Id" name="addressId" />
+            <div class="btn-group">
+              <a href="?addressId=@address.Id" class="btn btn-mini" >
+                <i class="icon-pencil"></i>维护详细地点</a>
+              <input type="button" class="btn btn-mini btn-danger remove" value="删除" />
+            </div>
+          </form>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+@section scripts{
+  <script>
+    $('.remove').click(function() {
+      var $bt = $(this);
+      var categoryName = $bt.parents("tr").find("td:first-child").text();
+      if (confirm("确定要删除 " + categoryName + " 吗？")) {
+        $bt.parents('form').submit();
+      }
+    });
+  </script>
+}

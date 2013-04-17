@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SecondHandMarket.Models;
 using SecondHandMarket.ViewModels;
 
 namespace SecondHandMarket.Controllers
@@ -49,8 +50,43 @@ namespace SecondHandMarket.Controllers
         [HttpPost]
         public ActionResult Add(ReleaseAddModel release)
         {
-            throw new NotImplementedException();
-        }
+            List<Picture> pictures = null;
+            if (Request.Files.Count > 0)
+            {
+                pictures = SaveFiles(Request.Files);
+            }
+
+            using (Db)
+            {
+                var model = new Release()
+                    {
+                        UserName = User.Identity.Name,
+                        Category = Db.Categories.First(c=>c.Id == release.CategoryId),
+                        Title = release.Title,
+                        Price = release.Price,
+                        Description = release.Description,
+                        Pictures = pictures,
+                        TradePlace = Db.Addresses.First(a=>a.Id == release.AddressId),
+                        Mobile = release.Mobile,
+                        Linkman = release.Linkman,
+                        QQ = release.QQ,
+                        ReleaseTime = DateTime.Now
+                    };
+
+                Db.Releases.Add(model);
+            }
             
+            return null;
+        }
+
+        private List<Picture> SaveFiles(HttpFileCollectionBase files)
+        {
+            //var fileDir = Server.MapPath("~/Asset/");
+            //foreach (HttpPostedFile file in files)
+            //{
+            //    file.SaveAs();
+            //}
+            return null;
+        }
     }
 }

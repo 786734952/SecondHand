@@ -46,6 +46,10 @@
           {"id", "release-form"}
         }))
       {
+        @Html.HiddenFor(m => m.CategoryId, new Dictionary<string, object>()
+          {
+            {"value", category.Id}
+          })
         <div class="control-group">
           <label class="control-label" for="title">标题</label>
           <div class="controls">
@@ -80,15 +84,14 @@
         <div class="control-group">
           <label class="control-label" for="">地点</label>
           <div class="controls">
-            <select class="span2">
+            <select class="span2" id="firstLvlAddr">
+              <option value=""></option>
               @foreach (var campus in campuses)
               {
                 <option value="@campus.Id">@campus.Name</option>
               }
             </select>
-            <select class="span2">
-              <option></option>
-              <option></option>
+            <select class="span2" id="secondLvlAddr" name="AddressId">
             </select>
           </div>
         </div>
@@ -115,7 +118,7 @@
         </div>
         <div class="control-group">
           <div class="controls">
-            <button type="submit" class="btn btn-primary">发布</button>
+            <button type="submit" class="btn btn-primary"><i class="icon-share"></i>&nbsp;发布</button>
           </div>
         </div>
       }
@@ -132,6 +135,25 @@
           find('.addFile').css('display', 'block');
       });
       $('#release-form').validate();
+    });
+  </script>
+  <script>
+    $(function() {
+      $('#firstLvlAddr').on('change', function() {
+        var $addr = $(this);
+        var addrId = $addr.val();
+        $('#secondLvlAddr').empty();
+        $.ajax({
+          url: '@Url.Action("GetSubAddresses", "Address")',
+          data: { addressId: addrId }
+        }).done(function(data) {
+          var buff = [];
+          $.each(data, function (i, addr) {
+            buff.push("<option value='", addr.Id, "'>", addr.Name, "</option>");
+          });
+          $('#secondLvlAddr').html(buff.join(''));
+        });
+      });
     });
   </script>
 }

@@ -13,8 +13,8 @@ namespace SecondHandMarket.Models
 
         public string Name { get; set; }
 
-        public Address ParentAddress { get; set; }
+        public virtual Address ParentAddress { get; set; }
 
-        public List<Address> SubAddresses { get; set; }
+        public virtual List<Address> SubAddresses { get; set; }
     }
 }
