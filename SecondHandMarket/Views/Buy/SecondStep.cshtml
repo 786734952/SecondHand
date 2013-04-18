@@ -1,6 +1,8 @@
-﻿@{
+﻿@using SecondHandMarket.Models
+@{
   ViewBag.Title = "商品求购";
   Layout = "../Shared/_FGLayout.cshtml";
+  var categories = ViewBag.Categories as List<Category>;
 }
 <header>
   <link href="@Url.Content("~/Content/pagecss/Buy/index.less")" rel="stylesheet" />
@@ -32,30 +34,22 @@
       </div>
     </div>
     <div class="title">
-      <span>选择小类</span>
+      <span><i class="icon-info-sign"></i>&nbsp;选择小类</span>
     </div>
     <div class="classify">
       <dl class="dl-horizontal">
-        <dt>二手手机</dt>
-        <dd>
+        @foreach (var category in categories) 
+        { 
+           <dt>@category.Name</dt>
+          <dd>
           <ul>
-            <li><a href="./Detail">iphone</a></li>
-            <li>诺基亚</li>
-            <li>诺基亚</li>
-            <li>诺基亚</li>
-            <li>诺基亚</li>
+            @foreach (var subCate in category.SubCategories) 
+            { 
+              <li><a href="@Url.Action("Detail")?categoryId=@subCate.Id">@subCate.Name</a></li>
+            }
           </ul>
         </dd>
-        <dt>手机号码</dt>
-        <dd>
-          <ul>
-            <li>全球通</li>
-            <li>全球通</li>
-            <li>全球通</li>
-            <li>全球通</li>
-
-          </ul>
-        </dd>
+        }
       </dl>
     </div>
   </div>

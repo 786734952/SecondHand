@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "用户中心";
+    Layout = "~/Views/Shared/_FGLayout.cshtml";
+}
+<header>
+  <link href="@Url.Content("~/Content/pagecss/User/index.less")" rel="stylesheet" />
+</header>
+
+<div class="content">
+  <div class="layout-left">
+    <div class="manage">
+      <ul>
+        <li><a href="./Index"><i class="icon-user"></i>&nbsp;我的个人资料</a></li>
+        <li><a href="./Release"><i class="icon-file"></i>&nbsp;我发布的信息</a></li>
+        <li><a href="./Buy"><i class="icon-edit"></i>&nbsp;我求购的信息</a></li>
+        <li><a href="./Collect"><i class="icon-book"></i>&nbsp;我收藏的信息</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="layout-right">
+    <div class="title">
+      <h3>我的求购</h3>
+    </div>
+    <div class="detail">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" id="" value=""/>
+              </label>
+            </td>
+            <td><a href="../Goods/Detail">四大名著 全套四册 全新 低价转让 - 30元</a></td>
+            <td><button class="btn btn-mini btn-warning">
+              <i class="icon-trash"></i>
+              删除</button></td>
+          </tr>
+          <tr>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" id="" value=""/>
+              </label>
+            </td>
+            <td><a href="../Goods/Detail">四大名著 全套四册 全新 低价转让 - 30元</a></td>
+            <td><button class="btn btn-mini btn-warning">
+              <i class="icon-trash"></i>
+              删除</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="del">
+      <label class="checkbox inline">
+        <input type="checkbox"/>全选
+      </label>
+      <button class="btn btn-warning"><i class="icon-trash"></i>删除</button>
+    </div>
+  </div>
+</div>

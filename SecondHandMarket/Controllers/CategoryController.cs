@@ -26,7 +26,7 @@ namespace SecondHandMarket.Controllers
                 {
                     var pId = categoryId.Value;
                     query = Db.Categories.Where(c => c.ParentCategory.Id == pId);
-                    ViewBag.ParentCategory = Db.Categories.First(f => f.Id == pId);
+                    ViewBag.ParentCategory = Db.Categories.Include("ParentCategory").First(f => f.Id == pId);
                 }
 
                 var categories = query.ToList();
@@ -63,8 +63,14 @@ namespace SecondHandMarket.Controllers
         {
             using (Db)
             {
-                var category = Db.Categories.First(c => c.Id == categoryId);
+                var category = Db.Categories.Include("SubCategories").First(c => c.Id == categoryId);
                 var parentCategory = category.ParentCategory;
+                var subCategories = category.SubCategories.ToList();
+
+                foreach (var subCategory in subCategories)
+                {
+                    Db.Categories.Remove(subCategory);
+                }
 
                 Db.Categories.Remove(category);
                 Db.SaveChanges();

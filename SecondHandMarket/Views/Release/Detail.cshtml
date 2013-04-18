@@ -37,13 +37,14 @@
       </div>
     </div>
     <div class="title">
-      <span>填写详情</span>
+      <span><i class="icon-info-sign"></i>&nbsp;填写详情</span>
     </div>
     <div class="classify">
       @using (Html.BeginForm("Add", "Release", FormMethod.Post, new Dictionary<string, object>()
         {
           {"class", "form-horizontal"},
-          {"id", "release-form"}
+          {"id", "release-form"},
+          {"enctype", "multipart/form-data"}
         }))
       {
         @Html.HiddenFor(m => m.CategoryId, new Dictionary<string, object>()
@@ -75,7 +76,7 @@
         <div class="control-group">
           <label class="control-label" for="">上传照片</label>
           <div class="controls">
-            <input type="file" />
+            <input type="file" name="file1" />
             <button type="button" class="btn btn-info btn-mini" id="addPhoto">
               <i class="icon-plus-sign"></i>
               添加</button>
@@ -131,7 +132,7 @@
   <script>
     $(function() {
       $('#addPhoto').click(function() {
-        $(this).parent().append('<input type="file" class="addFile"/>').
+        $(this).parent().append('<input type="file" class="addFile" name="' + new Date() + '"/>').
           find('.addFile').css('display', 'block');
       });
       $('#release-form').validate();

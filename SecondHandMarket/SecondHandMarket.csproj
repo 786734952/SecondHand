@@ -105,38 +105,26 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BuyController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
-    <Compile Include="Controllers\CollectController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReleaseController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201301271228156_InitialCreate.cs" />
-    <Compile Include="Migrations\201301271228156_InitialCreate.Designer.cs">
-      <DependentUpon>201301271228156_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201304180236052_bbb.cs" />
+    <Compile Include="Migrations\201304180236052_bbb.Designer.cs">
+      <DependentUpon>201304180236052_bbb.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201304151324307_ddd.cs" />
-    <Compile Include="Migrations\201304151324307_ddd.Designer.cs">
-      <DependentUpon>201304151324307_ddd.cs</DependentUpon>
+    <Compile Include="Migrations\201304180304596_999.cs" />
+    <Compile Include="Migrations\201304180304596_999.Designer.cs">
+      <DependentUpon>201304180304596_999.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201304161436389_adfs.cs" />
-    <Compile Include="Migrations\201304161436389_adfs.Designer.cs">
-      <DependentUpon>201304161436389_adfs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201304161450180_adfs1.cs" />
-    <Compile Include="Migrations\201304161450180_adfs1.Designer.cs">
-      <DependentUpon>201304161450180_adfs1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201304161514372_adf.cs" />
-    <Compile Include="Migrations\201304161514372_adf.Designer.cs">
-      <DependentUpon>201304161514372_adf.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201304171510131_ddddd.cs" />
-    <Compile Include="Migrations\201304171510131_ddddd.Designer.cs">
-      <DependentUpon>201304171510131_ddddd.cs</DependentUpon>
+    <Compile Include="Migrations\201304181335231_dad.cs" />
+    <Compile Include="Migrations\201304181335231_dad.Designer.cs">
+      <DependentUpon>201304181335231_dad.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -165,11 +153,13 @@
     <Content Include="Content\images\blackheaderbg.jpg" />
     <Content Include="Content\images\book1.png" />
     <Content Include="Content\images\book2.png" />
+    <Content Include="Content\images\Certification.png" />
     <Content Include="Content\images\clouds1.png" />
     <Content Include="Content\images\clouds2.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\images\404.gif" />
+    <Content Include="Content\images\head.png" />
     <Content Include="Content\images\header-back.png" />
     <Content Include="Content\images\home1.png" />
     <Content Include="Content\images\home2.png" />
@@ -237,7 +227,7 @@
     <Content Include="Content\pagecss\Shared\header.less" />
     <Content Include="Content\pagecss\Home\index.less" />
     <Content Include="Content\pagecss\Release\index.less" />
-    <Content Include="Content\pagecss\Collect\index.less" />
+    <Content Include="Content\pagecss\User\index.less" />
     <Content Include="Content\pagecss\Account\LogOn.less" />
     <Content Include="Content\pagecss\Account\Register.less" />
     <Content Include="Content\pagecss\Goods\detail.less" />
@@ -291,44 +281,39 @@
     <Content Include="Views\Shared\_BKLayout.cshtml" />
     <Content Include="Views\Buy\Index.cshtml" />
     <Content Include="Views\Release\Index.cshtml" />
-    <Content Include="Views\Collect\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutWithoutHead.cshtml" />
     <Content Include="Views\Buy\Detail.cshtml" />
     <Content Include="Views\Release\Detail.cshtml" />
     <Content Include="Views\Goods\Index.cshtml" />
     <Content Include="Views\Goods\Detail.cshtml" />
-    <Content Include="Views\Collect\Release.cshtml" />
-    <Content Include="Views\Collect\Buy.cshtml" />
     <Content Include="Views\Shared\CategoryNavigator.cshtml" />
     <Content Include="Views\Buy\FirstStep.cshtml" />
     <Content Include="Views\Buy\SecondStep.cshtml" />
     <Content Include="Views\Release\SecondStep.cshtml" />
     <Content Include="Views\Address\List.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Buy.cshtml" />
+    <Content Include="Views\User\Release.cshtml" />
+    <Content Include="Views\User\Collect.cshtml" />
+    <Content Include="Views\Release\Ok.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201301271228156_InitialCreate.resx">
-      <DependentUpon>201301271228156_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201304180236052_bbb.resx">
+      <DependentUpon>201304180236052_bbb.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201304151324307_ddd.resx">
-      <DependentUpon>201304151324307_ddd.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201304180304596_999.resx">
+      <DependentUpon>201304180304596_999.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201304161436389_adfs.resx">
-      <DependentUpon>201304161436389_adfs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201304161450180_adfs1.resx">
-      <DependentUpon>201304161450180_adfs1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201304161514372_adf.resx">
-      <DependentUpon>201304161514372_adf.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201304171510131_ddddd.resx">
-      <DependentUpon>201304171510131_ddddd.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201304181335231_dad.resx">
+      <DependentUpon>201304181335231_dad.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

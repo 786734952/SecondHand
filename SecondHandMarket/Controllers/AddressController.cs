@@ -74,9 +74,13 @@ namespace SecondHandMarket.Controllers
         {
             using (Db)
             {
-                var address = Db.Addresses.First(a => a.Id == addressId);
+                var address = Db.Addresses.Include("SubAddresses").First(a => a.Id == addressId);
                 var parentAddress = address.ParentAddress;
-
+                var subAddresses = address.SubAddresses.ToList();
+                for (int i = 0; i < subAddresses.Count; i++)
+                {
+                    Db.Addresses.Remove(subAddresses[i]);
+                }
                 Db.Addresses.Remove(address);
                 Db.SaveChanges();
 

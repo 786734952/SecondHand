@@ -14,6 +14,23 @@ namespace SecondHandMarket.Models
 
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //modelBuilder.Entity<Category>()
+            //            .HasOptional(c => c.SubCategories)
+            //            .WithMany();
+
+            base.OnModelCreating(modelBuilder);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            IsDisposed = true;
+            base.Dispose(disposing);
+        }
+
+        public bool IsDisposed { get; private set; }
+
         /// <summary>
         /// 商品分类
         /// </summary>

@@ -70,5 +70,6 @@ namespace SecondHandMarket.Models
         /// 发布功能
         /// </summary>
         public DateTime ReleaseTime { get; set; }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using SecondHandMarket.Models;
+﻿using System.Data;
+using SecondHandMarket.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace SecondHandMarket.Controllers
         {
             get
             {
-                if (_db == null)
+                if (_db == null  || _db.IsDisposed)
                 {
                     _db = new MarketContext();
                 }

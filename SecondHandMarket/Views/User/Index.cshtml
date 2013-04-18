@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "用户中心";
+    Layout = "~/Views/Shared/_FGLayout.cshtml";
+}
+
+@section head
+{
+  <link href="@Url.Content("~/Content/pagecss/User/index.less")" rel="stylesheet" />
+}
+
+<div class="content">
+  <h3>用户中心</h3>
+  <div class="userinfo-head">
+      <ul>
+        <li>用户名：11111</li>
+        <li>注册时间：2013-01-01</li>
+        <li>认证信息：实名已认证 &nbsp;<i></i></li>
+      </ul>
+  </div>
+  <div class="userinfo-describe">
+    <h3>我发布的信息</h3>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td><a href="../Goods/Detail">四大名著 全套四册 全新 低价转让 - 30元</a></td>
+          <td style="width:180px">
+            <div class="btn-group">
+              <a class="btn btn-mini" href="#">查看评价</a>
+              <a class="btn btn-mini" href="#">我要评价</a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+  </table>
+</div>
+  <div class="evaluate">
+    <h3>我的评价</h3>
+    <span>好评率：好评 &nbsp 0 &nbsp;条，中评 &nbsp; 1 &nbsp;条，差评 &nbsp; 0 &nbsp; 条</span>
+  </div>
+</div>

@@ -1,6 +1,8 @@
-﻿@{
+﻿@using SecondHandMarket.Models
+@{
   ViewBag.Title = "商品求购";
   Layout = "../Shared/_FGLayout.cshtml";
+  var categories = ViewBag.Categories as List<Category>;
 }
 <header>
   <link href="@Url.Content("~/Content/pagecss/Buy/index.less")" rel="stylesheet" />
@@ -27,7 +29,7 @@
         <div class="right-triangle transparent"></div>
         <div class="rectangle unactive" style="width:340px"></div>
         <a >
-          <span>填写详情</span>
+          <span><i class="icon-info-sign"></i>&nbsp;填写详情</span>
         </a>
       </div>
     </div>
@@ -36,24 +38,12 @@
     </div>
     <div class="classify">
       <ul>
-        <li>
-          <a href="./SecondStep">二手手机/手机号码</a>
+        @foreach (var category in categories)
+        { 
+          <li>
+          <a href="@Url.Action("SecondStep")?categoryId=@category.Id">@category.Name</a>
         </li>
-        <li>
-          <a href="./SecondStep">二手电脑/配件</a>
-        </li>
-        <li>
-          <a href="./SecondStep">二手自行车/电动车</a>
-        </li>
-        <li>
-          <a href="./SecondStep">二手运动/图书</a>
-        </li>
-        <li>
-          <a href="./SecondStep">二手服装/箱包</a>
-        </li>
-        <li>
-          <a href="./SecondStep">其他</a>
-        </li>
+        }
       </ul>
     </div>
   </div>

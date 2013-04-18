@@ -2,7 +2,12 @@
   Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+@section head
+{
+  <link href="@Url.Content("~/Content/pagecss/Shared/header.less")" rel="stylesheet" />
+  @RenderSection("head", false)
+}
+
 <div class="page">
   <div class="top-banner">
     @Html.Partial("~/Views/Shared/Header.cshtml")
