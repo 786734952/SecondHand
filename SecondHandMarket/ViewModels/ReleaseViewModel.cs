@@ -4,11 +4,62 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using SecondHandMarket.Models;
 
 namespace SecondHandMarket.ViewModels
 {
-    public class ReleaseViewModel
+    public class ListItemReleaseModel
     {
+        public ListItemReleaseModel(Release release)
+        {
+            Id = release.Id;
+            Title = release.Title;
+            Price = release.Price;
+            ReleaseTime = release.ReleaseTime;
+            var pastTimespan = DateTime.Now - ReleaseTime;
+
+            if (pastTimespan.TotalMinutes < 60)
+            {
+                var minutes = (int)Math.Floor(pastTimespan.TotalMinutes);
+                ReleaseTimeDesc =minutes + "分钟前";
+            }
+            else if (pastTimespan.TotalHours <= 12)
+            {
+                var hours = (int) Math.Floor(pastTimespan.TotalHours);
+                ReleaseTimeDesc = hours + "小时" + Math.Floor((pastTimespan.TotalHours - hours) * 60) + "分钟前";
+            }
+            else if (pastTimespan.TotalHours <= 24 && DateTime.Now.Day == ReleaseTime.Day)
+            {
+                var hours = (int) Math.Floor(pastTimespan.TotalHours);
+                ReleaseTimeDesc = hours + "小时" + Math.Floor((pastTimespan.TotalHours - hours) * 60) + "分钟前";
+            }
+            else
+            {
+                ReleaseTimeDesc = ReleaseTime.ToString("yyyy-MM-dd HH:mm");
+            }
+
+            if (release.Pictures.Count > 0)
+            {
+                ImgUrl = release.Pictures[0].Path;
+                ThumbnailUrl = release.Pictures[0].ThumbnailPath;
+            }
+            else
+            {
+                ImgUrl = "~";
+                ThumbnailUrl = "~";
+            }
+        }
+
+        public int Id { get; private set; }
+        public string Title { get; private set; }
+        public decimal Price { get; private set; }
+        public DateTime ReleaseTime { get; private set; }
+        /// <summary>
+        /// 发布了多少分钟
+        /// </summary>
+        public string ReleaseTimeDesc { get; private set; }
+        public string ImgUrl { get; private set; }
+        public string ThumbnailUrl { get; private set; }
     }
 
     public class ReleaseAddModel

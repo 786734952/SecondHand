@@ -16,6 +16,12 @@ namespace SecondHandMarket.Models
         /// </summary>
         public string Path { get; set; }
 
+        /// <summary>
+        /// 缩略图路径
+        /// </summary>
+        [Obsolete]
+        public string ThumbnailPath { get; set; }
+
         public Release Release { get; set; }
     }
 }

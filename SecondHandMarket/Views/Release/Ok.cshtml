@@ -2,6 +2,13 @@
 @model Release
 @{
     ViewBag.Title = "商品发布成功";
+    Layout = "~/Views/Shared/_FGLayout.cshtml";
 }
-
-<h1>发布@(Model.Title)成功</h1>
+@section head
+{
+  <link href="@Url.Content("~/Content/pagecss/Release/index.less")" rel="stylesheet" />
+}
+<div class="content">
+  <h1>发布@(Model.Title)成功</h1>
+  <a class="btn" href="../Release/Index"><i class="icon-reply"></i>&nbsp;返回</a>
+</div>

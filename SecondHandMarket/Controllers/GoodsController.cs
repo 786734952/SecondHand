@@ -24,9 +24,10 @@ namespace SecondHandMarket.Controllers
             }
             return View();
         }
-        public ActionResult Detail()
+        public ActionResult Detail(int id)
         {
             return View();
         }
+
     }
 }

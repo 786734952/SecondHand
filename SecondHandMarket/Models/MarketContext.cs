@@ -21,8 +21,8 @@ namespace SecondHandMarket.Models
             //            .WithMany();
 
             base.OnModelCreating(modelBuilder);
-        }
 
+        }
         protected override void Dispose(bool disposing)
         {
             IsDisposed = true;

@@ -4,9 +4,11 @@
   Layout = "../Shared/_FGLayout.cshtml";
   var category = ViewBag.Category as Category;
 }
-<header>
+@section head
+{
   <link href="@Url.Content("~/Content/pagecss/Buy/index.less")" rel="stylesheet" />
-</header>
+
+}
 <div>
   <div class="content">
     <div class="process">

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ImageResizer;
 using SecondHandMarket.Models;
 using SecondHandMarket.ViewModels;
 
@@ -105,14 +106,22 @@ namespace SecondHandMarket.Controllers
             foreach (string name in files)
             {
                 var file = files[name];
-                var absFileName = Path.Combine(absFileDir, file.FileName);
-                file.SaveAs(absFileName);
-                var fileName = Path.Combine(fileDir, file.FileName);
-                var picture = new Picture()
+                if (file.ContentLength > 0)
+                {
+                    var fileName = Guid.NewGuid().ToString();
+                    var extName = Path.GetExtension(file.FileName);
+                    var absFileName = Path.Combine(absFileDir, fileName + extName);
+                    file.SaveAs(absFileName);
+                    var filePath = Path.Combine(fileDir, fileName + extName);
+                    var thumbnailPath = Path.Combine(fileDir, fileName + "_thumbnail" + extName);
+                    var picture = new Picture()
                     {
-                        Path = fileName
+                        Path = filePath,
+                        ThumbnailPath = thumbnailPath
                     };
-                pictures.Add(picture);
+                    pictures.Add(picture);
+                }
+                
             }
             return pictures;
         }

@@ -7,9 +7,11 @@
   var category = ViewBag.Category as Category;
   var campuses = ViewBag.Campuses as List<Address>;
 }
-<header>
+
+@section head
+{
   <link href="@Url.Content("~/Content/pagecss/Release/index.less")" rel="stylesheet" />
-</header>
+}
 <div>
   <div class="content">
     <div class="process">

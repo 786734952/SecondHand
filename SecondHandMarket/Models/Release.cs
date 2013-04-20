@@ -44,7 +44,7 @@ namespace SecondHandMarket.Models
         /// <summary>
         /// 关联的图片
         /// </summary>
-        public List<Picture> Pictures { get; set; }
+        public virtual List<Picture> Pictures { get; set; }
 
         /// <summary>
         /// 交易地点

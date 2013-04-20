@@ -1,19 +1,24 @@
-﻿@{
-    ViewBag.Title = "用户中心";
-    Layout = "~/Views/Shared/_FGLayout.cshtml";
+﻿@using SecondHandMarket.ViewModels
+@{
+  ViewBag.Title = "用户中心";
+  Layout = "~/Views/Shared/_FGLayout.cshtml";
+  var myReleases = ViewBag.MyReleases as List<ListItemReleaseModel>;
+  var pageBarModel = ViewBag.PageBarModel as PageBarModel;
 }
-<header>
-  <link href="@Url.Content("~/Content/pagecss/User/index.less")" rel="stylesheet" />
-</header>
+
+@section head
+{
+    <link href="@Url.Content("~/Content/pagecss/User/index.less")" rel="stylesheet" />
+}
 
 <div class="content">
   <div class="layout-left">
     <div class="manage">
       <ul>
-        <li><a href="./Index"><i class="icon-user"></i>&nbsp;我的个人资料</a></li>
-        <li><a href="./Release"><i class="icon-file"></i>&nbsp;我发布的信息</a></li>
-        <li><a href="./Buy"><i class="icon-edit"></i>&nbsp;我求购的信息</a></li>
-        <li><a href="./Collect"><i class="icon-book"></i>&nbsp;我收藏的信息</a></li>
+        <li><a href="@Url.Action("Index")"><i class="icon-user"></i>&nbsp;我的个人资料</a></li>
+        <li class="active"><a href="@Url.Action("Release")"><i class="icon-file"></i>&nbsp;我发布的信息</a></li>
+        <li><a href="@Url.Action("Buy")"><i class="icon-edit"></i>&nbsp;我求购的信息</a></li>
+        <li><a href="@Url.Action("Collect")"><i class="icon-book"></i>&nbsp;我收藏的信息</a></li>
       </ul>
     </div>
   </div>
@@ -22,32 +27,30 @@
       <h3>我的发布</h3>
     </div>
     <div class="detail">
-      <table class="table">
-        <tbody>
-          <tr>
-            <td>
-              <label class="checkbox">
-                <input type="checkbox" id="" value=""/>
-              </label>
-            </td>
-            <td><a href="../Goods/Detail">四大名著 全套四册 全新 低价转让 - 30元</a></td>
-            <td><button class="btn btn-mini btn-warning">
-              <i class="icon-trash"></i>
-              删除</button></td>
-          </tr>
-          <tr>
-            <td>
-              <label class="checkbox">
-                <input type="checkbox" id="" value=""/>
-              </label>
-            </td>
-            <td><a href="../Goods/Detail">四大名著 全套四册 全新 低价转让 - 30元</a></td>
-            <td><button class="btn btn-mini btn-warning">
-              <i class="icon-trash"></i>
-              删除</button></td>
-          </tr>
-        </tbody>
-      </table>
+      <form>
+        <table class="table">
+          <tbody>
+            @foreach (var release in myReleases)
+            {
+              <tr>
+                <td style="width: 30px;">
+                  <label class="checkbox">
+                    <input type="checkbox" name="releaseIds" value="@release.Id"/>
+                  </label>
+                </td>
+                <td style="padding: 0; vertical-align: middle;">
+                  <img style="background-color: #999;padding:1px;" src="@Url.Content(release.ImgUrl)?width=30&height=30&crop=auto"/>
+                </td>
+                <td><a href="@Url.Action("Detail", "Goods")?id=@release.Id">@release.Title</a></td>
+                <td><button class="btn btn-mini">
+                      <i class="icon-pencil"></i>
+                      修改</button></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+        @Html.Partial("_PageBar", pageBarModel)
+      </form>
     </div>
     <div class="del">
       <label class="checkbox inline">

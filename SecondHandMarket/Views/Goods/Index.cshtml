@@ -5,9 +5,10 @@
   var firstLevelCategories = ViewBag.FirstLevelCategories as List<Category>;
 }
 
-<header>
+@section head
+{
   <link href="@Url.Content("~/Content/pagecss/Goods/index.less")" rel="stylesheet" />
-</header>
+}
 
 <div class="content">
   <div class="layout">

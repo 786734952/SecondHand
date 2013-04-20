@@ -1,0 +1,13 @@
+﻿@model SecondHandMarket.ViewModels.PageBarModel
+
+<div class="pagination pagination-small">
+  <ul>
+    @for (int i = 0; i < Model.PageCount; i++)
+    {
+      <li class="@(Model.PageIndex == (i+1) ? "active" : "")">
+        <a href="@(Model.GetUrl(i+1))">@(i+1)</a>
+      </li>
+    }
+  </ul>
+</div>
+

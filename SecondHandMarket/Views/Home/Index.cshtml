@@ -1,14 +1,18 @@
 ﻿@using SecondHandMarket.Models
+@using SecondHandMarket.ViewModels
 @{
   ViewBag.Title = "首页";
   Layout = "../Shared/_FGLayout.cshtml";
   var firstLevelCategories = ViewBag.FirstLevelCategories as List<Category>;
+  var latestRelease = ViewBag.LatestRelease as List<ListItemReleaseModel>;
+  var releaseOfCategory = ViewBag.ReleaseOfCategory as Dictionary<Category, List<ListItemReleaseModel>>;
 }
    
-
-<header>
+@section head
+{
   <link href="@Url.Content("~/Content/pagecss/Home/index.less")" rel="stylesheet" />
-</header>
+}
+
 <div class="content">
   <div class="homeImg">
     <div id="myCarousel" class="carousel slide">
@@ -37,30 +41,18 @@
         </div>
         <div class="show">
           <ul>
-            <li>
-              <div>
-                <a href="../Goods/Detail">
-                  <img src="../../Content/images/newest1.jpg" />
-                  <span>4分钟 1980元</span>
-                </a>
-              </div>
-            </li>
-            <li>
-              <div>
-                <a href="../Goods/Detail">
-                  <img src="../../Content/images/newest2.jpg" />
-                  <span>4分钟 2350元</span>
-                </a>
-              </div>
-            </li>
-            <li>
-              <div>
-                <a href="../Goods/Detail">
-                  <img src="../../Content/images/newest4.jpg" />
-                  <span>4分钟  520元</span>
-                </a>
-              </div>
-            </li>
+            @foreach (var release in latestRelease)
+            {
+              <li>
+                <div>
+                  <a class="clearfix" href="@Url.Action("Detail", "Goods")?id=@release.Id">
+                    <img class="thumbnail-img" src="@Url.Content(release.ImgUrl)?width=210&height=220&crop=auto" />
+                    <span><span style="float:left">@release.ReleaseTimeDesc</span>
+                      <span style="float:right">@(release.Price)元</span></span>
+                  </a>
+                </div>
+              </li>
+            }
           </ul>
         </div>
         <div class="more">
@@ -69,235 +61,45 @@
           </a>
         </div>
       </div>
-      <div class="mobile range">
-        <div class="tag">
-          <span>二手手机/手机号码</span>
+      @foreach (var kv in releaseOfCategory)
+      {
+        var category = kv.Key;
+        var releases = kv.Value;
+        <div class="range">
+          <div class="tag">
+            <span>@category.Name</span>
+          </div>
+          <div class="show">
+            <ul>
+              @foreach (var release in releases)
+              {
+              <li>
+                <div>
+                  <a class="clearfix" href="@Url.Action("Detail", "Goods")?id=@release.Id">
+                    <img class="thumbnail-img" src="@Url.Content(release.ImgUrl)?width=210&height=220&crop=auto" />
+                    <span><span style="float:left">@release.ReleaseTimeDesc</span>
+                      <span style="float:right">@(release.Price)元</span></span>
+                  </a>
+                </div>
+              </li>
+              }
+            </ul>
+          </div>
+          <div class="more">
+            <a href="../Goods/Index">
+              <span>更多</span>
+            </a>
+          </div>
         </div>
-        <div class="show">
-          <ul>
-            <li>
-              <div>
-                <a href="../Goods/Detail">
-                  <img src="../../Content/images/newest1.jpg" />
-                  <span>4分钟 1980元</span>
-                </a>
-              </div>
-            </li>
-            <li>
-              <div>
-                <a href="../Goods/Detail">
-                  <img src="../../Content/images/newest2.jpg" />
-                  <span>4分钟 2350元</span>
-                </a>
-              </div>
-            </li>
-            <li>
-              <div>
-                <a href="../Goods/Detail">
-                  <img src="../../Content/images/newest4.jpg" />
-                  <span>4分钟  520元</span>
-                </a>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="more">
-          <a href="../Goods/Index">
-            <span>更多</span>
-          </a>
-        </div>
-      </div>
-      <div class="computer range">
-        <div class="tag">
-          <span>二手电脑/配件</span>
-        </div>
-        <div class="show">
-          <ul>
-            <li>
-              <div>
-                <a href="#">
-                  <img src="../../Content/images/newest1.jpg" />
-                  <span>4分钟 1980元</span>
-                </a>
-              </div>
-            </li>
-            <li>
-              <div>
-                <a href="#">
-                  <img src="../../Content/images/newest2.jpg" />
-                  <span>4分钟 2350元</span>
-                </a>
-              </div>
-            </li>
-            <li>
-              <div>
-                <a href="#">
-                  <img src="../../Content/images/newest4.jpg" />
-                  <span>4分钟  520元</span>
-                </a>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="more">
-          <a href="#">
-            <span>更多</span>
-          </a>
-        </div>
-      </div>
-      <div class="bicycle range">
-        <div class="tag">
-          <span>二手自行车/电动车</span>
-        </div>
-        <div class="show">
-          <ul>
-            <li>
-              <div>
-                <a href="#">
-                  <img src="../../Content/images/newest1.jpg" />
-                  <span>4分钟 1980元</span>
-                </a>
-              </div>
-            </li>
-            <li>
-              <div>
-                <a href="#">
-                  <img src="../../Content/images/newest2.jpg" />
-                  <span>4分钟 2350元</span>
-                </a>
-              </div>
-            </li>
-            <li>
-              <div>
-                <a href="#">
-                  <img src="../../Content/images/newest4.jpg" />
-                  <span>4分钟  520元</span>
-                </a>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="more">
-          <a href="#">
-            <span>更多</span>
-          </a>
-        </div>
-      </div>
-      <div class="books range">
-        <div class="tag">
-          <span>二手运动/图书</span>
-        </div>
-        <div class="show">
-          <ul>
-            <li>
-              <div>
-                <a href="#">
-                  <img src="../../Content/images/newest1.jpg" />
-                  <span>4分钟 1980元</span>
-                </a>
-              </div>
-            </li>
-            <li>
-              <div>
-                <a href="#">
-                  <img src="../../Content/images/newest2.jpg" />
-                  <span>4分钟 2350元</span>
-                </a>
-              </div>
-            </li>
-            <li>
-              <div>
-                <a href="#">
-                  <img src="../../Content/images/newest4.jpg" />
-                  <span>4分钟  520元</span>
-                </a>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="more">
-          <a href="#">
-            <span>更多</span>
-          </a>
-        </div>
-      </div>
-      <div class="clothing range">
-        <div class="tag">
-          <span>二手服装/箱包</span>
-        </div>
-        <div class="show">
-          <ul>
-            <li>
-              <div>
-                <a href="#">
-                  <img src="../../Content/images/newest1.jpg" />
-                  <span>4分钟 1980元</span>
-                </a>
-              </div>
-            </li>
-            <li>
-              <div>
-                <a href="#">
-                  <img src="../../Content/images/newest2.jpg" />
-                  <span>4分钟 2350元</span>
-                </a>
-              </div>
-            </li>
-            <li>
-              <div>
-                <a href="#">
-                  <img src="../../Content/images/newest4.jpg" />
-                  <span>4分钟  520元</span>
-                </a>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="more">
-          <a href="#">
-            <span>更多</span>
-          </a>
-        </div>
-      </div>
-      <div class="others range">
-        <div class="tag">
-          <span>其他</span>
-        </div>
-        <div class="show">
-          <ul>
-            <li>
-              <div>
-                <a href="#">
-                  <img src="../../Content/images/newest1.jpg" />
-                  <span>4分钟 1980元</span>
-                </a>
-              </div>
-            </li>
-            <li>
-              <div>
-                <a href="#">
-                  <img src="../../Content/images/newest2.jpg" />
-                  <span>4分钟 2350元</span>
-                </a>
-              </div>
-            </li>
-            <li>
-              <div>
-                <a href="#">
-                  <img src="../../Content/images/newest4.jpg" />
-                  <span>4分钟  520元</span>
-                </a>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="more">
-          <a href="#">
-            <span>更多</span>
-          </a>
-        </div>
-      </div>
+      }
+
     </div>
   </div>
 </div>
-
+@section scripts{
+  <script>
+    $('.carousel').carousel({
+      interval: 2000
+    })
+  </script>
+}

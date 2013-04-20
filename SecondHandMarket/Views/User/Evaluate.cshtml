@@ -1,37 +1,25 @@
 ﻿@{
-    ViewBag.Title = "用户中心";
+    ViewBag.Title = "Evaluate";
     Layout = "~/Views/Shared/_FGLayout.cshtml";
 }
-
 @section head
 {
   <link href="@Url.Content("~/Content/pagecss/User/index.less")" rel="stylesheet" />
 }
 
 <div class="content">
-   <div class="layout-left">
-    <div class="manage">
-      <ul>
-        <li><a href="@Url.Action("Index")"><i class="icon-user"></i>&nbsp;我的个人资料</a></li>
-        <li><a href="@Url.Action("Release")"><i class="icon-file"></i>&nbsp;我发布的信息</a></li>
-        <li><a href="@Url.Action("Buy")"><i class="icon-edit"></i>&nbsp;我求购的信息</a></li>
-        <li><a href="@Url.Action("Collect")"><i class="icon-book"></i>&nbsp;我收藏的信息</a></li>
-      </ul>
-    </div>
+  <div class="title">
+    <h3>**的个人资料</h3>
   </div>
-  <div class="layout-right">
-    <div class="title">
-      <h3>我的个人资料</h3>
-    </div>
   <div class="userinfo-head">
-      <ul>
+    <ul>
         <li>用户名：11111</li>
         <li>注册时间：2013-01-01</li>
         <li>认证信息：实名已认证 &nbsp;<i></i></li>
       </ul>
   </div>
   <div class="evaluate">
-    <h3>我的信用</h3>
+    <h3>**的信用</h3>
     <span>好评率：好评 &nbsp 0 &nbsp;条，中评 &nbsp; 1 &nbsp;条，差评 &nbsp; 0 &nbsp; 条</span>
     <h3>详细评价</h3>
     <table class="table">
@@ -42,5 +30,23 @@
         </tr>
       </tbody>
     </table>
+    <div class="remark">
+      <h3>我要评价</h3>
+      <div class="remark-survey">
+        <label class="radio">
+          <input type="radio" name="evaluate" value="" />
+          <i class="icon icon-good"></i>
+        </label>
+        <label class="radio">
+          <input type="radio" name="evaluate" value="" />
+          <i class="icon icon-center"></i>
+        </label>
+        <label class="radio">
+          <input type="radio" name="evaluate" value="" />
+          <i class="icon icon-bad"></i>
+        </label>
+      </div>
+    </div>
+
   </div>
 </div>

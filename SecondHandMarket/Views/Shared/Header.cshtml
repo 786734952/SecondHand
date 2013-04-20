@@ -1,5 +1,7 @@
 ﻿@{
   ViewBag.Title = "header";
+  var controller = Request.RequestContext.RouteData.Values["controller"].ToString().ToLower();
+  var action = Request.RequestContext.RouteData.Values["action"].ToString().ToLower();
 }
 <div class="header menu">
 
@@ -10,27 +12,27 @@
   <div class="mainmenu">
     <ul class="mainnav">
       <li class="nav1">
-        <a class="index @(Request.CurrentExecutionFilePath=="/"||Request.CurrentExecutionFilePath.IndexOf("Home") >= 0 ? "active" : "")" href="../Home/Index">
+        <a class="index @(controller == "home" ? "active" : "")" href="../Home/Index">
           <span>首页</span>
         </a>
       </li>
       <li class="nav2">
-        <a class="index @(Request.CurrentExecutionFilePath == "/Goods/Index" ? "active" : "")" href="../Goods/Index">
+        <a class="index @(controller == "goods" ? "active" : "")" href="../Goods/Index">
           <span>发现</span>
         </a>
       </li>
       <li class="nav3">
-        <a class="buy @(Request.CurrentExecutionFilePath.IndexOf("Buy") >= 0 ? "active" : "")" href="../Buy/Index">
+        <a class="buy @(controller == "buy" ? "active" : "")" href="../Buy/Index">
           <span>商品求购</span>
         </a>
       </li>
       <li class="nav4">
-        <a class="release @(Request.CurrentExecutionFilePath.IndexOf("Release") >= 0 ? "active" : "")" href="../Release/Index">
+        <a class="release @(controller == "release" ? "active" : "")" href="../Release/Index">
           <span>商品发布</span>
         </a>
       </li>
       <li class="nav4">
-        <a class="collect @(Request.CurrentExecutionFilePath.IndexOf("User") >= 0 ? "active" : "")" href="../User/Index">
+        <a class="collect @(controller == "user" ? "active" : "")" href="../User/Index">
           <span>用户中心</span>
         </a>
       </li>
