@@ -125,5 +125,49 @@ namespace SecondHandMarket.Controllers
             }
             return pictures;
         }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            using (Db)
+            {
+                var release = Db.Releases.First(r => r.Id == id);
+                var model = new ReleaseEditModel(release);
+                var campuses = Db.Addresses.Where(a => a.ParentAddress == null).ToList();
+                ViewBag.Campuses = campuses;
+                return View(model);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Edit(ReleaseEditModel release)
+        {
+            if (ModelState.IsValid)
+            {
+                Release model;
+                using (Db)
+                {
+                    model = release.Update(Db);
+                    Db.SaveChanges();
+
+                    var campuses = Db.Addresses.Where(a => a.ParentAddress == null).ToList();
+                    ViewBag.Campuses = campuses;
+                }
+
+                if (Request.Files.Count > 0)
+                {
+                    var pictures = SaveFiles(Request.Files, model);
+
+                    using (Db)
+                    {
+                        Db.Entry(model).State = EntityState.Modified;
+                        model.Pictures.AddRange(pictures);
+                        Db.SaveChanges();
+                    }
+                }
+                return Content("修改成功");
+            }
+            return Content("修改失败");
+        }
     }
 }

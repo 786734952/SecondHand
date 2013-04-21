@@ -29,11 +29,18 @@
     <div class="detail">
       <form>
         <table class="table">
+          <colgroup>
+            <col style="width: 46px"/>
+            <col style="width: 50px;"/>
+            <col/>
+            <col style="width: 150px;"/>
+            <col style="width: 72px;"/>
+          </colgroup>
           <tbody>
             @foreach (var release in myReleases)
             {
               <tr>
-                <td style="width: 30px;">
+                <td>
                   <label class="checkbox">
                     <input type="checkbox" name="releaseIds" value="@release.Id"/>
                   </label>
@@ -42,9 +49,12 @@
                   <img style="background-color: #999;padding:1px;" src="@Url.Content(release.ImgUrl)?width=30&height=30&crop=auto"/>
                 </td>
                 <td><a href="@Url.Action("Detail", "Goods")?id=@release.Id">@release.Title</a></td>
-                <td><button class="btn btn-mini">
-                      <i class="icon-pencil"></i>
-                      修改</button></td>
+                <td>@release.ReleaseTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                <td>
+                  <a class="btn btn-mini" href="@Url.Action("Edit", "Release")?id=@release.Id">
+                    <i class="icon-pencil"></i>&nbsp;修改
+                  </a>
+                </td>
               </tr>
             }
           </tbody>

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using SecondHandMarket.Models;
 
 namespace SecondHandMarket.ViewModels
@@ -21,16 +22,16 @@ namespace SecondHandMarket.ViewModels
             if (pastTimespan.TotalMinutes < 60)
             {
                 var minutes = (int)Math.Floor(pastTimespan.TotalMinutes);
-                ReleaseTimeDesc =minutes + "分钟前";
+                ReleaseTimeDesc = minutes + "分钟前";
             }
             else if (pastTimespan.TotalHours <= 12)
             {
-                var hours = (int) Math.Floor(pastTimespan.TotalHours);
+                var hours = (int)Math.Floor(pastTimespan.TotalHours);
                 ReleaseTimeDesc = hours + "小时" + Math.Floor((pastTimespan.TotalHours - hours) * 60) + "分钟前";
             }
             else if (pastTimespan.TotalHours <= 24 && DateTime.Now.Day == ReleaseTime.Day)
             {
-                var hours = (int) Math.Floor(pastTimespan.TotalHours);
+                var hours = (int)Math.Floor(pastTimespan.TotalHours);
                 ReleaseTimeDesc = hours + "小时" + Math.Floor((pastTimespan.TotalHours - hours) * 60) + "分钟前";
             }
             else
@@ -95,6 +96,7 @@ namespace SecondHandMarket.ViewModels
         /// 交易地址
         /// </summary>
         [DisplayName("地址")]
+        [Required]
         public int AddressId { get; set; }
 
         /// <summary>
@@ -114,6 +116,97 @@ namespace SecondHandMarket.ViewModels
         /// <summary>
         /// 联系人QQ
         /// </summary>
+        [DisplayName("联系人QQ")]
+        public string QQ { get; set; }
+    }
+
+    public class ReleaseEditModel
+    {
+        public ReleaseEditModel()
+        {
+
+        }
+        public ReleaseEditModel(Release release)
+        {
+            Id = release.Id;
+            Title = release.Title;
+            Category = release.Category;
+            Price = release.Price;
+            Description = release.Description;
+            Pictures = release.Pictures;
+            SecondLvlAddressList = release.TradePlace.ParentAddress
+                .SubAddresses
+                .Select(a=> new SelectListItem()
+                    {
+                        Text = a.Name,
+                        Value = a.Id.ToString(),
+                        Selected = a.Id == release.TradePlace.Id
+                    }).ToList();
+            Address = release.TradePlace;
+            Mobile = release.Mobile;
+            Linkman = release.Linkman;
+            QQ = release.QQ;
+        }
+
+        public Release Update(MarketContext db)
+        {
+            var model = db.Releases.First(r => r.Id == Id);
+            model.Title = Title;
+            model.Price = Price;
+            model.Description = Description;
+            if (RemovedPictures != null)
+            {
+                var removedPictures = db.Pictures.Where(p => RemovedPictures.Contains(p.Id)).ToList();
+                removedPictures.ForEach(p =>
+                    {
+                        model.Pictures.Remove(p);
+                        db.Pictures.Remove(p);
+                    });
+            }
+
+            var addrId = Address.Id;
+            model.TradePlace = db.Addresses.First(a => a.Id == addrId);
+            model.Mobile = Mobile;
+            model.Linkman = Linkman;
+            model.QQ = QQ;
+
+            return model;
+        }
+
+        [Required]
+        public int Id { get; set; }
+
+        [Required]
+        [DisplayName("标题")]
+        public string Title { get; set; }
+
+        public Category Category { get; set; }
+
+        [Required]
+        [DisplayName("价格")]
+        public decimal Price { get; set; }
+
+        [MaxLength(500, ErrorMessage = "描述不能超过500个字符")]
+        [DisplayName("描述")]
+        public string Description { get; set; }
+
+        public List<Picture> Pictures { get; set; }
+
+        public List<int> RemovedPictures { get; set; }
+
+        public List<SelectListItem> SecondLvlAddressList { get; set; }
+
+        [Required]
+        public Address Address { get; set; }
+
+        [DisplayName("联系电话")]
+        [Required]
+        public string Mobile { get; set; }
+
+        [DisplayName("联系人")]
+        [Required]
+        public string Linkman { get; set; }
+
         [DisplayName("联系人QQ")]
         public string QQ { get; set; }
     }

@@ -50,5 +50,10 @@ namespace SecondHandMarket.Models
         /// 交易地址
         /// </summary>
         public DbSet<Address> Addresses { get; set; }
+
+        /// <summary>
+        /// 图片
+        /// </summary>
+        public DbSet<Picture> Pictures { get; set; }
     }
 }

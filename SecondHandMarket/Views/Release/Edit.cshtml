@@ -1,0 +1,233 @@
+﻿@using SecondHandMarket.Models
+@using SecondHandMarket.ViewModels
+@model ReleaseEditModel
+@{
+  ViewBag.Title = "编辑发布信息";
+  Layout = "~/Views/Shared/_FGLayout.cshtml";
+  var campuses = ViewBag.Campuses as List<Address>;
+}
+
+@section head
+{
+  <style>
+    .picture, .picture-removed {
+      float: left;
+      margin: 8px;
+      position: relative;
+    }
+
+      .picture span.removed-desc {
+        display: none;
+      }
+
+    .picture-removed {
+      opacity: .5;
+      filter: alpha(opacity=40);
+      background-color: #555;
+    }
+
+      .picture-removed img {
+        opacity: .5;
+        filter: alpha(opacity=40);
+      }
+
+      .picture-removed span.removed-desc {
+        position: absolute;
+        line-height: 100px;
+        width: 100%;
+        top: 0;
+        text-align: center;
+        color: white;
+      }
+
+    .remove-btn {
+      position: absolute;
+      right: 0;
+      top: 0;
+      display: none;
+    }
+
+    .picture:hover .remove-btn {
+      display: block;
+    }
+  </style>
+}
+
+<h2>编辑发布信息</h2>
+<div class="classify">
+  @using (Html.BeginForm("Edit", "Release", FormMethod.Post, new Dictionary<string, object>()
+    {
+      {"class", "form-horizontal"},
+      {"id", "release-form"},
+      {"enctype", "multipart/form-data"}
+    }))
+  {
+ @Html.HiddenFor(m => m.Category.Id, new Dictionary<string, object>()
+      {
+        {"value", Model.Category.Id}
+      })
+
+ @Html.HiddenFor(m => m.Id, new Dictionary<string, object>()
+      {
+        {"value", Model.Id}
+      })
+
+    <div class="control-group">
+      <label class="control-label" for="title">标题</label>
+      <div class="controls">
+        @Html.TextBoxFor(m => m.Title)
+        @Html.ValidationMessageFor(m => m.Title)
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="price">价格</label>
+      <div class="controls">
+        @Html.TextBoxFor(m => m.Price)
+        <label style="display: inline">元</label>
+        @Html.ValidationMessageFor(m => m.Price)
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="describe">描述</label>
+      <div class="controls">
+        @Html.TextAreaFor(m => m.Description)
+        @Html.ValidationMessageFor(m => m.Description)
+      </div>
+    </div>
+
+    <div class="control-group clearfix picture-list">
+      <label class="control-label" for="describe">&nbsp;</label>
+      @foreach (var picture in Model.Pictures)
+      {
+        <div class="picture">
+          <img src="@Url.Content(picture.Path)?width=100&height=100&crop=auto"/>
+          <a class="btn btn-mini btn-danger remove-btn" data-value="@picture.Id">
+            <i class="icon-remove"></i>
+          </a>
+          <span class="removed-desc">已删除</span>
+        </div>
+      }
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="">上传照片</label>
+      <div class="controls">
+        <input type="file" name="file1" />
+        <button type="button" class="btn btn-info btn-mini" id="addPhoto">
+          <i class="icon-plus-sign"></i>
+          添加</button>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="">地点</label>
+      <div class="controls">
+        <select class="span2" id="firstLvlAddr">
+          <option value=""></option>
+          @foreach (var campus in campuses)
+          {
+            if (campus.Id == Model.Address.ParentAddress.Id)
+            {
+            <option value="@campus.Id" selected="selected">@campus.Name</option>
+            }
+            else
+            {
+            <option value="@campus.Id">@campus.Name</option>
+            }
+          }
+        </select>
+        @Html.DropDownListFor(m => m.Address.Id, Model.SecondLvlAddressList,
+        new Dictionary<string, object>()
+          {
+            {"id", "secondLvlAddr"},
+            {"class", "span2"}
+          })
+        @Html.ValidationMessageFor(m => m.Address.Id)
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="telephone">联系电话</label>
+      <div class="controls">
+        @Html.TextBoxFor(m => m.Mobile)
+        @Html.ValidationMessageFor(m => m.Mobile)
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="linkMan">联系人</label>
+      <div class="controls">
+        @Html.TextBoxFor(m => m.Linkman)
+        @Html.ValidationMessageFor(m => m.Linkman)
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="QQ">QQ号</label>
+      <div class="controls">
+        @Html.TextBoxFor(m => m.QQ)
+        @Html.ValidationMessageFor(m => m.QQ)
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="controls">
+        <button type="submit" class="btn btn-primary"><i class="icon-save"></i>&nbsp;保存</button>
+      </div>
+    </div>
+  }
+</div>
+
+@section scripts
+{
+  <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
+  <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+  <script>
+    $(function () {
+      $('#addPhoto').click(function () {
+        $(this).parent().append('<input type="file" class="addFile" name="' + new Date() + '"/>').
+          find('.addFile').css('display', 'block');
+      });
+      $('#release-form').validate({
+        submitHandler: function(form) {
+          
+        }
+      });
+    });
+  </script>
+
+  <script>
+    $(function () {
+      $('#firstLvlAddr').on('change', function () {
+        var $addr = $(this);
+        var addrId = $addr.val();
+        $('#secondLvlAddr').empty();
+        $.ajax({
+          url: '@Url.Action("GetSubAddresses", "Address")',
+          data: { addressId: addrId }
+        }).done(function (data) {
+          var buff = [];
+          $.each(data, function (i, addr) {
+            buff.push("<option value='", addr.Id, "'>", addr.Name, "</option>");
+          });
+          $('#secondLvlAddr').html(buff.join(''));
+        });
+      });
+    });
+  </script>
+
+  <script>
+    $(function () {
+      $('a.remove-btn').on('click', function () {
+        var $btn = $(this);
+        var picId = $btn.data('value');
+        $picList = $('.picture-list');
+        $picList.append('<input type="hidden" name="RemovedPictures" value="' + picId + '" />');
+        $btn.parents('.picture').removeClass('picture').addClass('picture-removed');
+      })
+    })
+  </script>
+}
+

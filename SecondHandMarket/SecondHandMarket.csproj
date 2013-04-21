@@ -139,6 +139,10 @@
     <Compile Include="Migrations\201304200737487_asd.Designer.cs">
       <DependentUpon>201304200737487_asd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201304211514181_adad.cs" />
+    <Compile Include="Migrations\201304211514181_adad.Designer.cs">
+      <DependentUpon>201304211514181_adad.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Address.cs" />
@@ -314,6 +318,7 @@
     <Content Include="Views\Buy\Ok.cshtml" />
     <Content Include="Views\User\Evaluate.cshtml" />
     <Content Include="Views\Shared\_PageBar.cshtml" />
+    <Content Include="Views\Release\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -335,6 +340,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201304200737487_asd.resx">
       <DependentUpon>201304200737487_asd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304211514181_adad.resx">
+      <DependentUpon>201304211514181_adad.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

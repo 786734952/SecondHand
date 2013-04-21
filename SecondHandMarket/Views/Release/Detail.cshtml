@@ -3,7 +3,7 @@
 @model ReleaseAddModel
 @{
   ViewBag.Title = "商品发布";
-  Layout = "../Shared/_FGLayout.cshtml";
+  Layout = "~/Views/Shared/_FGLayout.cshtml";
   var category = ViewBag.Category as Category;
   var campuses = ViewBag.Campuses as List<Address>;
 }
@@ -94,8 +94,13 @@
                 <option value="@campus.Id">@campus.Name</option>
               }
             </select>
-            <select class="span2" id="secondLvlAddr" name="AddressId">
-            </select>
+            @Html.DropDownListFor(m => m.AddressId, new List<SelectListItem>(),
+            new Dictionary<string, object>()
+              {
+                {"id", "secondLvlAddr"},
+                {"class", "span2"}
+              })
+            @Html.ValidationMessageFor(m=>m.AddressId)
           </div>
         </div>
         <div class="control-group">

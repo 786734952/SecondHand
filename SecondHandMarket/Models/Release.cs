@@ -24,7 +24,7 @@ namespace SecondHandMarket.Models
         /// <summary>
         /// 商品分类
         /// </summary>
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
 
         /// <summary>
         /// 商品标题
@@ -49,7 +49,7 @@ namespace SecondHandMarket.Models
         /// <summary>
         /// 交易地点
         /// </summary>
-        public Address TradePlace { get; set; }
+        public virtual Address TradePlace { get; set; }
 
         /// <summary>
         /// 联系人电话
