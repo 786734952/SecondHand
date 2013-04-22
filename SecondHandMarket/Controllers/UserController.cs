@@ -60,5 +60,25 @@ namespace SecondHandMarket.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult DeleteRelease(List<int> releaseIds)
+        {
+            using (Db)
+            {
+                var releases = Db.Releases.Where(r => releaseIds.Contains(r.Id)).ToList();
+                foreach (var release in releases)
+                {
+                    Db.Releases.Remove(release);
+                }
+                Db.SaveChanges();
+                TempData["SuccessMsg"] = string.Format("成功删除{0}条记录", releases.Count);
+                return RedirectToAction("Release", new
+                    {
+                        PageIndex = Request["PageIndex"],
+                        PageSize = Request["PageSize"]
+                    });
+            }
+        }
     }
 }

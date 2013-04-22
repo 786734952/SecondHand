@@ -123,25 +123,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201304180236052_bbb.cs" />
-    <Compile Include="Migrations\201304180236052_bbb.Designer.cs">
-      <DependentUpon>201304180236052_bbb.cs</DependentUpon>
+    <Compile Include="Migrations\201304220214476_aaa.cs" />
+    <Compile Include="Migrations\201304220214476_aaa.Designer.cs">
+      <DependentUpon>201304220214476_aaa.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201304180304596_999.cs" />
-    <Compile Include="Migrations\201304180304596_999.Designer.cs">
-      <DependentUpon>201304180304596_999.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201304181335231_dad.cs" />
-    <Compile Include="Migrations\201304181335231_dad.Designer.cs">
-      <DependentUpon>201304181335231_dad.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201304200737487_asd.cs" />
-    <Compile Include="Migrations\201304200737487_asd.Designer.cs">
-      <DependentUpon>201304200737487_asd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201304211514181_adad.cs" />
-    <Compile Include="Migrations\201304211514181_adad.Designer.cs">
-      <DependentUpon>201304211514181_adad.cs</DependentUpon>
+    <Compile Include="Migrations\201304221427285_dad.cs" />
+    <Compile Include="Migrations\201304221427285_dad.Designer.cs">
+      <DependentUpon>201304221427285_dad.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -166,6 +154,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font\fontawesome-webfont.svg" />
     <Content Include="Content\images\10.jpg" />
+    <Content Include="Content\images\6.jpg" />
     <Content Include="Content\images\bk2.jpg" />
     <Content Include="Content\images\bk.jpg" />
     <Content Include="Content\images\blackheaderbg.jpg" />
@@ -194,6 +183,7 @@
     <Content Include="Content\images\newest2.jpg" />
     <Content Include="Content\images\newest3.jpg" />
     <Content Include="Content\images\newest4.jpg" />
+    <Content Include="Content\images\preview11.jpg" />
     <Content Include="Content\images\raindrops2.png" />
     <Content Include="Content\images\raindrops3.png" />
     <Content Include="Global.asax" />
@@ -263,6 +253,21 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\less.min.js" />
+    <Content Include="Scripts\noty\jquery.noty.js" />
+    <Content Include="Scripts\noty\layouts\bottom.js" />
+    <Content Include="Scripts\noty\layouts\bottomCenter.js" />
+    <Content Include="Scripts\noty\layouts\bottomLeft.js" />
+    <Content Include="Scripts\noty\layouts\bottomRight.js" />
+    <Content Include="Scripts\noty\layouts\center.js" />
+    <Content Include="Scripts\noty\layouts\centerLeft.js" />
+    <Content Include="Scripts\noty\layouts\centerRight.js" />
+    <Content Include="Scripts\noty\layouts\inline.js" />
+    <Content Include="Scripts\noty\layouts\top.js" />
+    <Content Include="Scripts\noty\layouts\topCenter.js" />
+    <Content Include="Scripts\noty\layouts\topLeft.js" />
+    <Content Include="Scripts\noty\layouts\topRight.js" />
+    <Content Include="Scripts\noty\promise.js" />
+    <Content Include="Scripts\noty\themes\default.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -329,20 +334,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201304180236052_bbb.resx">
-      <DependentUpon>201304180236052_bbb.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201304220214476_aaa.resx">
+      <DependentUpon>201304220214476_aaa.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201304180304596_999.resx">
-      <DependentUpon>201304180304596_999.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201304181335231_dad.resx">
-      <DependentUpon>201304181335231_dad.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201304200737487_asd.resx">
-      <DependentUpon>201304200737487_asd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201304211514181_adad.resx">
-      <DependentUpon>201304211514181_adad.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201304221427285_dad.resx">
+      <DependentUpon>201304221427285_dad.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

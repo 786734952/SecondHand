@@ -25,9 +25,29 @@ namespace SecondHandMarket.Controllers
             }
             return View();
         }
+
         public ActionResult Detail(int id)
         {
-            return View();
+            using (Db)
+            {
+                var release = Db
+                    .Releases
+                    .Include("Category.ParentCategory.ParentCategory")
+                    .Include("TradePlace.ParentAddress")
+                    .Include("Pictures")
+                    .First(r => r.Id == id);
+
+                var userName = release.UserName;
+                ViewBag.User = Db.UserInfo.Where(u => u.UserName == userName);
+
+                ViewBag.LatestRelease = Db.Releases.OrderByDescending(r => r.Id)
+                    .Where(r => r.Pictures.Count > 0)
+                    .Take(3).ToList()
+                  .Select(r => new ListItemReleaseModel(r))
+                  .ToList();
+
+                return View(release);
+            }
         }
 
     }

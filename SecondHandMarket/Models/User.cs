@@ -26,5 +26,10 @@ namespace SecondHandMarket.Models
         /// 用户手机
         /// </summary>
         public string Mobile { get; set; }
+
+        /// <summary>
+        /// 用户真实姓名
+        /// </summary>
+        public string RealName { get; set; }
     }
 }

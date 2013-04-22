@@ -28,8 +28,8 @@
       <label style="display:inline-block;margin-right:10px">
         @(parentCategory == null ? "商品分类" : "子类别")</label>
       <input type="hidden" name="ParentId" 
-        value="@(parentCategory == null ? "" : parentCategory.Id.ToString())" autofocus />
-      <input type="text" name="Name" />
+        value="@(parentCategory == null ? "" : parentCategory.Id.ToString())"/>
+      <input type="text" name="Name" autofocus/>
     </div>
     <div class="modal-footer form-actions">
       <input type="submit" value="保存" class="btn bt-primary" />

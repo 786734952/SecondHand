@@ -25,15 +25,15 @@ namespace SecondHandMarket.Controllers
                 if (addressId == null)
                 {
                     ViewBag.Addresses = Db.Addresses
-                        .Include("SubAddresses")
-                        .Where(a => a.ParentAddress == null)
+                                          .Include("SubAddresses")
+                                          .Where(a => a.ParentAddress == null)
                                           .ToList();
                 }
                 else
                 {
                     var pId = addressId.Value;
                     ViewBag.Addresses = Db.Addresses
-                        .Include("SubAddresses")
+                                          .Include("SubAddresses")
                                           .Where(a => a.ParentAddress != null && a.ParentAddress.Id == pId)
                                           .ToList();
                     ViewBag.ParentAddress = Db.Addresses.Include("ParentAddress").First(a => a.Id == pId);
@@ -76,13 +76,26 @@ namespace SecondHandMarket.Controllers
             {
                 var address = Db.Addresses.Include("SubAddresses").First(a => a.Id == addressId);
                 var parentAddress = address.ParentAddress;
-                var subAddresses = address.SubAddresses.ToList();
-                for (int i = 0; i < subAddresses.Count; i++)
+
+                if (Db.Releases.Any(r => r.TradePlace.Id == address.Id))
                 {
-                    Db.Addresses.Remove(subAddresses[i]);
+                    TempData["ErrorMsg"] = "交易地点已经被使用过，不能被删除";
                 }
-                Db.Addresses.Remove(address);
-                Db.SaveChanges();
+                else if (Db.Addresses.Join(Db.Releases, a => a.Id, r => r.TradePlace.Id,
+                                           (a, r) => a).Any(a => a.ParentAddress.Id == addressId))
+                {
+                    TempData["ErrorMsg"] = "交易地点已经被使用过，不能被删除";
+                }
+                else
+                {
+                    var subAddresses = address.SubAddresses.ToList();
+                    for (int i = 0; i < subAddresses.Count; i++)
+                    {
+                        Db.Addresses.Remove(subAddresses[i]);
+                    }
+                    Db.Addresses.Remove(address);
+                    Db.SaveChanges();
+                }
 
                 if (parentAddress == null)
                 {

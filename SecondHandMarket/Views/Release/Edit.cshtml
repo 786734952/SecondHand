@@ -9,6 +9,7 @@
 
 @section head
 {
+  <link href="@Url.Content("~/Content/pagecss/Release/index.less")" rel="stylesheet" />
   <style>
     .picture, .picture-removed {
       float: left;
@@ -52,8 +53,8 @@
     }
   </style>
 }
-
-<h2>编辑发布信息</h2>
+<div class="content">
+  <h3>编辑发布信息</h3>
 <div class="classify">
   @using (Html.BeginForm("Edit", "Release", FormMethod.Post, new Dictionary<string, object>()
     {
@@ -179,6 +180,8 @@
     </div>
   }
 </div>
+</div>
+
 
 @section scripts
 {
@@ -191,8 +194,8 @@
           find('.addFile').css('display', 'block');
       });
       $('#release-form').validate({
-        submitHandler: function(form) {
-          
+        submitHandler: function (form) {
+
         }
       });
     });

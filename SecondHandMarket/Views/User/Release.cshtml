@@ -23,50 +23,74 @@
     </div>
   </div>
   <div class="layout-right">
-    <div class="title">
-      <h3>我的发布</h3>
-    </div>
-    <div class="detail">
-      <form>
-        <table class="table">
-          <colgroup>
-            <col style="width: 46px"/>
-            <col style="width: 50px;"/>
-            <col/>
-            <col style="width: 150px;"/>
-            <col style="width: 72px;"/>
-          </colgroup>
-          <tbody>
-            @foreach (var release in myReleases)
-            {
-              <tr>
-                <td>
-                  <label class="checkbox">
-                    <input type="checkbox" name="releaseIds" value="@release.Id"/>
-                  </label>
-                </td>
-                <td style="padding: 0; vertical-align: middle;">
-                  <img style="background-color: #999;padding:1px;" src="@Url.Content(release.ImgUrl)?width=30&height=30&crop=auto"/>
-                </td>
-                <td><a href="@Url.Action("Detail", "Goods")?id=@release.Id">@release.Title</a></td>
-                <td>@release.ReleaseTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
-                <td>
-                  <a class="btn btn-mini" href="@Url.Action("Edit", "Release")?id=@release.Id">
-                    <i class="icon-pencil"></i>&nbsp;修改
-                  </a>
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
-        @Html.Partial("_PageBar", pageBarModel)
-      </form>
-    </div>
-    <div class="del">
-      <label class="checkbox inline">
-        <input type="checkbox"/>全选
-      </label>
-      <button class="btn btn-warning"><i class="icon-trash"></i>删除</button>
-    </div>
+    <form action="@Url.Action("DeleteRelease")" method="POST">
+      <div class="title">
+        <h3>我的发布</h3>
+      </div>
+      <div class="detail">
+          <table class="table">
+            <colgroup>
+              <col style="width: 46px"/>
+              <col style="width: 50px;"/>
+              <col/>
+              <col style="width: 150px;"/>
+              <col style="width: 72px;"/>
+            </colgroup>
+            <tbody>
+              @foreach (var release in myReleases)
+              {
+                <tr>
+                  <td>
+                    <label class="checkbox">
+                      <input type="checkbox" name="releaseIds" value="@release.Id"/>
+                    </label>
+                  </td>
+                  <td style="padding: 0; vertical-align: middle;">
+                    <img style="background-color: #999;padding:1px;" src="@Url.Content(release.ImgUrl)?width=30&height=30&crop=auto"/>
+                  </td>
+                  <td><a href="@Url.Action("Detail", "Goods")?id=@release.Id">@release.Title</a></td>
+                  <td>@release.ReleaseTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                  <td>
+                    <a class="btn btn-mini" href="@Url.Action("Edit", "Release")?id=@release.Id">
+                      <i class="icon-pencil"></i>&nbsp;修改
+                    </a>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+          @Html.Partial("_PageBar", pageBarModel)
+      </div>
+      <div class="del">
+        <label class="checkbox inline">
+          <input type="checkbox"/>全选
+        </label>
+        <button class="btn btn-warning"><i class="icon-trash"></i>删除</button>
+      </div>
+    </form>
   </div>
 </div>
+
+@section scripts
+{
+  <script src="@Url.Content("~/Scripts/noty/jquery.noty.js")"></script>
+  <script src="@Url.Content("~/Scripts/noty/layouts/top.js")"></script>
+  <script src="@Url.Content("~/Scripts/noty/themes/default.js")"></script>
+  <script>
+    var msg = "@TempData["SuccessMsg"]";
+    if (msg) {
+      $noty = noty({
+        layout: 'top',
+        type: 'success',
+        text: msg,
+        callback: {
+          afterShow: function () {
+            setTimeout(function() {
+              $noty.close();
+            }, 2500);
+          }
+        }
+      });
+    }
+  </script>
+}

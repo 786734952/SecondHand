@@ -69,6 +69,9 @@
 </table>
 
 @section scripts{
+  <script src="@Url.Content("~/Scripts/noty/jquery.noty.js")"></script>
+  <script src="@Url.Content("~/Scripts/noty/layouts/top.js")"></script>
+  <script src="@Url.Content("~/Scripts/noty/themes/default.js")"></script>
   <script>
     $('.remove').click(function() {
       var $bt = $(this);
@@ -77,5 +80,16 @@
         $bt.parents('form').submit();
       }
     });
+  </script>
+  <script>
+    var msg = "@TempData["ErrorMsg"]";
+    if (msg) {
+      noty({
+        modal: true,
+        layout: 'top',
+        type: 'error',
+        text: msg
+      });
+    }
   </script>
 }

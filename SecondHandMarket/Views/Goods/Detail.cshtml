@@ -1,6 +1,11 @@
-﻿@{
+﻿@using SecondHandMarket.Models
+@using SecondHandMarket.ViewModels
+@model Release
+@{
   ViewBag.Title = "商品详情";
   Layout = "~/Views/Shared/_FGLayout.cshtml";
+  var user = ViewBag.User as User;
+  var latestRelease = ViewBag.LatestRelease as List<ListItemReleaseModel>;
 }
 @section head
 {
@@ -10,15 +15,15 @@
 <div class="content">
   <div class="layout-left">
     <div class="navBars">
-      <a href="#"><span>二手运动/图书</span></a>
-      <span>></span>
-      <a href="#"><span>二手书籍</span></a>
-      <span>></span>
-      <a href="#"><span>小说文学类</span></a>
+      <a href="#"><span>@Model.Category.ParentCategory.ParentCategory.Name</span></a>
+      <span>&gt;</span>
+      <a href="#"><span>@Model.Category.ParentCategory.Name</span></a>
+      <span>&gt;</span>
+      <a href="#"><span>@Model.Category.Name</span></a>
     </div>
     <div class="goods">
       <div class="name">
-        <h3>四大名著 全套四册 全新 低价转让 - 30元</h3>
+        <h3>@Model.Title</h3>
         <a href="#" class="btn btn-info btn-mini" id="collect">
           <i class="icon-briefcase"></i>
           收藏
@@ -26,11 +31,11 @@
       </div>
       <div class="detail">
         <ul>
-          <li><span>价格：30元</span></li>
-          <li><span>地点：中心校区  一期</span></li>
-          <li><span>联系人：</span><a href="../UserInfo/Index"><span>张小姐</span></a></li>
-          <li><span>联系电话：15262016114</span></li>
-          <li><span>QQ号：72345612</span></li>
+          <li><span>价格：@(Model.Price)元</span></li>
+          <li><span>地点：@Model.TradePlace.ParentAddress.Name @Model.TradePlace.Name</span></li>
+          <li><span>联系人：</span><a href="@Url.Action("Index", "User")"><span>@Model.UserName</span></a></li>
+          <li><span>联系电话：@Model.Mobile</span></li>
+          <li><span>QQ号：@Model.QQ</span></li>
         </ul>
       </div>
       <div class="describe tabbable">
@@ -40,18 +45,17 @@
         </ul>
         <div class="tab-content">
           <div class="tab-pane active" id="tab1">
-            <p>
-              全新 原价58元,现30元低价转让,不还价,谢谢。
-          中心校区一期食堂附件交易。
-            </p>
+            <pre>
+              @Model.Description
+            </pre>
           </div>
           <div class="tab-pane" id="tab2">
-            <div class="img">
-              <img src="../../Content/images/book1.png" />
-            </div>
-            <div class="img">
-              <img src="../../Content/images/book2.png" />
-            </div>
+            @foreach (var p in Model.Pictures)
+            {
+              <div class="img">
+                <img src="@Url.Content(p.Path)" />
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -63,24 +67,15 @@
     <div class="title">
       <span>新品推荐</span>
     </div>
-    <div class="img">
-      <a href="#">
-        <img src="../../Content/images/newest1.jpg" />
-        <span>4分钟  1980元</span>
-      </a>
-    </div>
-    <div class="img">
-      <a href="#">
-        <img src="../../Content/images/newest1.jpg" />
-        <span>4分钟  1980元</span>
-      </a>
-    </div>
-    <div class="img">
-      <a href="#">
-        <img src="../../Content/images/newest1.jpg" />
-        <span>4分钟  1980元</span>
-      </a>
-    </div>
+    @foreach (var release in latestRelease)
+    {
+      <div class="img">
+        <a href="#">
+          <img src="@Url.Content(release.ImgUrl)?width=210&height=220&crop=auto" />
+          <span>@release.ReleaseTimeDesc  @(release.Price)元</span>
+        </a>
+      </div>
+    }
   </div>
 </div>
 @section scripts{
