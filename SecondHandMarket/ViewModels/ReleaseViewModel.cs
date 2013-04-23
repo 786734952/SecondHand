@@ -82,7 +82,6 @@ namespace SecondHandMarket.ViewModels
         /// <summary>
         /// 描述
         /// </summary>
-        [MaxLength(500, ErrorMessage = "描述不能超过500个字符")]
         [DisplayName("描述")]
         public string Description { get; set; }
 

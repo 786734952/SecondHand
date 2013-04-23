@@ -42,6 +42,11 @@ namespace SecondHandMarket.Models
         public DbSet<Release> Releases { get; set; }
 
         /// <summary>
+        /// 商品求购信息
+        /// </summary>
+        public DbSet<Buy> Buys { get; set; }
+
+        /// <summary>
         /// 用户
         /// </summary>
         public DbSet<User> UserInfo { get; set; }

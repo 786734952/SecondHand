@@ -1,0 +1,139 @@
+﻿@using SecondHandMarket.Models
+@using SecondHandMarket.ViewModels
+@model BuyAddModel
+@{
+  ViewBag.Title = "商品求购";
+  Layout = "../Shared/_FGLayout.cshtml";
+}
+@section head
+{
+  <link href="@Url.Content("~/Content/pagecss/Buy/index.less")" rel="stylesheet" />
+}
+<div>
+  <div class="content">
+    <div class="process">
+      <div class="step1 step">
+        <div class="rectangle"></div>
+        <div class="right-triangle"></div>
+        <a href="./FirstStep">
+          <span>选择大类</span>
+        </a>
+      </div>
+      <div class="step2 step">
+        <div class="right-triangle transparent"></div>
+        <div class="rectangle"></div>
+        <div class="right-triangle"></div>
+        <a href="@Url.Action("SecondStep")?categoryId=@Model.Category.ParentCategory.Id">
+          <span>选择小类</span>
+        </a>
+      </div>
+      <div class="step3 step">
+        <div class="right-triangle transparent"></div>
+        <div class="rectangle" style="width:340px"></div>
+        <a href="#">
+          <span>填写详情</span>
+        </a>
+      </div>
+    </div>
+    <div class="title">
+      <span><i class="icon-info-sign"></i>&nbsp; 填写详情</span>
+    </div>
+    <div class="classify">
+      @using (Html.BeginForm("Add", "Buy", FormMethod.Post,
+                             new Dictionary<string, object>()
+                               {
+                                 {"class", "form-horizontal"}
+                               }))
+      {
+        @Html.HiddenFor(m => m.CategoryId)
+        <div class="control-group">
+          <label class="control-label" for="title">标题</label>
+          <div class="controls">
+            @Html.TextBoxFor(m => m.Title)
+            @Html.ValidationMessageFor(m => m.Title)
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="price">价格</label>
+          <div class="controls">
+            @Html.TextBoxFor(m => m.Price)<span>&nbsp;元</span>
+            @Html.ValidationMessageFor(m => m.Price)
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="describe">描述</label>
+          <div class="controls">
+            @Html.TextAreaFor(m => m.Description)
+            @Html.ValidationMessageFor(m => m.Description)
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="">地点</label>
+          <div class="controls">
+            @Html.DropDownListFor(m => m.FirstLvlAddr, Model.FirstLvlAddr,
+                                  new Dictionary<string, object>()
+                                    {
+                                      {"class", "span2"},
+                                      {"id", "firstLvlAddr"}
+                                    })
+            
+            @Html.DropDownListFor(m => m.AddressId, Model.SecondLvlAddr,
+                                  new Dictionary<string, object>()
+                                    {
+                                      {"class", "span2"},
+                                      {"id", "secondLvlAddr"}
+                                    })
+            
+            @Html.ValidationMessageFor(m => m.AddressId)
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="telephone">联系电话</label>
+          <div class="controls">
+            @Html.TextBoxFor(m => m.Mobile)
+            @Html.ValidationMessageFor(m => m.Mobile)
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="QQ">QQ号</label>
+          <div class="controls">
+            @Html.TextBoxFor(m => m.QQ)
+            @Html.ValidationMessageFor(m => m.QQ)
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <button type="submit" class="btn btn-primary">
+              <i class="icon-share"></i>发布求购
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+
+@section scripts
+{
+  <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
+  <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+  <script>
+    $(function() {
+      $('#firstLvlAddr').on('change', function() {
+        var $addr = $(this);
+        var addrId = $addr.val();
+        $('#secondLvlAddr').empty();
+        $.ajax({
+          url: '@Url.Action("GetSubAddresses", "Address")',
+          data: { addressId: addrId }
+        }).done(function(data) {
+          var buff = [];
+          $.each(data, function (i, addr) {
+            buff.push("<option value='", addr.Id, "'>", addr.Name, "</option>");
+          });
+          $('#secondLvlAddr').html(buff.join(''));
+        });
+      });
+    });
+  </script>
+}

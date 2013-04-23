@@ -46,7 +46,7 @@
           <ul>
             @foreach (var subCate in category.SubCategories) 
             { 
-              <li><a href="@Url.Action("Detail")?categoryId=@subCate.Id">@subCate.Name</a></li>
+              <li><a href="@Url.Action("Add")?categoryId=@subCate.Id">@subCate.Name</a></li>
             }
           </ul>
         </dd>

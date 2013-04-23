@@ -109,6 +109,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attribute\IgnoreModelErrorsAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -131,6 +132,10 @@
     <Compile Include="Migrations\201304221427285_dad.Designer.cs">
       <DependentUpon>201304221427285_dad.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201304231508453_agdd.cs" />
+    <Compile Include="Migrations\201304231508453_agdd.Designer.cs">
+      <DependentUpon>201304231508453_agdd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Address.cs" />
@@ -143,7 +148,9 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AddressViewModel.cs" />
+    <Compile Include="ViewModels\BuyViewModel.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\OkModel.cs" />
     <Compile Include="ViewModels\PageBarModel.cs" />
     <Compile Include="ViewModels\ReleaseViewModel.cs" />
   </ItemGroup>
@@ -306,7 +313,7 @@
     <Content Include="Views\Buy\Index.cshtml" />
     <Content Include="Views\Release\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutWithoutHead.cshtml" />
-    <Content Include="Views\Buy\Detail.cshtml" />
+    <Content Include="Views\Buy\Add.cshtml" />
     <Content Include="Views\Release\Detail.cshtml" />
     <Content Include="Views\Goods\Index.cshtml" />
     <Content Include="Views\Goods\Detail.cshtml" />
@@ -339,6 +346,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201304221427285_dad.resx">
       <DependentUpon>201304221427285_dad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304231508453_agdd.resx">
+      <DependentUpon>201304231508453_agdd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
