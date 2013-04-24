@@ -28,7 +28,12 @@ namespace SecondHandMarket.ViewModels
 
         public string GetUrl(int index)
         {
-            return String.Format(Url+"?PageIndex={0}&PageSize={1}", index, PageSize);
+            var temp = "?";
+            if (Url.Contains("&"))
+            {
+                temp = "&";
+            }
+            return String.Format(Url + temp + "PageIndex={0}&PageSize={1}", index, PageSize);
         }
     }
 }

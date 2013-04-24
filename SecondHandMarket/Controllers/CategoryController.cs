@@ -84,5 +84,19 @@ namespace SecondHandMarket.Controllers
                 }
             }
         }
+
+        public ActionResult GetSubCategories(int id)
+        {
+            using (Db)
+            {
+                var categories = Db.Categories.Include("SubCategories")
+                                   .First(c => c.Id == id)
+                                   .SubCategories
+                                   .Select(c => new CategoryListItemModel(c))
+                                   .ToList();
+
+                return Json(categories, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

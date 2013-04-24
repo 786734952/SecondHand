@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SecondHandMarket.Models;
+using SecondHandMarket.common;
 
 namespace SecondHandMarket.ViewModels
 {
@@ -22,7 +23,7 @@ namespace SecondHandMarket.ViewModels
         public string Title { get; set; }
 
         [Required]
-        [DisplayName("价格")]
+        [DisplayName("期望价格")]
         public decimal Price { get; set; }
 
         [DisplayName("描述")]
@@ -109,5 +110,27 @@ namespace SecondHandMarket.ViewModels
 
             return buy;
         }
+    }
+
+    public class BuyListItemModel
+    {
+        public BuyListItemModel(Buy buy)
+        {
+            Id = buy.Id;
+            Title = buy.Name;
+            CreateTime = buy.CreateTime;
+            CreateTimeDesc = CreateTime.GetDateTimeDesc();
+            UserName = buy.UserName;
+        }
+
+        public int Id { get; set; }
+
+        public string Title { get; set; }
+
+        public DateTime CreateTime { get; set; }
+
+        public string CreateTimeDesc { get; set; }
+
+        public string UserName { get; set; }
     }
 }

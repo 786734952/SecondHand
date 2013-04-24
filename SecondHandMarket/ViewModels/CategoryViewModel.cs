@@ -19,6 +19,19 @@ namespace SecondHandMarket.ViewModels
         public string Name { get; set; }
         public List<IndexCategoryViewModel> SubCategories { get; set; }
     }
+
+    public class CategoryListItemModel
+    {
+        public CategoryListItemModel(Category category)
+        {
+            Id = category.Id;
+            Name = category.Name;
+        }
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+
     public class AddCategoryViewModel
     {
         [Required]

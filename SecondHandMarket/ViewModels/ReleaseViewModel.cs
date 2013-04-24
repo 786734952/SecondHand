@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SecondHandMarket.Models;
+using SecondHandMarket.common;
 
 namespace SecondHandMarket.ViewModels
 {
@@ -17,27 +18,7 @@ namespace SecondHandMarket.ViewModels
             Title = release.Title;
             Price = release.Price;
             ReleaseTime = release.ReleaseTime;
-            var pastTimespan = DateTime.Now - ReleaseTime;
-
-            if (pastTimespan.TotalMinutes < 60)
-            {
-                var minutes = (int)Math.Floor(pastTimespan.TotalMinutes);
-                ReleaseTimeDesc = minutes + "分钟前";
-            }
-            else if (pastTimespan.TotalHours <= 12)
-            {
-                var hours = (int)Math.Floor(pastTimespan.TotalHours);
-                ReleaseTimeDesc = hours + "小时" + Math.Floor((pastTimespan.TotalHours - hours) * 60) + "分钟前";
-            }
-            else if (pastTimespan.TotalHours <= 24 && DateTime.Now.Day == ReleaseTime.Day)
-            {
-                var hours = (int)Math.Floor(pastTimespan.TotalHours);
-                ReleaseTimeDesc = hours + "小时" + Math.Floor((pastTimespan.TotalHours - hours) * 60) + "分钟前";
-            }
-            else
-            {
-                ReleaseTimeDesc = ReleaseTime.ToString("yyyy-MM-dd HH:mm");
-            }
+            ReleaseTimeDesc = ReleaseTime.GetDateTimeDesc();
 
             if (release.Pictures.Count > 0)
             {

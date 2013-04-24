@@ -110,6 +110,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attribute\IgnoreModelErrorsAttribute.cs" />
+    <Compile Include="common\DateTimeHelper.cs" />
+    <Compile Include="common\ValidateCode.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -121,20 +123,13 @@
     <Compile Include="Controllers\ReleaseController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\ValidateCodeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201304220214476_aaa.cs" />
-    <Compile Include="Migrations\201304220214476_aaa.Designer.cs">
-      <DependentUpon>201304220214476_aaa.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201304221427285_dad.cs" />
-    <Compile Include="Migrations\201304221427285_dad.Designer.cs">
-      <DependentUpon>201304221427285_dad.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201304231508453_agdd.cs" />
-    <Compile Include="Migrations\201304231508453_agdd.Designer.cs">
-      <DependentUpon>201304231508453_agdd.cs</DependentUpon>
+    <Compile Include="Migrations\201304240659539_aaa.cs" />
+    <Compile Include="Migrations\201304240659539_aaa.Designer.cs">
+      <DependentUpon>201304240659539_aaa.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -341,14 +336,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201304220214476_aaa.resx">
-      <DependentUpon>201304220214476_aaa.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201304221427285_dad.resx">
-      <DependentUpon>201304221427285_dad.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201304231508453_agdd.resx">
-      <DependentUpon>201304231508453_agdd.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201304240659539_aaa.resx">
+      <DependentUpon>201304240659539_aaa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

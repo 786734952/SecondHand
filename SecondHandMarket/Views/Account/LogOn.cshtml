@@ -3,17 +3,19 @@
   ViewBag.Title = "登录";
   Layout = "~/Views/Shared/_LayoutWithoutHead.cshtml";
 }
-<header>
+
+@section head{
   <link href="@Url.Content("~/Content/pagecss/Account/LogOn.less")" rel="stylesheet" />
-</header>
-<h2>登录</h2>
-<p>
-  请输入用户名和密码。如果您没有帐户，请 @Html.ActionLink("注册", "Register")。
-</p>
-@section scripts {
   <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
   <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 }
+
+<div class="content">
+  <h3>登录</h3>
+<p>
+  请输入用户名和密码。如果您没有帐户，请 @Html.ActionLink("注册", "Register")。
+</p>
+
 @Html.ValidationSummary(true, "登录不成功。请更正错误并重试。")
 
 @using (Html.BeginForm())
@@ -45,9 +47,11 @@
 
       <p>
         <button type="submit" class="btn">
-          <i class="icon-user"></i>&nbsp;登陆
+          <i class="icon-user"></i>&nbsp;登录
         </button>
       </p>
     </fieldset>
   </div>
+
 }
+  </div>

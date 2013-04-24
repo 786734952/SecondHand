@@ -1,6 +1,12 @@
-﻿@{
+﻿@using SecondHandMarket.ViewModels
+@model List<BuyListItemModel>
+@{
   ViewBag.Title = "商品求购";
   Layout = "../Shared/_FGLayout.cshtml";
+  var firstLvlCategories = ViewBag.FirstLvlCategorise as List<SelectListItem>;
+  var secondLvlCategories = ViewBag.SecondLvlCategories as List<SelectListItem>;
+  var thirdLvlCategories = ViewBag.ThirdLvlCategories as List<SelectListItem>;
+  var pageBarModel = ViewBag.PageBarModel as PageBarModel;
 }
 @section head
 {
@@ -11,20 +17,26 @@
     <div class="search_area">
       <div class="search">
         <form class="form-inline">
-          <select class="span2">
-            <option>二手手机/手机号码</option>
-          </select>
-          <select class="span2">
-            <option>二手手机</option>
-          </select>
-          <select class="span2">
-            <option>iphone</option>
-          </select>
-          <button type="submit" class="btn_search">查询</button>
+          @Html.DropDownList("firstCategoryId", firstLvlCategories,
+          new Dictionary<string, object>()
+            {
+              {"class", "span2"}
+            })
+          @Html.DropDownList("secondCategoryId", secondLvlCategories,
+          new Dictionary<string, object>()
+            {
+              {"class", "span2"}
+            })
+          @Html.DropDownList("thirdCategoryId", thirdLvlCategories,
+          new Dictionary<string, object>()
+            {
+              {"class", "span2"}
+            })
+          <button type="submit" class="btn"><i class="icon-search"></i>&nbsp;查询</button>
         </form>
       </div>
       <div class="ask_buy">
-        <a href="../Buy/FirstStep">
+        <a href="@Url.Action("FirstStep")">
           <div class="ask">
             <span>我要求购</span>
           </div>
@@ -38,17 +50,46 @@
       <div class="info_detail">
         <table class="table">
           <tbody>
-            <tr>
-              <td><a href="../Goods/Detail">四大名著 全套四册 全新 低价转让 - 30元</a></td>
-              <td>4分钟</td>
-            </tr>
-            <tr>
-              <td><a href="../Goods/Detail">四大名著 全套四册 全新 低价转让 - 30元</a></td>
-              <td>4分钟</td>
-            </tr>
+            @foreach (var buy in Model)
+            {
+              <tr>
+                <td><a href="@Url.Action("Detail", "Goods")?id=@buy.Id">@buy.Title</a></td>
+                <td>@buy.CreateTimeDesc</td>
+              </tr>
+            }
           </tbody>
         </table>
+          @Html.Partial("_PageBar", pageBarModel)
       </div>
     </div>
   </div>
 </div>
+
+@section scripts
+{
+  <script>
+    var getSubCategories = function(id, el) {
+      $.ajax({
+        data: { id: id },
+        type: 'get',
+        url: '@Url.Action("GetSubCategories", "Category")'
+      }).done(function(data) {
+        var buf = [];
+        buf.push('<option></option>');
+        for (var i = 0; i < data.length; i++) {
+          var d = data[i];
+          buf.push('<option value="', d.Id, '">', d.Name, '</option>');
+        }
+        $(el).html(buf.join(''));
+      });
+    }
+
+    $('form select').on('change', function() {
+      var $select = $(this);
+      var $next = $select.next();
+      if ($next[0].tagName.toLowerCase() == 'select') {
+        getSubCategories($select.val(), $next[0]);
+      }
+    });
+  </script>
+}

@@ -14,11 +14,100 @@ namespace SecondHandMarket.Controllers
         //
         // GET: /Buy/
 
-        public ActionResult Index()
+        public ActionResult Index(int? firstCategoryId, int? secondCategoryId,
+            int? thirdCategoryId, PageBarModel pageBar)
         {
+            using (Db)
+            {
+                if (pageBar.PageSize == 0)
+                {
+                    pageBar.PageIndex = 1;
+                    pageBar.PageSize = 15;
+                }
 
-            return View();
+                var firstLvlCategories = GetSubCategories(null);
+                firstLvlCategories.Insert(0, new SelectListItem());
+                ViewBag.FirstLvlCategorise = firstLvlCategories;
+                ViewBag.SecondLvlCategories = new List<SelectListItem>();
+                ViewBag.ThirdLvlCategories = new List<SelectListItem>();
+
+                var buys = Db.Buys.AsQueryable();
+                if (thirdCategoryId != null)
+                {
+                    var categoryId = thirdCategoryId.Value;
+                    buys = buys.Where(b => b.Category.Id == categoryId);
+                }
+                else if (secondCategoryId != null)
+                {
+                    var categoryId = secondCategoryId.Value;
+                    buys = buys.Where(b => b.Category.ParentCategory.Id == categoryId);
+                }
+                else if (firstCategoryId != null)
+                {
+                    var categoryId = firstCategoryId.Value;
+                    buys = buys.Where(b => b.Category.ParentCategory.ParentCategory.Id == categoryId);
+                }
+
+                if (secondCategoryId != null)
+                {
+                    var thirdLvlCategories = GetSubCategories(secondCategoryId.Value);
+                    thirdLvlCategories.Insert(0, new SelectListItem());
+                    ViewBag.ThirdLvlCategories = thirdLvlCategories;
+                }
+                if (firstCategoryId != null)
+                {
+                    var secondLvlCategories = GetSubCategories(firstCategoryId.Value);
+                    secondLvlCategories.Insert(0, new SelectListItem());
+                    ViewBag.SecondLvlCategories = secondLvlCategories;
+                }
+
+                var model = buys
+                    .OrderByDescending(b => b.Id)
+                    .Skip(pageBar.SkipCount).Take(pageBar.PageSize)
+                    .ToList()
+                    .Select(b => new BuyListItemModel(b))
+                    .ToList();
+
+                ViewBag.PageBarModel = new PageBarModel()
+                {
+                    PageIndex = pageBar.PageIndex,
+                    PageSize = pageBar.PageSize,
+                    Total = buys.Count(),
+                    Url = Request.Url.ToString()
+                };
+
+                return View(model);
+            }
         }
+
+        private List<SelectListItem> GetSubCategories(int? categoryId)
+        {
+            if (categoryId == null)
+            {
+                return Db.Categories.Where(c => c.ParentCategory == null)
+                  .ToList().Select(c => new SelectListItem()
+                      {
+                          Text = c.Name,
+                          Value = c.Id.ToString()
+                      }).ToList();
+            }
+            else
+            {
+                var id = categoryId.Value;
+                var category = Db.Categories.Include("SubCategories")
+                    .First(c => c.Id == id);
+
+                var categories = category.SubCategories;
+
+                return categories.Select(c => new SelectListItem()
+                    {
+                        Text = c.Name,
+                        Value = c.Id.ToString(),
+                        Selected = c.Id == id
+                    }).ToList();
+            }
+        }
+
         public ActionResult Add(int categoryId)
         {
             using (Db)
