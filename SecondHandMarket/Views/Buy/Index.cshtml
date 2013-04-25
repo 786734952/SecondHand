@@ -49,11 +49,15 @@
       </div>
       <div class="info_detail">
         <table class="table">
+          <colgroup>
+            <col/>
+            <col style="width:160px; "/>
+          </colgroup>
           <tbody>
             @foreach (var buy in Model)
             {
               <tr>
-                <td><a href="@Url.Action("Detail", "Goods")?id=@buy.Id">@buy.Title</a></td>
+                <td><a href="@Url.Action("Detail", "Goods")?id=@buy.Id&type=1">@buy.Title</a></td>
                 <td>@buy.CreateTimeDesc</td>
               </tr>
             }

@@ -1,0 +1,53 @@
+﻿@{
+  ViewBag.Title = "实名认证信息";
+  Layout = "~/Views/Shared/_FGLayout.cshtml";
+}
+@section head{
+  <link href="@Url.Content("~/Content/pagecss/Release/index.less")" rel="stylesheet" />
+}
+<div class="content">
+  <div class="edit-title">
+    <h3>填写实名认证信息</h3>
+    <a class="btn" href="@Url.Action("Index", "User")">
+      <i class="icon-reply"></i>&nbsp;返回</a>
+  </div>
+  <div class="classify">
+    <form class="form-horizontal" style="margin-left: 0">
+      <div class="control-group">
+        <label class="control-label" for="">学号</label>
+        <div class="controls">
+          <input type="text" name="" id="" />
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="">身份证号</label>
+        <div class="controls">
+          <input type="text" name="" id="" />
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="">学生证图片</label>
+        <div class="controls">
+          <input type="file" name="" id="" />
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="">身份证图片正面</label>
+        <div class="controls">
+          <input type="file" name="" id="" />
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="">身份证图片反面</label>
+        <div class="controls">
+          <input type="file" name="" id="" />
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <button type="submit" class="btn btn-primary"><i class="icon-save">保存</i></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

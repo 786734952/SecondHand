@@ -31,5 +31,20 @@ namespace SecondHandMarket.Models
         /// 用户真实姓名
         /// </summary>
         public string RealName { get; set; }
+
+        /// <summary>
+        /// 性别, 1为男， 2为女
+        /// </summary>
+        public int Gender { get; set; }
+
+        /// <summary>
+        /// 入学时间
+        /// </summary>
+        public string EntranceTime { get; set; }
+
+        /// <summary>
+        /// 用户的实名认证信息
+        /// </summary>
+        public UserAuthentication Authentication { get; set; }
     }
 }

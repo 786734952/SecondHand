@@ -1,0 +1,100 @@
+﻿@using SecondHandMarket.ViewModels
+@model BuyEditModel
+@{
+  ViewBag.Title = "Edit";
+  Layout = "~/Views/Shared/_FGLayout.cshtml";
+}
+
+@section head{
+  <link href="@Url.Content("~/Content/pagecss/Release/index.less")" rel="stylesheet" />
+}
+<div class="content">
+  <div class="edit-title">
+    <h3>编辑求购信息</h3>
+    <a class="btn" href="@Url.Action("Buy", "User")?PageIndex=@Request["PageIndex"]&PageSize=@Request["PageSize"]">
+      <i class="icon-reply"></i>&nbsp;返回
+    </a>
+  </div>
+  <div class="classify">
+    @using (Html.BeginForm("Edit", "Buy", FormMethod.Post,
+                           new Dictionary<string, object>()
+                             {
+                               {"id", "buy-form"},
+                               {"class", "form-horizontal"}
+                             }))
+    {
+      @Html.HiddenFor(m => m.Id)
+      @Html.HiddenFor(m => m.Category.Id)
+      <div class="control-group">
+        <label class="control-label" for="">标题</label>
+        <div class="controls">
+          @Html.TextBoxFor(m => m.Title)
+          @Html.ValidationMessageFor(m => m.Title)
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="">预期价格</label>
+        <div class="controls">
+          @Html.TextBoxFor(m => m.Price)<span>元</span>
+          @Html.ValidationMessageFor(m => m.Price)
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="">描述</label>
+        <div class="controls">
+          @Html.TextAreaFor(m => m.Description, new Dictionary<string, object>()
+            {
+              {"row", "3"}
+            })
+          @Html.ValidationMessageFor(m => m.Description)
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="">地点</label>
+        <div class="controls">
+          @Html.DropDownList("first", Model.FirstLvlAddr, new Dictionary<string, object>()
+            {
+              {"class", "span2"}
+            })
+          @Html.DropDownListFor(m => m.AddressId, Model.SecondLvlAddr,
+                                new Dictionary<string, object>()
+                                  {
+                                    {"class", "span2"}
+                                  })
+          @Html.ValidationMessageFor(m => m.AddressId)
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="">联系电话</label>
+        <div class="controls">
+          @Html.TextBoxFor(m => m.Mobile)
+          @Html.ValidationMessageFor(m => m.Mobile)
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="">QQ号</label>
+        <div class="controls">
+          @Html.TextBoxFor(m => m.QQ)
+          @Html.ValidationMessageFor(m => m.QQ)
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <button type="submit" class="btn btn-primary">
+            <i class="icon-save"></i>&nbsp;保存</button>
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+@section scripts
+{
+  <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
+  <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+  <script>
+    $(function() {
+      $('#buy-form').validate();
+    })
+  </script>
+}

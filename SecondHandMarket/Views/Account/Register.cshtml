@@ -20,7 +20,8 @@
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new Dictionary<string, object>()
 {
-  {"class","form-horizontal"}
+  {"class","form-horizontal"},
+  {"autocomplete", "off"}
 }))
 {
     @Html.ValidationSummary(true, "帐户创建不成功。请更正错误并重试。")
@@ -56,24 +57,6 @@
                 @Html.ValidationMessageFor(m => m.ConfirmPassword)
               </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="">身份证图片正面</label>
-            <div class="controls">
-              <input type="file" name="" id=""/>
-            </div>
-       </div>
-       <div class="control-group">
-          <label class="control-label" for="">身份证图片反面</label>
-          <div class="controls">
-            <input type="file" name="" id="" />
-          </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label" for="">学生证图片</label>
-        <div class="controls">
-          <input type="file" name="" id="" />
-        </div>
-      </div>
      <div class="control-group">
         <label class="control-label" for="">校验码</label>
         <div class="controls">

@@ -112,6 +112,95 @@ namespace SecondHandMarket.ViewModels
         }
     }
 
+    public class BuyEditModel
+    {
+        public BuyEditModel()
+        {
+            
+        }
+        public BuyEditModel(Buy buy)
+        {
+            Id = buy.Id;
+            Category = buy.Category;
+            Title = buy.Name;
+            Price = buy.Price;
+            Description = buy.Description;
+            AddressId = buy.Place.Id;
+            Mobile = buy.Mobile;
+            QQ = buy.QQ;
+        }
+
+        [Required]
+        public int Id { get; set; }
+
+        [Required]
+        public Category Category { get; set; }
+
+        [Required]
+        [DisplayName("标题")]
+        public string Title { get; set; }
+
+        [Required]
+        [DisplayName("期望价格")]
+        public decimal Price { get; set; }
+
+        [DisplayName("描述")]
+        public string Description { get; set; }
+
+        public List<SelectListItem> FirstLvlAddr { get; private set; }
+
+        [Required]
+        [DisplayName("交易地点")]
+        public int AddressId { get; set; }
+
+        public List<SelectListItem> SecondLvlAddr { get; private set; }
+
+        [Required]
+        [DisplayName("联系电话")]
+        public string Mobile { get; set; }
+
+        [DisplayName("QQ")]
+        public string QQ { get; set; }
+
+        public BuyEditModel Prepare(MarketContext db)
+        {
+            var addrId = AddressId;
+            var address = db.Addresses.Include("ParentAddress.SubAddresses").First(a => a.Id == addrId);
+            FirstLvlAddr = db.Addresses.Where(a => a.ParentAddress == null).ToList()
+                             .Select(a => new SelectListItem()
+                                 {
+                                     Selected = a.Id == address.ParentAddress.Id,
+                                     Text = a.Name,
+                                     Value = a.Id.ToString()
+                                 })
+                             .ToList();
+
+            SecondLvlAddr = address.ParentAddress.SubAddresses
+                                   .Select(a => new SelectListItem()
+                                       {
+                                           Selected = a.Id == addrId,
+                                           Text = a.Name,
+                                           Value = a.Id.ToString()
+                                       })
+                                   .ToList();
+
+            return this;
+        }
+
+        public Buy Update(MarketContext db)
+        {
+            var model = db.Buys.First(b => b.Id == Id);
+            model.Name = Title;
+            model.Price = Price;
+            model.Description = Description;
+            model.Place = db.Addresses.Find(AddressId);
+            model.Mobile = Mobile;
+            model.QQ = QQ;
+
+            return model;
+        }
+    }
+
     public class BuyListItemModel
     {
         public BuyListItemModel(Buy buy)

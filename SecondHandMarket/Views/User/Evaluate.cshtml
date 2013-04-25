@@ -1,13 +1,13 @@
 ﻿@{
-    ViewBag.Title = "Evaluate";
-    Layout = "~/Views/Shared/_FGLayout.cshtml";
+  ViewBag.Title = "Evaluate";
+  Layout = "~/Views/Shared/_FGLayout.cshtml";
 }
 @section head
 {
   <link href="@Url.Content("~/Content/pagecss/User/index.less")" rel="stylesheet" />
 }
 
-<div class="content">
+<div class="content" >
   <div class="title">
     <h3>**的个人资料</h3>
   </div>
@@ -31,22 +31,43 @@
       </tbody>
     </table>
     <div class="remark">
-      <h3>我要评价</h3>
-      <div class="remark-survey">
-        <label class="radio">
+      <form action="">
+        <h3>我要评价</h3>
+      <div class="remark-survey" style="margin-left:20px">
+        <label class="radio good">
           <input type="radio" name="evaluate" value="" />
-          <i class="icon icon-good"></i>
+          <a data-toggle="tooltip" data-placement="bottom" title="好评" >
+            <i class="icon icon-good"></i></a>
         </label>
-        <label class="radio">
+        <label class="radio center">
           <input type="radio" name="evaluate" value="" />
-          <i class="icon icon-center"></i>
+          <a data-toggle="tooltip" data-placement="bottom" title="中评" >
+            <i class="icon icon-center"></i>
+          </a>
         </label>
-        <label class="radio">
+        <label class="radio bad">
           <input type="radio" name="evaluate" value="" />
-          <i class="icon icon-bad"></i>
+          <a data-toggle="tooltip" data-placement="bottom" data-original-title="差评">
+            <i class="icon icon-bad"></i>
+          </a>
         </label>
       </div>
+      <div class="remark-detail">
+        <h4>详细评价</h4>
+        <div>
+          <textarea rows="10" style="width:580px"></textarea>
+        </div>
+      </div>
+       <button type="submit" class="btn btn-primary" style="text-align:center">
+         <i class="icon-ok"></i>&nbsp;提交
+       </button>
+      </form>
+      
     </div>
-
   </div>
 </div>
+@section scripts{
+  <script>
+    $("[data-toggle=tooltip]").tooltip();
+  </script>
+}

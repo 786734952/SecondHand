@@ -127,9 +127,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201304240659539_aaa.cs" />
-    <Compile Include="Migrations\201304240659539_aaa.Designer.cs">
-      <DependentUpon>201304240659539_aaa.cs</DependentUpon>
+    <Compile Include="Migrations\201304251519553_ad.cs" />
+    <Compile Include="Migrations\201304251519553_ad.Designer.cs">
+      <DependentUpon>201304251519553_ad.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -141,6 +141,7 @@
     <Compile Include="Models\Pictures.cs" />
     <Compile Include="Models\Release.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserAuthentication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AddressViewModel.cs" />
     <Compile Include="ViewModels\BuyViewModel.cs" />
@@ -326,6 +327,9 @@
     <Content Include="Views\User\Evaluate.cshtml" />
     <Content Include="Views\Shared\_PageBar.cshtml" />
     <Content Include="Views\Release\Edit.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\Buy\Edit.cshtml" />
+    <Content Include="Views\User\Authenticate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -336,8 +340,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201304240659539_aaa.resx">
-      <DependentUpon>201304240659539_aaa.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201304251519553_ad.resx">
+      <DependentUpon>201304251519553_ad.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

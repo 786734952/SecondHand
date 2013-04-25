@@ -52,6 +52,11 @@ namespace SecondHandMarket.Models
         public DbSet<User> UserInfo { get; set; }
 
         /// <summary>
+        /// 实名认证信息
+        /// </summary>
+        public DbSet<UserAuthentication> Authentications { get; set; }
+
+        /// <summary>
         /// 交易地址
         /// </summary>
         public DbSet<Address> Addresses { get; set; }

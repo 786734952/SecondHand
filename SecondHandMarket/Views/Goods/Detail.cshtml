@@ -33,7 +33,7 @@
         <ul>
           <li><span>价格：@(Model.Price)元</span></li>
           <li><span>地点：@Model.TradePlace.ParentAddress.Name @Model.TradePlace.Name</span></li>
-          <li><span>联系人：</span><a href="@Url.Action("Index", "User")"><span>@Model.UserName</span></a></li>
+          <li><span>联系人：</span><a href="@Url.Action("Evaluate", "User")"><span>@Model.UserName</span></a></li>
           <li><span>联系电话：@Model.Mobile</span></li>
           <li><span>QQ号：@Model.QQ</span></li>
         </ul>

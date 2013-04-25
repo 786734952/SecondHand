@@ -15,6 +15,17 @@
 	padding:10px;
 	border-top: 5px solid #52A82B;
 	margin-top:20px;
+
+	.title{
+		h3{
+			display:inline-block;
+		}
+		.edit{
+			display:inline-block;
+			vertical-align:4px;
+			margin-left:50px;
+		}
+	}
 }
 .layout-left ul{
 	list-style:none;
@@ -28,14 +39,11 @@
 		}
 	}
 }
-.layout-right button{
-	margin-left:30px;
-}
+
 .table{
 	border: 1px solid #DDD;
 }
 .userinfo-head{
-	height:94px;
 	font-size:18px;
 
 		ul{
@@ -62,6 +70,10 @@
 }
 .evaluate .remark{
 	.remark-survey{
+		label{
+			display:inline-block;
+			margin-right:50px;
+		}
 		.icon{
 			background-image: url(../../images/evalute.png);
 			display:inline-block;
@@ -72,10 +84,15 @@
 		.icon-good{
 			background-position:0 -35px;
 		}
+
+		.icon-center{
+			background-position:0 -71px;
+		}
 	}
 }
 
 .manage li.active a
 {
     color: #52a82b !important;
+    text-decoration: none;
 }

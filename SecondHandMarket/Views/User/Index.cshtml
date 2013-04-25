@@ -12,7 +12,7 @@
    <div class="layout-left">
     <div class="manage">
       <ul>
-        <li><a href="@Url.Action("Index")"><i class="icon-user"></i>&nbsp;我的个人资料</a></li>
+        <li class="active"><a href="@Url.Action("Index")"><i class="icon-user"></i>&nbsp;我的个人资料</a></li>
         <li><a href="@Url.Action("Release")"><i class="icon-file"></i>&nbsp;我发布的信息</a></li>
         <li><a href="@Url.Action("Buy")"><i class="icon-edit"></i>&nbsp;我求购的信息</a></li>
         <li><a href="@Url.Action("Collect")"><i class="icon-book"></i>&nbsp;我收藏的信息</a></li>
@@ -22,12 +22,28 @@
   <div class="layout-right">
     <div class="title">
       <h3>我的个人资料</h3>
+      <div class="edit">
+        <a href="@Url.Action("Authenticate","User")" role="button" class="btn btn-primary">
+          <i class="icon-user"></i>&nbsp;实名认证
+        </a>
+        <a href="@Url.Action("Edit","User")" role="button" class="btn">
+          <i class="icon-edit"></i>&nbsp;编辑个人信息
+        </a>
+        <a href="@Url.Action("ChangePassword", "Account")" class="btn">
+          修改密码
+        </a>
+      </div>
     </div>
   <div class="userinfo-head">
       <ul>
         <li>用户名：11111</li>
         <li>注册时间：2013-01-01</li>
         <li>认证信息：实名已认证 &nbsp;<i></i></li>
+        <li>真实姓名：afadf</li>
+        <li>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：男</li>
+        <li>电子邮件：1234の4</li>
+        <li>联系电话：1112333</li>
+        <li>入学时间：2011-09-01</li>
       </ul>
   </div>
   <div class="evaluate">
@@ -43,4 +59,5 @@
       </tbody>
     </table>
   </div>
+</div>
 </div>

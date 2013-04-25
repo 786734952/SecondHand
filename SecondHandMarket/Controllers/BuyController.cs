@@ -161,5 +161,35 @@ namespace SecondHandMarket.Controllers
             }
             return View();
         }
+
+        public ActionResult Edit(int id)
+        {
+            using (Db)
+            {
+                var buy = Db.Buys
+                    .Include("Category")
+                    .Include("Place")
+                    .First(b => b.Id == id);
+                var model = new BuyEditModel(buy);
+
+                return View(model.Prepare(Db));
+            }
+        }
+
+        [HttpPost]
+        [IgnoreModelErrors("Category.*")]
+        public ActionResult Edit(BuyEditModel buy)
+        {
+            if (ModelState.IsValid)
+            {
+                using (Db)
+                {
+                    var model = buy.Update(Db);
+                    Db.SaveChanges();
+                }
+                return Content("修改成功");
+            }
+            return Content("修改失败");
+        }
     }
 }

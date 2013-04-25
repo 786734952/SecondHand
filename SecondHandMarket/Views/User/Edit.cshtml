@@ -1,0 +1,66 @@
+﻿@{
+  ViewBag.Title = "编辑个人资料";
+  Layout = "~/Views/Shared/_FGLayout.cshtml";
+}
+@section head{
+  <link href="@Url.Content("~/Content/pagecss/Release/index.less")" rel="stylesheet" />
+}
+<div class="content">
+  <div class="edit-title">
+    <h3>修改个人信息</h3>
+    <a class="btn" href="@Url.Action("Index", "User")">
+      <i class="icon-reply"></i>&nbsp;返回</a>
+  </div>
+  <div class="classify">
+    <form class="form-horizontal" style="margin-left: 0">
+      <div class="control-group">
+        <label class="control-label" for="">真实姓名</label>
+        <div class="controls">
+          <input type="text" />
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="">性别</label>
+        <div class="controls">
+          <label class="radio inline">
+            <input type="radio" name="gender" id="" value="" />
+            男
+          </label>
+          <label class="radio inline">
+            <input type="radio" name="gender" id="" value="" />
+            女
+          </label>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="">电子邮件</label>
+        <div class="controls">
+          <input class="email" />
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="">联系电话</label>
+        <div class="controls">
+          <input class="tel" />
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="">QQ</label>
+        <div class="controls">
+          <input class="tel" />
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="">入学时间</label>
+        <div class="controls">
+          <input type="date" />
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <button type="submit" class="btn btn-primary"><i class="icon-save">保存</i></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -54,7 +54,11 @@
   </style>
 }
 <div class="content">
-  <h3>编辑发布信息</h3>
+  <div class="edit-title">
+    <h3>编辑发布信息</h3>
+    <a class="btn" href="@Url.Action("Release", "User")">
+      <i class="icon-reply"></i>&nbsp;返回</a>
+  </div>
 <div class="classify">
   @using (Html.BeginForm("Edit", "Release", FormMethod.Post, new Dictionary<string, object>()
     {
@@ -193,11 +197,7 @@
         $(this).parent().append('<input type="file" class="addFile" name="' + new Date() + '"/>').
           find('.addFile').css('display', 'block');
       });
-      $('#release-form').validate({
-        submitHandler: function (form) {
-
-        }
-      });
+      $('#release-form').validate();
     });
   </script>
 

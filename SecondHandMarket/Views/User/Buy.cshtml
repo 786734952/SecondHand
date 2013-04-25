@@ -1,59 +1,89 @@
-﻿@{
-    ViewBag.Title = "用户中心";
-    Layout = "~/Views/Shared/_FGLayout.cshtml";
+﻿@using SecondHandMarket.ViewModels
+@model List<BuyListItemModel>
+@{
+  ViewBag.Title = "用户中心";
+  Layout = "~/Views/Shared/_FGLayout.cshtml";
+  var pageBarModel = ViewBag.PageBarModel as PageBarModel;
 }
-<header>
+@section head{
   <link href="@Url.Content("~/Content/pagecss/User/index.less")" rel="stylesheet" />
-</header>
+}
 
 <div class="content">
   <div class="layout-left">
     <div class="manage">
       <ul>
-        <li><a href="./Index"><i class="icon-user"></i>&nbsp;我的个人资料</a></li>
-        <li><a href="./Release"><i class="icon-file"></i>&nbsp;我发布的信息</a></li>
-        <li><a href="./Buy"><i class="icon-edit"></i>&nbsp;我求购的信息</a></li>
-        <li><a href="./Collect"><i class="icon-book"></i>&nbsp;我收藏的信息</a></li>
+        <li><a href="@Url.Action("Index")"><i class="icon-user"></i>&nbsp;我的个人资料</a></li>
+        <li><a href="@Url.Action("Release")"><i class="icon-file"></i>&nbsp;我发布的信息</a></li>
+        <li class="active"><a><i class="icon-edit"></i>&nbsp;我求购的信息</a></li>
+        <li><a href="@Url.Action("Collect")"><i class="icon-book"></i>&nbsp;我收藏的信息</a></li>
       </ul>
     </div>
   </div>
   <div class="layout-right">
-    <div class="title">
-      <h3>我的求购</h3>
-    </div>
-    <div class="detail">
-      <table class="table">
-        <tbody>
-          <tr>
-            <td>
-              <label class="checkbox">
-                <input type="checkbox" id="" value=""/>
-              </label>
-            </td>
-            <td><a href="../Goods/Detail">四大名著 全套四册 全新 低价转让 - 30元</a></td>
-            <td><button class="btn btn-mini btn-warning">
-              <i class="icon-trash"></i>
-              删除</button></td>
-          </tr>
-          <tr>
-            <td>
-              <label class="checkbox">
-                <input type="checkbox" id="" value=""/>
-              </label>
-            </td>
-            <td><a href="../Goods/Detail">四大名著 全套四册 全新 低价转让 - 30元</a></td>
-            <td><button class="btn btn-mini btn-warning">
-              <i class="icon-trash"></i>
-              删除</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="del">
-      <label class="checkbox inline">
-        <input type="checkbox"/>全选
-      </label>
-      <button class="btn btn-warning"><i class="icon-trash"></i>删除</button>
-    </div>
+    <form action="@Url.Action("DeleteBuys")" method="post">
+      <div class="title">
+        <h3>我的求购</h3>
+      </div>
+      <div class="detail">
+        <table class="table">
+          <colgroup>
+            <col style="width:46px"/>
+            <col/>
+            <col style="width:150px" />
+            <col style="width:72px" />
+          </colgroup>
+          <tbody>
+            @foreach (var buy in Model)
+            {
+              <tr>
+                <td>
+                  <label class="checkbox">
+                    <input type="checkbox" name="buysId" value="@buy.Id"/>
+                  </label>
+                </td>
+                <td><a href="@Url.Action("Detail", "Goods")?id=@(buy.Id)&type=1">@buy.Title</a></td>
+                <td>@buy.CreateTimeDesc</td>
+                <td>
+                  <a class="btn btn-mini" href="@Url.Action("Edit", "Buy")?id=@buy.Id">
+                    <i class="icon-pencil"></i>&nbsp;修改
+                  </a>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+          @Html.Partial("_PageBar", pageBarModel)
+      </div>
+      <div class="del clearfix">
+        <button type="submit" class="btn btn-warning pull-right">
+          <i class="icon-trash"></i>删除
+        </button>
+      </div>
+    </form>
   </div>
 </div>
+
+@section scripts
+{
+  <script src="@Url.Content("~/Scripts/noty/jquery.noty.js")"></script>
+  <script src="@Url.Content("~/Scripts/noty/layouts/top.js")"></script>
+  <script src="@Url.Content("~/Scripts/noty/themes/default.js")"></script>
+  <script>
+    var msg = "@TempData["SuccessMsg"]";
+    if (msg) {
+      $noty = noty({
+        layout: 'top',
+        type: 'success',
+        text: msg,
+        callback: {
+          afterShow: function () {
+            setTimeout(function() {
+              $noty.close();
+            }, 2500);
+          }
+        }
+      });
+    }
+  </script>
+}

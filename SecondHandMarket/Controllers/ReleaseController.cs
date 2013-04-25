@@ -149,9 +149,6 @@ namespace SecondHandMarket.Controllers
                 {
                     model = release.Update(Db);
                     Db.SaveChanges();
-
-                    var campuses = Db.Addresses.Where(a => a.ParentAddress == null).ToList();
-                    ViewBag.Campuses = campuses;
                 }
 
                 if (Request.Files.Count > 0)

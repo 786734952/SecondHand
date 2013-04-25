@@ -12,11 +12,11 @@ namespace SecondHandMarket.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string Description { get; set; }
-        public Address Place { get; set; }
+        public virtual Address Place { get; set; }
         public string Mobile { get; set; }
         public string QQ { get; set; }
         public DateTime CreateTime { get; set; }
