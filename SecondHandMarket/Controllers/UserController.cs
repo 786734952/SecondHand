@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SecondHandMarket.Models;
 using SecondHandMarket.ViewModels;
 
 namespace SecondHandMarket.Controllers
@@ -15,7 +16,15 @@ namespace SecondHandMarket.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            using (Db)
+            {
+                var userName = User.Identity.Name;
+
+                var user = Db.UserInfo.Include("Authentication").FirstOrDefault(u => u.UserName == userName);
+
+                var model = new UserDetailModel(user, userName);
+                return View(model.Prepare(Db));
+            }
         }
         public ActionResult Buy(PageBarModel pageBar)
         {
@@ -131,7 +140,39 @@ namespace SecondHandMarket.Controllers
         }
         public ActionResult Edit()
         {
-            return View();
+            var userName = User.Identity.Name;
+            using (Db)
+            {
+                var user = Db.UserInfo.FirstOrDefault(u => u.UserName == userName);
+                return View(new UserEditModel(user, userName));
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Edit(UserEditModel user)
+        {
+            if (ModelState.IsValid)
+            {
+                using (Db)
+                {
+                    var userName = user.UserName;
+                    var model = Db.UserInfo.FirstOrDefault(u => u.UserName == userName);
+                    if (model == null)
+                    {
+                        model = new User();
+                        Db.UserInfo.Add(model);
+                    }
+                    model.EntranceYear = user.EntranceYear;
+                    model.Gender = user.Gender;
+                    model.Mobile = user.Mobile;
+                    model.QQ = user.QQ;
+                    model.RealName = user.RealName;
+                    model.UserName = user.UserName;
+                    Db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            return View(user);
         }
 
         public ActionResult Authenticate()

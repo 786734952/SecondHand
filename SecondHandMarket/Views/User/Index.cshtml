@@ -1,4 +1,5 @@
-﻿@{
+﻿@model SecondHandMarket.ViewModels.UserDetailModel
+@{
     ViewBag.Title = "用户中心";
     Layout = "~/Views/Shared/_FGLayout.cshtml";
 }
@@ -36,19 +37,20 @@
     </div>
   <div class="userinfo-head">
       <ul>
-        <li>用户名：11111</li>
-        <li>注册时间：2013-01-01</li>
-        <li>认证信息：实名已认证 &nbsp;<i></i></li>
-        <li>真实姓名：afadf</li>
-        <li>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：男</li>
-        <li>电子邮件：1234の4</li>
-        <li>联系电话：1112333</li>
-        <li>入学时间：2011-09-01</li>
+        <li>用户名：@Model.UserName</li>
+        <li>注册时间：@Model.CreateTime.ToString("yyyy-MM-dd HH点")
+        </li>
+        <li>认证信息：@(Model.IsAuthenticated?"实名已认证":"") &nbsp;<i></i></li>
+        <li>真实姓名：@Model.RealName</li>
+        <li>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：@Model.Gender</li>
+        <li>电子邮件：@Model.Email</li>
+        <li>联系电话：@Model.Mobile</li>
+        <li>入学时间：@Model.EntranceYear 年</li>
       </ul>
   </div>
   <div class="evaluate">
     <h3>我的信用</h3>
-    <span>好评率：好评 &nbsp 0 &nbsp;条，中评 &nbsp; 1 &nbsp;条，差评 &nbsp; 0 &nbsp; 条</span>
+    <span>好评率：好评 &nbsp @Model.Lvl1Count &nbsp;条，中评 &nbsp; @Model.Lvl2Count &nbsp;条，差评 &nbsp; @Model.Lvl3Count &nbsp; 条</span>
     <h3>详细评价</h3>
     <table class="table">
       <tbody>

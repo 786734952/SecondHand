@@ -38,13 +38,13 @@ namespace SecondHandMarket.Models
         public int Gender { get; set; }
 
         /// <summary>
-        /// 入学时间
+        /// 入学年份
         /// </summary>
-        public string EntranceTime { get; set; }
+        public string EntranceYear { get; set; }
 
         /// <summary>
         /// 用户的实名认证信息
         /// </summary>
-        public UserAuthentication Authentication { get; set; }
+        public virtual UserAuthentication Authentication { get; set; }
     }
 }

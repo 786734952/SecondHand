@@ -111,6 +111,7 @@
   <ItemGroup>
     <Compile Include="Attribute\IgnoreModelErrorsAttribute.cs" />
     <Compile Include="common\DateTimeHelper.cs" />
+    <Compile Include="common\SecurityHelper.cs" />
     <Compile Include="common\ValidateCode.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
@@ -127,9 +128,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201304251519553_ad.cs" />
-    <Compile Include="Migrations\201304251519553_ad.Designer.cs">
-      <DependentUpon>201304251519553_ad.cs</DependentUpon>
+    <Compile Include="Migrations\201304261548100_dggg.cs" />
+    <Compile Include="Migrations\201304261548100_dggg.Designer.cs">
+      <DependentUpon>201304261548100_dggg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201304261643243_dgdds.cs" />
+    <Compile Include="Migrations\201304261643243_dgdds.Designer.cs">
+      <DependentUpon>201304261643243_dgdds.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -140,6 +145,7 @@
     <Compile Include="Models\MarketContext.cs" />
     <Compile Include="Models\Pictures.cs" />
     <Compile Include="Models\Release.cs" />
+    <Compile Include="Models\Reputation.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserAuthentication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -149,6 +155,7 @@
     <Compile Include="ViewModels\OkModel.cs" />
     <Compile Include="ViewModels\PageBarModel.cs" />
     <Compile Include="ViewModels\ReleaseViewModel.cs" />
+    <Compile Include="ViewModels\UserModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-responsive.css" />
@@ -189,6 +196,7 @@
     <Content Include="Content\images\preview11.jpg" />
     <Content Include="Content\images\raindrops2.png" />
     <Content Include="Content\images\raindrops3.png" />
+    <Content Include="Content\template\EmailConfirmation.html" />
     <Content Include="Global.asax" />
     <Content Include="Content\less\wells.less" />
     <Content Include="Content\less\variables.less" />
@@ -330,6 +338,10 @@
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\Buy\Edit.cshtml" />
     <Content Include="Views\User\Authenticate.cshtml" />
+    <Content Include="Views\Account\verify_first_step.cshtml" />
+    <Content Include="Views\Account\verify_second_step.cshtml" />
+    <Content Include="Views\Account\verify_third_step.cshtml" />
+    <Content Include="Views\Account\verify_ok_step.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -340,8 +352,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201304251519553_ad.resx">
-      <DependentUpon>201304251519553_ad.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201304261548100_dggg.resx">
+      <DependentUpon>201304261548100_dggg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304261643243_dgdds.resx">
+      <DependentUpon>201304261643243_dgdds.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

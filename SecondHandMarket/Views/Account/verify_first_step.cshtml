@@ -1,0 +1,65 @@
+﻿@{
+  ViewBag.Title = "verify";
+  Layout = "~/Views/Shared/_LayoutWithoutHead.cshtml";
+}
+
+@section head{
+  <link href="@Url.Content("~/Content/pagecss/Release/index.less")" rel="stylesheet" />
+  <style>
+    .process .step {
+      width: 240px;
+    }
+
+    .rectangle {
+      width: 170px;
+    }
+
+    .step a {
+      margin-left: -168px;
+    }
+  </style>
+}
+
+<div class="content">
+  <h3>找回密码</h3>
+  <div class="process">
+    <div class="step1 step active">
+      <div class="rectangle"></div>
+      <div class="right-triangle"></div>
+      <a href="#">
+        <span>输入用户名</span>
+      </a>
+    </div>
+    <div class="step2 step">
+      <div class="right-triangle transparent"></div>
+      <div class="rectangle unactive"></div>
+      <div class="right-triangle unactive"></div>
+      <a href="#">
+        <span>验证身份</span>
+      </a>
+    </div>
+    <div class="step2 step">
+      <div class="right-triangle transparent"></div>
+      <div class="rectangle unactive"></div>
+      <div class="right-triangle unactive"></div>
+      <a href="#">
+        <span>重置密码</span>
+      </a>
+    </div>
+    <div class="step3 step">
+      <div class="right-triangle transparent"></div>
+      <div class="rectangle unactive" style="width: 240px"></div>
+      <a href="#">
+        <span>完成</span>
+      </a>
+    </div>
+  </div>
+  <div class="title">
+    <span><i class="icon-info-sign"></i>&nbsp;选择大类</span>
+  </div>
+  <div class="classify">
+    <form action="">
+
+    </form>
+  </div>
+</div>

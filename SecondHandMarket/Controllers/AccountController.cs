@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using SecondHandMarket.Models;
+using SecondHandMarket.common;
 
 namespace SecondHandMarket.Controllers
 {
@@ -28,6 +34,19 @@ namespace SecondHandMarket.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = Membership.GetUser(model.UserName);
+                if (user != null)
+                {
+                    if (!user.IsApproved)
+                    {
+                        TempData["ErrorMsg"] =
+                            string.Format("账号未激活，请查收激活邮件。没有收到邮件？<a href='{0}'>点击发送激活邮件</a>",
+                                          Url.Action("SendConfirmationEmail") + "?u=" +
+                                          SecurityHelper.TripleDESCrypto(model.UserName));
+                        return RedirectToAction("LogOn");
+                    }
+                }
+
                 if (Membership.ValidateUser(model.UserName, model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
@@ -79,12 +98,16 @@ namespace SecondHandMarket.Controllers
             {
                 // 尝试注册用户
                 MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
+                var user = Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, false, null, out createStatus);
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                    return RedirectToAction("Index", "Home");
+
+                    SendConfirmationEmail(user);
+
+                    TempData["SuccessMsg"] = "激活邮件已经发送，请前往邮箱查收";
+                    return RedirectToAction("Logon", "Account");
                 }
                 else
                 {
@@ -96,9 +119,56 @@ namespace SecondHandMarket.Controllers
             return View(model);
         }
 
+        public ActionResult SendConfirmationEmail(string u)
+        {
+            if (!string.IsNullOrWhiteSpace(u))
+            {
+                var userName = SecurityHelper.TripleDESCryptoDe(u);
+                var user = Membership.GetUser(userName);
+                SendConfirmationEmail(user);
+
+                TempData["SuccessMsg"] = "激活邮件已经发送，请前往邮箱查收";
+                return RedirectToAction("LogOn", "Account");
+            }
+
+            return Content("Error");
+        }
+
+        private void SendConfirmationEmail(MembershipUser user)
+        {
+            var email = user.Email;
+            var smtp = new SmtpClient("smtp.163.com", 25);
+            smtp.Credentials = new NetworkCredential("secondhandmarket@163.com", "second123456");
+            var message = new MailMessage();
+            message.From = new MailAddress("secondhandmarket@163.com", "admin");
+            message.To.Add(email);
+            message.BodyEncoding = Encoding.UTF8;
+            message.IsBodyHtml = true;
+            message.Body = GetConfirmationBody(user, email);
+            message.Subject = "二手交易平台账号注册确认";
+            message.SubjectEncoding = Encoding.UTF8;
+
+            new Task(() =>
+                {
+                    smtp.SendMailAsync(message);
+                }).Start();
+        }
+
+        private string GetConfirmationBody(MembershipUser user, string email)
+        {
+            var emailTpl = System.IO.File.ReadAllText(Server.MapPath("~/Content/template/EmailConfirmation.html"));
+            var token = SecurityHelper.TripleDESCrypto(email + "||" + user.UserName + "||" + new Random().NextDouble());
+
+            var url = Request.Url.Scheme + "://" + Request.Url.Authority +
+                      Url.Action("Confirmation", "Account") +
+                      string.Format("?token={0}", token);
+
+            var body = string.Format(emailTpl, user.UserName, url);
+            return body;
+        }
+
         //
         // GET: /Account/ChangePassword
-
         [Authorize]
         public ActionResult ChangePassword()
         {
@@ -114,7 +184,6 @@ namespace SecondHandMarket.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 // 在某些出错情况下，ChangePassword 将引发异常，
                 // 而不是返回 false。
                 bool changePasswordSucceeded;
@@ -150,6 +219,22 @@ namespace SecondHandMarket.Controllers
             return View();
         }
 
+        public ActionResult verify_first_step()
+        {
+            return View();
+        }
+        public ActionResult verify_second_step()
+        {
+            return View();
+        }
+        public ActionResult verify_third_step()
+        {
+            return View();
+        }
+        public ActionResult verify_ok_step()
+        {
+            return View();
+        }
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {
@@ -189,5 +274,41 @@ namespace SecondHandMarket.Controllers
             }
         }
         #endregion
+
+        public ActionResult Confirmation(string token)
+        {
+            if (!string.IsNullOrWhiteSpace(token))
+            {
+                token = SecurityHelper.TripleDESCryptoDe(token);
+                var infos = token.Split(new string[] { "||" }, StringSplitOptions.RemoveEmptyEntries);
+                var email = infos[0];
+                var userName = infos[1];
+
+                var user = Membership.GetUser(userName);
+                if (!user.IsApproved)
+                {
+                    if (user.Email == email)
+                    {
+                        user.IsApproved = true;
+                        Membership.UpdateUser(user);
+                        TempData["SuccessMsg"] = "账号激活成功，请登录";
+                        return RedirectToAction("LogOn");
+                    }
+                }
+                else
+                {
+                    return Content("该账号已经激活!");
+                }
+            }
+
+            return Content("");
+        }
+
+        public ActionResult ResetXXX(string userName)
+        {
+            var user = Membership.GetUser(userName);
+            var pwd = user.ResetPassword();
+            return Content(user.ChangePassword(pwd, "123456").ToString());
+        }
     }
 }

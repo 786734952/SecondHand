@@ -17,8 +17,16 @@
 </p>
 
 @Html.ValidationSummary(true, "登录不成功。请更正错误并重试。")
-
-@using (Html.BeginForm())
+  
+@if (TempData["SuccessMsg"] != null)
+{
+  <div class="alert alert-success">@Html.Raw(TempData["SuccessMsg"].ToString())</div>
+}
+@if (TempData["ErrorMsg"] != null)
+{
+  <div class="alert alert-error">@Html.Raw(TempData["ErrorMsg"].ToString())</div>
+}
+  @using (Html.BeginForm())
 {
   <div>
     <fieldset>
@@ -35,16 +43,16 @@
       <div class="editor-label">
         @Html.LabelFor(m => m.Password)
       </div>
-      <div class="editor-field">
+      <div class="editor-field" style="display:inline-block">
         @Html.PasswordFor(m => m.Password)
         @Html.ValidationMessageFor(m => m.Password)
       </div>
+      <a href="@Url.Action("verify_first_step")" style="margin-left:10px">忘记密码？</a>
 
       <div class="editor-label">
         @Html.CheckBoxFor(m => m.RememberMe)
         @Html.LabelFor(m => m.RememberMe)
       </div>
-
       <p>
         <button type="submit" class="btn">
           <i class="icon-user"></i>&nbsp;登录
