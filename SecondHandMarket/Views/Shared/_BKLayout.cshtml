@@ -2,6 +2,11 @@
   Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section head
+{
+  @RenderSection("head", false)
+}
+
 <div class="page">
   <div id="header">
     <div id="title">
@@ -15,6 +20,7 @@
         <li>@Html.ActionLink("主页", "Index", "Home")</li>
         <li>@Html.ActionLink("商品类别", "List", "Category")</li>
         <li>@Html.ActionLink("交易地址", "List", "Address")</li>
+        <li>@Html.ActionLink("实名认证管理", "List", "Authenticate")</li>
       </ul>
     </div>
   </div>

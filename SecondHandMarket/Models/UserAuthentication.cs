@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -13,17 +14,17 @@ namespace SecondHandMarket.Models
         /// <summary>
         /// 身份证正面
         /// </summary>
-        public Picture IDCard1 { get; set; }
+        public string IDCard1Path { get; set; }
 
         /// <summary>
         /// 身份证反面
         /// </summary>
-        public Picture IDCard2 { get; set; }
+        public string IDCard2Path { get; set; }
 
         /// <summary>
         /// 学生证照片
         /// </summary>
-        public Picture StudentCard { get; set; }
+        public string StudentCardPath { get; set; }
 
         /// <summary>
         /// 学号
@@ -39,5 +40,10 @@ namespace SecondHandMarket.Models
         /// 是否通过实名认证
         /// </summary>
         public bool IsAccepted { get; set; }
+
+        /// <summary>
+        /// 拒绝理由
+        /// </summary>
+        public string RejectReason { get; set; }
     }
 }

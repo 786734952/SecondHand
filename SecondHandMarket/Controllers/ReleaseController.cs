@@ -93,7 +93,7 @@ namespace SecondHandMarket.Controllers
 
         private List<Picture> SaveFiles(HttpFileCollectionBase files, Release model)
         {
-            var fileDir = "~/Asset/" + model.Id + "/";
+            var fileDir = "~/Asset/Release/" + model.Id + "/";
             var absFileDir = Server.MapPath(fileDir);
 
             if (!Directory.Exists(absFileDir))

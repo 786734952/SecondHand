@@ -1,0 +1,171 @@
+﻿@using SecondHandMarket.ViewModels
+@model List<AuthenticateDetailModel>
+@{
+  ViewBag.Title = "实名认证审核";
+  Layout = "~/Views/Shared/_BKLayout.cshtml";
+  var pageBar = ViewBag.PageBarModel as PageBarModel;
+  var includeAll = (bool)ViewBag.IncludeAll;
+  var routeValue = new
+    {
+      PageIndex = Request["PageIndex"],
+      PageSize = Request["PageSize"],
+      includeAll = Request["includeAll"]
+    };
+}
+
+@section head{
+  <style type="text/css">
+  tr.accept-true {
+    color: green;
+  }
+  </style>
+}
+
+<form method="GET">
+  <h1>实名认证信息审核
+  @if (includeAll)
+  {
+    <button type="submit" name="includeAll" value="false" class="btn active">
+      <i class="icon-ok"></i>&nbsp;所有审核信息列表
+    </button>
+  }
+  else
+  {
+    <button type="submit" name="includeAll" value="true" class="btn">
+      所有审核信息列表
+    </button>
+  }
+  </h1>
+</form>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>状态</th>
+      <th>姓名</th>
+      <th>学号</th>
+      <th>身份证号</th>
+      <th>学生证照片</th>
+      <th>身份证正面</th>
+      <th>身份证背面</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var au in Model)
+    {
+
+      <tr class="accept-@au.IsAccepted.ToString().ToLower()">
+        <td>
+          @if (au.IsAccepted)
+          {
+            <i class="icon-ok-sign"></i><text>&nbsp;已审核</text>
+          }
+          else if (!string.IsNullOrWhiteSpace(au.RejectMsg))
+          {
+            <a href="#" data-toggle="tooltip" title="@au.RejectMsg">已拒绝</a>
+          }
+          else
+          {
+            <a href="#" data-toggle="tooltip" title="未审核">未审核</a>
+          }
+        </td>
+        <td>@au.Name</td>
+        <td>@au.StudentNo</td>
+        <td>@au.IDCardNo</td>
+        <td>
+          <a href="@Url.Content(au.StudentCardPath)" target="_blank">
+            <img src="@Url.Content(au.StudentCardPath)?width=50&height=32"/>
+          </a>
+        </td>
+        <td>
+          <a href="@Url.Content(au.IDCard1Path)" target="_blank">
+            <img src="@Url.Content(au.IDCard1Path)?width=50&height=32"/>
+          </a>
+        </td>
+        <td>
+          <a href="@Url.Content(au.IDCard2Path)" target="_blank">
+            <img src="@Url.Content(au.IDCard2Path)?width=50&height=32"/>
+          </a>
+        </td>
+        <td>
+          <div class="btn-group">
+            <a href="#acceptForm" class="btn btn-mini @(au.IsAccepted?"disabled":"")" data-value="@au.Id">
+              <i class="icon-ok-circle"></i>&nbsp;通过
+            </a>
+            <a href="#rejectForm" class="btn btn-mini btn-danger" data-value="@au.Id">
+              <i class="icon-reply"></i>&nbsp;拒绝
+            </a>
+          </div>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<form id="rejectForm" class="modal hide fade" method="POST"
+  action="@Url.Action("Reject", routeValue)">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>拒绝理由</h3>
+  </div>
+  <div class="modal-body">
+    <input type="hidden" name="id" />
+    <p>
+      请填写拒绝理由，以便用户修改认证资料
+    </p>
+    <textarea name="msg" style="width: 520px; height: 80px;"></textarea>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">取消</a>
+    <button type="submit" class="btn btn-danger">
+      <i class="icon-ok-circle"></i>&nbsp;提交
+    </button>
+  </div>
+</form>
+
+<form id="acceptForm" class="modal hide fade" method="POST"
+  action="@Url.Action("Accept", routeValue)">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>认证资料审核</h3>
+  </div>
+  <div class="modal-body">
+    <input type="hidden" name="id" />
+    <p>
+      确定要审核通过该条记录吗？
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">取消</a>
+    <button type="submit" class="btn btn-primary">
+      <i class="icon-ok-circle"></i>&nbsp;提交
+    </button>
+  </div>
+</form>
+
+@Html.Partial("_PageBar", pageBar)
+
+@section scripts
+{
+  <script>
+    $(function() {
+      $('[data-toggle="tooltip"]').tooltip();
+    })
+    $('table').on('click', ':not(td .btn.disabled)', function() {
+      var $btn = $(this);
+      var $form = $($btn.attr('href'));
+      $form.find('[name=id]').val($btn.data('value'));
+      $form.modal();
+    });
+
+    $('#rejectForm').on('submit', function(e) {
+      var $msg = $('[name=msg]');
+      if (!$.trim($msg.val())) {
+        $msg.focus();
+        e.preventDefault();
+        return false;
+      }
+    });
+  </script>
+}

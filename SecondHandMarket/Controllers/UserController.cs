@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SecondHandMarket.Attribute;
 using SecondHandMarket.Models;
 using SecondHandMarket.ViewModels;
 
@@ -177,7 +179,112 @@ namespace SecondHandMarket.Controllers
 
         public ActionResult Authenticate()
         {
-            return View();
+            using (Db)
+            {
+                var userName = User.Identity.Name;
+                var user = Db.UserInfo.Include("Authentication").FirstOrDefault(u => u.UserName == userName);
+                if (user == null)
+                {
+                    ViewBag.HasUserInfo = false;
+                    return View();
+                }
+                else
+                {
+                    if (user.Authentication == null)
+                    {
+                        user.Authentication = new UserAuthentication();
+                        Db.SaveChanges();
+                    }
+                    else if (user.Authentication.IsAccepted)
+                    {
+                        ViewBag.IsAccepted = true;
+                        return View();
+                    }
+                    return View(new AuthenticateAddModel(user.Authentication));
+                }
+            }
+        }
+
+        [HttpPost]
+        [IgnoreModelErrors("IDCard1.*,IDCard2.*,StudentCard.*")]
+        public ActionResult Authenticate(AuthenticateAddModel authenticate)
+        {
+            if (ModelState.IsValid)
+            {
+                var isValid = true;
+                var id = authenticate.Id;
+                var model = Db.Authentications
+                    .First(a => a.Id == id);
+                if (Request.Files["StudentCardPath"].ContentLength == 0
+                    && model.StudentCardPath == null)
+                {
+                    ModelState.AddModelError("StudentCardPath", "请上传学生证照片");
+                    isValid = false;
+                }
+                if (Request.Files["IDCard1Path"].ContentLength == 0
+                    && model.IDCard1Path == null)
+                {
+                    ModelState.AddModelError("IDCard1Path", "请上传身份证正面照片");
+                    isValid = false;
+                }
+                if (Request.Files["IDCard2Path"].ContentLength == 0
+                    && model.IDCard2Path == null)
+                {
+                    ModelState.AddModelError("IDCard2Path", "请上传身份证背面照片");
+                    isValid = false;
+                }
+                
+                if (isValid)
+                {
+                    model.StudentNo = authenticate.StudentNo;
+                    model.IDCardNo = authenticate.IDCardNo;
+
+                    var picPath = SavePicture(Request.Files["StudentCardPath"], "学生证");
+                    if (picPath != null)
+                    {
+                        model.StudentCardPath = picPath;
+                    }
+
+                    picPath = SavePicture(Request.Files["IDCard1Path"], "身份证正面");
+                    if (picPath != null)
+                    {
+                        model.IDCard1Path = picPath;
+                    }
+
+                    picPath = SavePicture(Request.Files["IDCard2Path"], "身份证背面");
+                    if (picPath != null)
+                    {
+                        model.IDCard2Path = picPath;
+                    }
+                    Db.SaveChanges();
+
+                    return View(new AuthenticateAddModel(model));
+                }
+            }
+            return View(authenticate);
+        }
+
+        private string SavePicture(HttpPostedFileBase httpPostedFileBase, string fileName)
+        {
+            if (httpPostedFileBase.ContentLength > 0)
+            {
+                var userName = User.Identity.Name;
+
+                var dir = string.Format("~/Asset/Authentication/{0}/", userName);
+                var absDir = Server.MapPath(dir);
+
+                if (!Directory.Exists(absDir))
+                {
+                    Directory.CreateDirectory(absDir);
+                }
+
+                fileName = fileName + Path.GetExtension(httpPostedFileBase.FileName);
+                var filePath = Path.Combine(dir, fileName);
+                httpPostedFileBase.SaveAs(Server.MapPath(filePath));
+
+                return filePath;
+            }
+            return null;
         }
     }
 }

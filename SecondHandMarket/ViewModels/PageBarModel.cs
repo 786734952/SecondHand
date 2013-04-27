@@ -29,7 +29,7 @@ namespace SecondHandMarket.ViewModels
         public string GetUrl(int index)
         {
             var temp = "?";
-            if (Url.Contains("&"))
+            if (Url.Contains("?"))
             {
                 temp = "&";
             }

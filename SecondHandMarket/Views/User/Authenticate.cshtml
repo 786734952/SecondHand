@@ -1,6 +1,17 @@
-﻿@{
+﻿@model SecondHandMarket.ViewModels.AuthenticateAddModel
+@{
   ViewBag.Title = "实名认证信息";
   Layout = "~/Views/Shared/_FGLayout.cshtml";
+  var hasUserInfo = true;
+  if (ViewBag.HasUserInfo != null)
+  {
+    hasUserInfo = (bool) ViewBag.HasUserInfo;
+  }
+  var isAccepted = false;
+  if (ViewBag.IsAccepted != null)
+  {
+    isAccepted = (bool) ViewBag.IsAccepted;
+  }
 }
 @section head{
   <link href="@Url.Content("~/Content/pagecss/Release/index.less")" rel="stylesheet" />
@@ -12,42 +23,87 @@
       <i class="icon-reply"></i>&nbsp;返回</a>
   </div>
   <div class="classify">
-    <form class="form-horizontal" style="margin-left: 0">
-      <div class="control-group">
-        <label class="control-label" for="">学号</label>
-        <div class="controls">
-          <input type="text" name="" id="" />
-        </div>
+    @if (!hasUserInfo)
+    {
+      <div class="alert alert-warning">
+        请先填写个人信息后再填写实名认真信息！
       </div>
-      <div class="control-group">
-        <label class="control-label" for="">身份证号</label>
-        <div class="controls">
-          <input type="text" name="" id="" />
-        </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label" for="">学生证图片</label>
-        <div class="controls">
-          <input type="file" name="" id="" />
-        </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label" for="">身份证图片正面</label>
-        <div class="controls">
-          <input type="file" name="" id="" />
-        </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label" for="">身份证图片反面</label>
-        <div class="controls">
-          <input type="file" name="" id="" />
-        </div>
-      </div>
-      <div class="control-group">
-        <div class="controls">
-          <button type="submit" class="btn btn-primary"><i class="icon-save">保存</i></button>
-        </div>
-      </div>
-    </form>
+    }
+    else if (isAccepted)
+    {
+      
+<text>账号已经通过了实名认证</text>
+    }
+    else
+    {
+      using (Html.BeginForm("Authenticate", "User", FormMethod.Post,
+                             new Dictionary<string, object>()
+                               {
+                                 {"enctype", "multipart/form-data"},
+                                 {"style", "margin-left:0"},
+                                 {"class", "form-horizontal"},
+                               }))
+       {
+        @Html.HiddenFor(m => m.Id)
+         <div class="control-group">
+           <label class="control-label" for="">学号</label>
+           <div class="controls">
+             @Html.TextBoxFor(m => m.StudentNo)
+             @Html.ValidationMessageFor(m => m.StudentNo)
+           </div>
+         </div>
+         <div class="control-group">
+           <label class="control-label" for="">身份证号</label>
+           <div class="controls">
+             @Html.TextBoxFor(m => m.IDCardNo)
+             @Html.ValidationMessageFor(m => m.IDCardNo)
+           </div>
+         </div>
+         <div class="control-group">
+           <label class="control-label" for="">学生证图片</label>
+           <div class="controls">
+             @if (Model.StudentCardPath != null)
+             {
+               <a href="@Url.Content(Model.StudentCardPath)" target="_blank">
+                <img src="@Url.Content(Model.StudentCardPath)?width=100&height=65&crop=auto"/>
+               </a>
+             }
+             <input type="file" name="StudentCardPath" id="StudentCardPath" />
+             @Html.ValidationMessageFor(m => m.StudentCardPath)
+           </div>
+         </div>
+         <div class="control-group">
+           <label class="control-label" for="">身份证图片正面</label>
+           <div class="controls">
+             @if (Model.IDCard1Path != null)
+             {
+               <a href="@Url.Content(Model.IDCard1Path)" target="_blank">
+                <img src="@Url.Content(Model.IDCard1Path)?width=100&height=65&crop=auto"/>
+               </a>
+             }
+             <input type="file" name="IDCard1Path" id="IDCard1Path" />
+             @Html.ValidationMessageFor(m => m.IDCard1Path)
+           </div>
+         </div>
+         <div class="control-group">
+           <label class="control-label" for="">身份证图片反面</label>
+           <div class="controls">
+             @if (Model.IDCard2Path != null)
+             {
+               <a href="@Url.Content(Model.IDCard2Path)" target="_blank">
+               <img src="@Url.Content(Model.IDCard2Path)?width=100&height=65&crop=auto"/>
+              </a>
+             }
+             <input type="file" name="IDCard2Path" id="IDCard2Path" />
+             @Html.ValidationMessageFor(m => m.IDCard2Path)
+           </div>
+         </div>
+         <div class="control-group">
+           <div class="controls">
+             <button type="submit" class="btn btn-primary"><i class="icon-save">保存</i></button>
+           </div>
+         </div>
+       }
+    }
   </div>
 </div>

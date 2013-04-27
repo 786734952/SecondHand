@@ -35,6 +35,7 @@ namespace SecondHandMarket.ViewModels
         public string UserName { get; set; }
 
         [DisplayName("真实姓名")]
+        [Required]
         public string RealName { get; set; }
 
         [DisplayName("联系电话")]
@@ -89,7 +90,8 @@ namespace SecondHandMarket.ViewModels
                     Gender = "女";
                 }
                 EntranceYear = user.EntranceYear;
-                IsAuthenticated = user.Authentication != null;
+                IsAuthenticated = user.Authentication != null
+                                  && user.Authentication.IsAccepted;
             }
 
             UserName = userName;
