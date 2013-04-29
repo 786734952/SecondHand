@@ -12,27 +12,27 @@
   <div class="mainmenu">
     <ul class="mainnav">
       <li class="nav1">
-        <a class="index @(controller == "home" ? "active" : "")" href="../Home/Index">
+        <a class="index @(controller == "home" ? "active" : "")" href="@Url.Action("Index", "Home")">
           <span>首页</span>
         </a>
       </li>
       <li class="nav2">
-        <a class="index @(controller == "goods" ? "active" : "")" href="../Goods/Index">
+        <a class="index @(controller == "goods" ? "active" : "")" href="@Url.Action("Index", "Goods")">
           <span>发现</span>
         </a>
       </li>
       <li class="nav3">
-        <a class="buy @(controller == "buy" ? "active" : "")" href="../Buy/Index">
+        <a class="buy @(controller == "buy" ? "active" : "")" href="@Url.Action("Index", "Buy")">
           <span>商品求购</span>
         </a>
       </li>
       <li class="nav4">
-        <a class="release @(controller == "release" ? "active" : "")" href="../Release/Index">
+        <a class="release @(controller == "release" ? "active" : "")" href="@Url.Action("Index", "Release")">
           <span>商品发布</span>
         </a>
       </li>
       <li class="nav4">
-        <a class="collect @(controller == "user" ? "active" : "")" href="../User/Index">
+        <a class="collect @(controller == "user" ? "active" : "")" href="@Url.Action("Index", "User")">
           <span>用户中心</span>
         </a>
       </li>

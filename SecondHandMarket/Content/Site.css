@@ -231,3 +231,7 @@ div#title {
     background-color:black;
     width:auto;
 }
+
+label.error {
+    display: inline;
+}

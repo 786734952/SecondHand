@@ -119,7 +119,9 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BuyController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CollectController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\EvaluateController.cs" />
     <Compile Include="Controllers\GoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReleaseController.cs" />
@@ -129,12 +131,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201304291045267_dda.cs" />
+    <Compile Include="Migrations\201304291045267_dda.Designer.cs">
+      <DependentUpon>201304291045267_dda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201304291445531_adgd.cs" />
+    <Compile Include="Migrations\201304291445531_adgd.Designer.cs">
+      <DependentUpon>201304291445531_adgd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201304291451214_adgddd.cs" />
+    <Compile Include="Migrations\201304291451214_adgddd.Designer.cs">
+      <DependentUpon>201304291451214_adgddd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Buy.cs" />
+    <Compile Include="Models\BuyCollect.cs" />
     <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\Collect.cs" />
+    <Compile Include="Models\ReleaseCollect.cs" />
     <Compile Include="Models\MarketContext.cs" />
     <Compile Include="Models\Pictures.cs" />
     <Compile Include="Models\Release.cs" />
@@ -146,6 +161,8 @@
     <Compile Include="ViewModels\AuthenticateModel.cs" />
     <Compile Include="ViewModels\BuyViewModel.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\CollectModel.cs" />
+    <Compile Include="ViewModels\EvaluateModel.cs" />
     <Compile Include="ViewModels\OkModel.cs" />
     <Compile Include="ViewModels\PageBarModel.cs" />
     <Compile Include="ViewModels\ReleaseViewModel.cs" />
@@ -158,6 +175,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font\fontawesome-webfont.svg" />
     <Content Include="Content\images\10.jpg" />
+    <Content Include="Content\images\loading-bar.gif" />
     <Content Include="Content\images\6.jpg" />
     <Content Include="Content\images\bk2.jpg" />
     <Content Include="Content\images\bk.jpg" />
@@ -191,6 +209,7 @@
     <Content Include="Content\images\raindrops2.png" />
     <Content Include="Content\images\raindrops3.png" />
     <Content Include="Content\template\EmailConfirmation.html" />
+    <Content Include="Content\template\EmailForgetPwd.html" />
     <Content Include="Global.asax" />
     <Content Include="Content\less\wells.less" />
     <Content Include="Content\less\variables.less" />
@@ -254,10 +273,12 @@
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.infinitescroll.js" />
     <Content Include="Scripts\jquery.masonry.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\less.min.js" />
+    <Content Include="Scripts\jquery.infinitescroll.dev.js" />
     <Content Include="Scripts\noty\jquery.noty.js" />
     <Content Include="Scripts\noty\layouts\bottom.js" />
     <Content Include="Scripts\noty\layouts\bottomCenter.js" />
@@ -333,8 +354,9 @@
     <Content Include="Views\Buy\Edit.cshtml" />
     <Content Include="Views\User\Authenticate.cshtml" />
     <Content Include="Views\Authenticate\List.cshtml" />
-    <Content Include="Views\Account\verify.cshtml" />
-    <Content Include="Views\Buy\List.cshtml" />
+    <Content Include="Views\Account\ForgetPwd.cshtml" />
+    <Content Include="Views\Buy\Detail.cshtml" />
+    <Content Include="Views\User\Partial\EvaluateAddForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -343,6 +365,17 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201304291045267_dda.resx">
+      <DependentUpon>201304291045267_dda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304291445531_adgd.resx">
+      <DependentUpon>201304291445531_adgd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304291451214_adgddd.resx">
+      <DependentUpon>201304291451214_adgddd.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

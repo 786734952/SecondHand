@@ -1,8 +1,11 @@
 ﻿@using SecondHandMarket.Models
+@using SecondHandMarket.ViewModels
+@model List<ListItemReleaseModel>
 @{
-    ViewBag.Title = "商品展示";
-    Layout = "~/Views/Shared/_FGLayout.cshtml";
+  ViewBag.Title = "商品展示";
+  Layout = "~/Views/Shared/_FGLayout.cshtml";
   var firstLevelCategories = ViewBag.FirstLevelCategories as List<Category>;
+  var pageBar = ViewBag.PageBarModel as PageBarModel;
 }
 
 @section head
@@ -17,67 +20,74 @@
     </div>
     <div class="goods">
       <div id="container" class="clearfix masonry">
-        <div class="item col1 masonry-brick">
-          <a href="@Url.Action("Detail")">
-            <img src="../../Content/images/item1.jpg" />
-            <span>充电器 220元</span>
-          </a>
-        </div>
-        <div class="item col1 masonry-brick">
-          <a href="#">
-            <img src="../../Content/images/item2.jpg" />
-            <span></span>
-          </a>
-        </div>
-        <div class="item col1 masonry-brick">
-          <a href="#">
-            <img src="../../Content/images/item3.jpg" />
-            <span></span>
-          </a>
-        </div>
-        <div class="item col1 masonry-brick">
-          <a href="#">
-            <img src="../../Content/images/item4.jpg" />
-            <span></span>
-          </a>
-        </div>
-        <div class="item col1 masonry-brick">
-          <a href="#">
-            <img src="../../Content/images/item5.jpg" />
-            <span></span>
-          </a>
-        </div>
-        <div class="item col1 masonry-brick">
-          <a href="#">
-            <img src="../../Content/images/item6.jpg" />
-            <span></span>
-          </a>
-        </div>
-        <div class="item col1 masonry-brick">
-          <a href="#">
-            <img src="../../Content/images/item7.jpg" />
-            <span></span>
-          </a>
-        </div>
+        @foreach (var release in Model)
+        {
+          <div class="item col1 masonry-brick">
+              <p class="info title">
+                <a target="_blank" href="@Url.Action("Detail")?id=@release.Id">
+                @release.Title
+                </a>
+              </p>
+              @if (release.ImgUrl == "~")
+              {
+                <pre>@release.Description</pre>
+              }
+              else
+              {
+                <img src="@Url.Content(release.ImgUrl)?width=166" />
+              }
+              <div class="bottom-info">
+                <p class="info">@(release.Price)元</p>
+              </div>
+          </div>
+        }
       </div>
     </div>
   </div>
 </div>
+
+<div class="pagination" style="display: none">
+  <a href="@Html.Raw(pageBar.GetUrl(pageBar.PageIndex + 1))">Next</a>
+</div>
 @section scripts{
+  <script src="@Url.Content("~/Scripts/jquery.masonry.min.js")"></script>
+  <script src="@Url.Content("~/Scripts/jquery.infinitescroll.js")"></script>
   <script>
     var $container = $('#container');
-    $container.imagesLoaded(function () {
+    $container.imagesLoaded(function() {
       $container.masonry({
         itemSelector: '.item',
         columnWidth: 170,
-        gutterWidth:30
+        gutterWidth: 30,
+        isAnimated: true
       });
+      if ($container.offset().top + $container.outerHeight() <= $(window).height()) {
+        $(window).trigger('scroll');
+      }
     });
-    $('#container').on('mouseenter', 'img', function () {
-      $(this).closest('a').find('span').slideToggle();
-    });
-    $('#container').on('mouseleave', 'img', function () {
-      $(this).closest('a').find('span').slideToggle();
-    })
+    $container.infinitescroll({
+        navSelector: 'div.pagination',
+        nextSelector: 'div.pagination a',
+        itemSelector: '#container div.item',
+        loading: {
+          img: '@Url.Content("~/Content/images/loading-bar.gif")',
+          msgText: '努力加载中...',
+          finishedMsg: '没有更多的商品发布信息了'
+        },
+        animate: true,
+        debug: false,
+        extraScrollPx: 50
+      }, function(newElements) {
+        var $newElems = $(newElements).css({ opacity: 0 });
+        $newElems.imagesLoaded(function() {
+          $newElems.animate({ opacity: 1 });
+          $container.masonry('appended', $newElems, true);
+          if ($container.offset().top + $container.outerHeight() <= $(window).height()) {
+            setTimeout(function() {
+              $(window).trigger('scroll');
+            }, 1000);
+          }
+        });
+      });
   </script>
-}
+  }

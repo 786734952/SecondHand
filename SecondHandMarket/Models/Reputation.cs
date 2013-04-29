@@ -12,7 +12,7 @@ namespace SecondHandMarket.Models
         public int Id { get; set; }
 
         /// <summary>
-        /// 评价等级
+        /// 评价等级, 1为好评，2为中评，3为差评
         /// </summary>
         public int Level { get; set; }
 
@@ -29,6 +29,11 @@ namespace SecondHandMarket.Models
         /// <summary>
         /// 被评价者
         /// </summary>
-        public User ToUser { get; set; }
+        public string ToUser { get; set; }
+
+        /// <summary>
+        /// 评价时间
+        /// </summary>
+        public DateTime CreateTime { get; set; }
     }
 }

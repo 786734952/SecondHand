@@ -57,7 +57,7 @@
             @foreach (var buy in Model)
             {
               <tr>
-                <td><a href="@Url.Action("List", "Buy")">@buy.Title</a></td>
+                <td><a href="@Url.Action("Detail", "Buy")?id=@buy.Id">@buy.Title</a></td>
                 <td>@buy.CreateTimeDesc</td>
               </tr>
             }

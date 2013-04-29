@@ -1,6 +1,9 @@
-﻿@{
-    ViewBag.Title = "用户中心";
-    Layout = "~/Views/Shared/_FGLayout.cshtml";
+﻿@using SecondHandMarket.ViewModels
+@model List<CollectListItemModel>
+@{
+  ViewBag.Title = "用户中心";
+  Layout = "~/Views/Shared/_FGLayout.cshtml";
+  var pageBar = ViewBag.PageBarModel as PageBarModel;
 }
 <header>
   <link href="@Url.Content("~/Content/pagecss/User/index.less")" rel="stylesheet" />
@@ -10,10 +13,10 @@
   <div class="layout-left">
     <div class="manage">
       <ul>
-        <li><a href="./Index"><i class="icon-user"></i>&nbsp;我的个人资料</a></li>
-        <li><a href="./Release"><i class="icon-file"></i>&nbsp;我发布的信息</a></li>
-        <li><a href="./Buy"><i class="icon-edit"></i>&nbsp;我求购的信息</a></li>
-        <li><a href="./Collect"><i class="icon-book"></i>&nbsp;我收藏的信息</a></li>
+        <li><a href="@Url.Action("Index")"><i class="icon-user"></i>&nbsp;我的个人资料</a></li>
+        <li><a href="@Url.Action("Release")"><i class="icon-file"></i>&nbsp;我发布的信息</a></li>
+        <li><a href="@Url.Action("Buy")"><i class="icon-edit"></i>&nbsp;我求购的信息</a></li>
+        <li class="active"><a href="@Url.Action("Collect")"><i class="icon-book"></i>&nbsp;我收藏的信息</a></li>
       </ul>
     </div>
   </div>
@@ -21,39 +24,69 @@
     <div class="title">
       <h3>我的收藏</h3>
     </div>
-    <div class="detail">
-      <table class="table">
-        <tbody>
-          <tr>
-            <td>
-              <label class="checkbox">
-                <input type="checkbox" id="" value=""/>
-              </label>
-            </td>
-            <td><a href="../Goods/Detail">四大名著 全套四册 全新 低价转让 - 30元</a></td>
-            <td><button class="btn btn-mini btn-warning">
-              <i class="icon-trash"></i>
-              删除</button></td>
-          </tr>
-          <tr>
-            <td>
-              <label class="checkbox">
-                <input type="checkbox" id="" value=""/>
-              </label>
-            </td>
-            <td><a href="../Goods/Detail">四大名著 全套四册 全新 低价转让 - 30元</a></td>
-            <td><button class="btn btn-mini btn-warning">
-              <i class="icon-trash"></i>
-              删除</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="del">
-      <label class="checkbox inline">
-        <input type="checkbox"/>全选
-      </label>
-      <button class="btn btn-warning"><i class="icon-trash"></i>删除</button>
-    </div>
+    <form action="@Url.Action("Delete", "Collect")" method="POST">
+      <div class="detail">
+        <table class="table">
+          <tbody>
+            @foreach (var collect in Model)
+            {
+              <tr>
+                <td>
+                  <input type="checkbox" name="collectId" value="@collect.Id||@collect.CollectType" />
+                </td>
+                <td>
+                  <span class="label label-info">
+                    @(collect.CollectType == 0 ? "出售" : "求购")
+                  </span>
+                </td>
+                <td>
+                  @if (collect.CollectType == 0)
+                  {
+                    <a href="@Url.Action("Detail", "Goods")?id=@collect.RelatedId">@collect.Name - @collect.Price</a>
+                  }
+                  else
+                  {
+                    <a href="@Url.Action("Detail", "Buy")?id=@collect.RelatedId">@collect.Name - @collect.Price</a>
+                  }
+                </td>
+                <td>
+                  @collect.CollectTimeDesc
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+        @Html.Partial("_PageBar", pageBar)
+      </div>
+      <div class="del">
+        <button class="btn btn-warning">
+          <i class="icon-trash"></i>删除
+        </button>
+      </div>
+    </form>
   </div>
 </div>
+
+@section scripts
+{
+  <script src="@Url.Content("~/Scripts/noty/jquery.noty.js")"></script>
+  <script src="@Url.Content("~/Scripts/noty/layouts/top.js")"></script>
+  <script src="@Url.Content("~/Scripts/noty/themes/default.js")"></script>
+  <script>
+    var msg = "@TempData["SuccessMsg"]";
+    if (msg) {
+      $noty = noty({
+        layout: 'top',
+        type: 'success',
+        text: msg,
+        callback: {
+          afterShow: function () {
+            setTimeout(function() {
+              $noty.close();
+            }, 2500);
+          }
+        }
+      });
+    }
+  </script>  
+}

@@ -70,5 +70,15 @@ namespace SecondHandMarket.Models
         /// 图片
         /// </summary>
         public DbSet<Picture> Pictures { get; set; }
+
+        /// <summary>
+        /// 用户发布收藏
+        /// </summary>
+        public DbSet<ReleaseCollect> ReleaseCollects { get; set; }
+
+        /// <summary>
+        /// 用户求购收藏
+        /// </summary>
+        public DbSet<BuyCollect> BuyCollects { get; set; }
     }
 }

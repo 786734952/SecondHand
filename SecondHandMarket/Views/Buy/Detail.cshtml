@@ -1,10 +1,9 @@
 ﻿@using SecondHandMarket.Models
 @using SecondHandMarket.ViewModels
-@model Release
+@model Buy
 @{
   ViewBag.Title = "商品详情";
   Layout = "~/Views/Shared/_FGLayout.cshtml";
-  var user = ViewBag.User as User;
   var latestRelease = ViewBag.LatestRelease as List<ListItemReleaseModel>;
 }
 @section head
@@ -15,20 +14,26 @@
 <div class="content">
   <div class="layout-left">
     <div class="navBars">
-      <a href="#"><span>@Model.Category.ParentCategory.ParentCategory.Name</span></a>
+      <a href="@Url.Action("Index", "Goods")?categoryId=@Model.Category.ParentCategory.ParentCategory.Id">
+        <span>@Model.Category.ParentCategory.ParentCategory.Name</span>
+      </a>
       <span>&gt;</span>
-      <a href="#"><span>@Model.Category.ParentCategory.Name</span></a>
+      <a href="@Url.Action("Index", "Goods")?categoryId=@Model.Category.ParentCategory.Id">
+        <span>@Model.Category.ParentCategory.Name</span>
+      </a>
       <span>&gt;</span>
-      <a href="#"><span>@Model.Category.Name</span></a>
+      <a href="@Url.Action("Index", "Goods")?categoryId=@Model.Category.Id">
+        <span>@Model.Category.Name</span>
+      </a>
     </div>
     <div class="goods">
       <div class="name">
-        <h3>@Model.Title&nbsp;<span class="label label-info">出售</span></h3>
+        <h3>@Model.Name&nbsp;<span class="label label-info">求购</span></h3>
         @if (ViewBag.Collect == null)
         {
-          <form style="display: inline" class="pull-right" method="POST" action="@Url.Action("Release", "Collect")">
-            <button  class="btn btn-info btn-mini" name="id" value="@Model.Id" 
-              id="collect" type="submit">
+          <form style="display: inline" class="pull-right" method="POST" action="@Url.Action("Buy", "Collect")">
+            <button class="btn btn-info btn-mini" type="submit"
+              name="id" value="@Model.Id" id="collect">
               <i class="icon-briefcase"></i>
               收藏
             </button>
@@ -36,8 +41,7 @@
         }
         else
         {
-          <form action="@Url.Action("UnRelease", "Collect")" method="POST"
-            style="display: inline" class="pull-right">
+          <form style="display: inline" class="pull-right" method="POST" action="@Url.Action("UnBuy", "Collect")">
             <button type="submit" name="id" value="@ViewBag.Collect.Id" class="btn btn-info btn-mini" >
               <i class="icon-eye-close"></i>
               取消收藏
@@ -47,9 +51,9 @@
       </div>
       <div class="detail">
         <ul>
-          <li><span>价格：@(Model.Price)元</span></li>
-          <li><span>地点：@Model.TradePlace.ParentAddress.Name @Model.TradePlace.Name</span></li>
-          <li><span>联系人：</span>
+          <li><span>期望价格：@(Model.Price)元</span></li>
+          <li><span>地点：@Model.Place.ParentAddress.Name @Model.Place.Name</span></li>
+          <li><span>求购人：</span>
             <a href="@Url.Action("Evaluate", "User")?userName=@Model.UserName">
               <span>@Model.UserName</span>
             </a>
@@ -61,19 +65,10 @@
       <div class="describe tabbable">
         <ul class="nav nav-tabs">
           <li class="active"><a href="#tab1" data-toggle="tab">详情描述</a></li>
-          <li><a href="#tab2" data-toggle="tab">物品照片</a></li>
         </ul>
         <div class="tab-content">
           <div class="tab-pane active" id="tab1">
             <pre>@Model.Description</pre>
-          </div>
-          <div class="tab-pane" id="tab2">
-            @foreach (var p in Model.Pictures)
-            {
-              <div class="img">
-                <img src="@Url.Content(p.Path)" />
-              </div>
-            }
           </div>
         </div>
       </div>
@@ -88,7 +83,7 @@
     @foreach (var release in latestRelease)
     {
       <div class="img">
-        <a href="?id=@release.Id">
+        <a href="@Url.Action("Detail", "Goods")?id=@release.Id">
           <img src="@Url.Content(release.ImgUrl)?width=210&height=220&crop=auto" />
           <span class="info">@release.ReleaseTimeDesc  
             <span class="pull-right" style="margin-right:4px;">@(release.Price)元</span>
@@ -98,11 +93,13 @@
     }
   </div>
 </div>
+
 @section scripts{
   <script src="@Url.Content("~/Scripts/noty/jquery.noty.js")"></script>
   <script src="@Url.Content("~/Scripts/noty/layouts/top.js")"></script>
   <script src="@Url.Content("~/Scripts/noty/themes/default.js")"></script>
   <script>
+    
     @if (TempData["SuccessMsg"] != null)
     {
       <text>
@@ -110,20 +107,20 @@
         layout: 'top',
         type: 'success',
         text: '@TempData["SuccessMsg"]',
-          callback: {
-            afterShow: function () {
-              setTimeout(function () {
-                $noty.close();
-              }, 2500);
-            }
+        callback: {
+          afterShow: function() {
+            setTimeout(function() {
+              $noty.close();
+            }, 2500);
           }
-        });
+        }
+      });
       </text>
     }
     $('.layout-right .img').on('mouseenter', function () {
       $(this).find('span.info').slideDown();
-    }).on('mouseleave', function() {
+    }).on('mouseleave', function () {
       $(this).find('span.info').slideUp();
     });
   </script>
-}
+  }

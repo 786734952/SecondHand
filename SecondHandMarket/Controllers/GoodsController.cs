@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using SecondHandMarket.Models;
 using SecondHandMarket.ViewModels;
 
 namespace SecondHandMarket.Controllers
@@ -12,18 +14,55 @@ namespace SecondHandMarket.Controllers
         //
         // GET: /Goods/
 
-        public ActionResult Index()
+        public ActionResult Index(PageBarModel pageBar, int? categoryId)
         {
             using (Db)
             {
-                ViewBag.FirstLevelCategories = Db.Categories
+                ViewBag.FirstLevelCategories = Db
+                    .Categories
                     .Include("ParentCategory")
                     .Include("SubCategories")
                     .Include("SubCategories.SubCategories")
                     .Where(c => c.ParentCategory == null)
-                                                 .ToList();
+                    .ToList();
+
+                if (pageBar.PageSize == 0)
+                {
+                    pageBar.PageIndex = 1;
+                    pageBar.PageSize = 25;
+                }
+
+                IQueryable<Release> allRelease;
+
+                if (categoryId == null)
+                {
+                    allRelease = Db.Releases.AsQueryable();
+                }
+                else
+                {
+                    var cId = categoryId.Value;
+                    allRelease = Db.Releases
+                                   .Where(r => r.Category.Id == cId
+                                               || r.Category.ParentCategory.Id == cId
+                                               || r.Category.ParentCategory.ParentCategory.Id == cId);
+                }
+
+                var model = allRelease
+                    .OrderByDescending(r => r.Id)
+                    .Skip(pageBar.SkipCount).Take(pageBar.PageSize)
+                                      .ToList()
+                                      .Select(r => new ListItemReleaseModel(r))
+                                      .ToList();
+
+                ViewBag.PageBarModel = new PageBarModel()
+                    {
+                        PageIndex = pageBar.PageIndex,
+                        PageSize = pageBar.PageSize,
+                        Total = allRelease.Count(),
+                        Url = Url.Action("Index")
+                    };
+                return View(model);
             }
-            return View();
         }
 
         public ActionResult Detail(int id)
@@ -45,6 +84,14 @@ namespace SecondHandMarket.Controllers
                     .Take(3).ToList()
                   .Select(r => new ListItemReleaseModel(r))
                   .ToList();
+
+                if (Request.IsAuthenticated)
+                {
+                    var currUserName = User.Identity.Name;
+                    ViewBag.Collect = Db
+                        .ReleaseCollects
+                        .FirstOrDefault(c => c.Release.Id == id && c.UserName == currUserName);
+                }
 
                 return View(release);
             }

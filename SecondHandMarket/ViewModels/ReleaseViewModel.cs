@@ -19,6 +19,7 @@ namespace SecondHandMarket.ViewModels
             Price = release.Price;
             ReleaseTime = release.ReleaseTime;
             ReleaseTimeDesc = ReleaseTime.GetDateTimeDesc();
+            Description = release.Description;
 
             if (release.Pictures.Count > 0)
             {
@@ -36,6 +37,9 @@ namespace SecondHandMarket.ViewModels
         public string Title { get; private set; }
         public decimal Price { get; private set; }
         public DateTime ReleaseTime { get; private set; }
+
+        public string Description { get; private set; }
+
         /// <summary>
         /// 发布了多少分钟
         /// </summary>

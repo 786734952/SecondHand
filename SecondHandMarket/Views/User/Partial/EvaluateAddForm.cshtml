@@ -1,0 +1,44 @@
+﻿@model SecondHandMarket.ViewModels.EvaluateAddModel
+@using (Html.BeginForm("Add", "Evaluate", FormMethod.Post))
+{
+  <h3>我要评价</h3>
+  @Html.HiddenFor(m => m.ToUserName)
+  <div class="remark-survey" style="margin-left: 20px">
+    <label class="radio good">
+      @Html.RadioButtonFor(m => m.Level, 1)
+      <i class="icon icon-good" data-toggle="tooltip" title="好评"></i>
+    </label>
+    <label class="radio center">
+      @Html.RadioButtonFor(m => m.Level, 2)
+      <i class="icon icon-center" data-toggle="tooltip" title="中评"></i>
+    </label>
+    <label class="radio bad">
+      @Html.RadioButtonFor(m => m.Level, 3)
+      <i class="icon icon-bad" data-toggle="tooltip" title="差评"></i>
+    </label>
+    @Html.ValidationMessageFor(m => m.Level)
+  </div>
+  <div class="remark-detail">
+    <h4>详细评价</h4>
+    <div>
+      @Html.TextAreaFor(m => m.Remark, new Dictionary<string, object>()
+        {
+          {"rows", "6"},
+          {"style", "width: 580px"}
+        })
+    @Html.ValidationMessageFor(m => m.Remark)
+    </div>
+  </div>
+  if ((bool)ViewData["isAccepted"])
+  {
+    <button type="submit" class="btn btn-primary" style="text-align: center">
+      <i class="icon-ok"></i>&nbsp;提交
+      
+    </button>
+  }
+  else
+  {
+  <a class="btn btn-primary disabled" style="text-align: center">只有实名认证的用户可以评价
+  </a>
+  }
+}

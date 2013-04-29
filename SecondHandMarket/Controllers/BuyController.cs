@@ -192,9 +192,31 @@ namespace SecondHandMarket.Controllers
             return Content("修改失败");
         }
 
-        public ActionResult List()
+        public ActionResult Detail(int id)
         {
-            return View();
+            using (Db)
+            {
+                var buy = Db.Buys
+                    .Include("Category.ParentCategory.ParentCategory")
+                    .Include("Place.ParentAddress")
+                    .First(b => b.Id == id);
+
+                ViewBag.LatestRelease = Db.Releases.OrderByDescending(r => r.Id)
+                    .Where(r => r.Pictures.Count > 0)
+                    .Take(3).ToList()
+                  .Select(r => new ListItemReleaseModel(r))
+                  .ToList();
+
+                if (Request.IsAuthenticated)
+                {
+                    var currUserName = User.Identity.Name;
+                    ViewBag.Collect = Db
+                        .BuyCollects
+                        .FirstOrDefault(c => c.Buy.Id == id && c.UserName == currUserName);
+                }
+
+                return View(buy);
+            }
         }
     }
 }

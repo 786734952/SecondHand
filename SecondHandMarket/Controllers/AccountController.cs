@@ -137,21 +137,26 @@ namespace SecondHandMarket.Controllers
         private void SendConfirmationEmail(MembershipUser user)
         {
             var email = user.Email;
+            SendMail("二手交易平台账号注册确认", GetConfirmationBody(user, email), email);
+        }
+
+        private void SendMail(string title, string content, string email)
+        {
             var smtp = new SmtpClient("smtp.163.com", 25);
             smtp.Credentials = new NetworkCredential("secondhandmarket@163.com", "second123456");
             var message = new MailMessage();
-            message.From = new MailAddress("secondhandmarket@163.com", "admin");
+            message.From = new MailAddress("secondhandmarket@163.com", "二手平台admin(no-reply)");
             message.To.Add(email);
             message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
-            message.Body = GetConfirmationBody(user, email);
-            message.Subject = "二手交易平台账号注册确认";
+            message.Body = content;
+            message.Subject = title;
             message.SubjectEncoding = Encoding.UTF8;
 
             new Task(() =>
-                {
-                    smtp.SendMailAsync(message);
-                }).Start();
+            {
+                smtp.SendMailAsync(message);
+            }).Start();
         }
 
         private string GetConfirmationBody(MembershipUser user, string email)
@@ -218,11 +223,46 @@ namespace SecondHandMarket.Controllers
         {
             return View();
         }
-        public ActionResult verify()
+        public ActionResult ForgetPwd()
         {
             return View();
         }
-        
+
+        [HttpPost]
+        public ActionResult ForgetPwd(string userName, string verifyCode)
+        {
+            if (Session["ValidateCode"] == null)
+            {
+                ModelState.AddModelError("ValidateCode", "验证码已过期");
+            }
+            else if (verifyCode != Session["ValidateCode"].ToString())
+            {
+                ModelState.AddModelError("ValidateCode", "请输入正确的验证码");
+            }
+            var user = Membership.GetUser(userName);
+            if (user == null)
+            {
+                ModelState.AddModelError("UserName", "用户名不存在");
+            }
+            if (ModelState.IsValid)
+            {
+                var email = user.Email;
+                var title = "找回密码";
+                var newPwd = user.ResetPassword();
+                var content = GetForgetPwdBody(user, newPwd);
+                SendMail(title, content, email);
+                TempData["SuccessMsg"] = "系统发送了新密码到您的电子邮件，请查收";
+            }
+
+            return View();
+        }
+
+        private string GetForgetPwdBody(MembershipUser user, string newPwd)
+        {
+            var emailTpl = System.IO.File.ReadAllText(Server.MapPath("~/Content/template/EmailForgetPwd.html"));
+            return string.Format(emailTpl, user.UserName, newPwd);
+        }
+
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {

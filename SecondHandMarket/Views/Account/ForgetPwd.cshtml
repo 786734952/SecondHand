@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "verify";
+    ViewBag.Title = "忘记密码";
     Layout = "~/Views/Shared/_LayoutWithoutHead.cshtml";
 }
 
@@ -9,21 +9,28 @@
 
 <div class="content">
   <h3 style="background-color:black;padding:10px;border-left:20px solid gray">找回密码</h3>
-  <form action="" class="form-horizontal">
+  @if (TempData["SuccessMsg"] != null)
+  {
+    <div class="alert alert-success">
+      @TempData["SuccessMsg"]
+    </div>
+  }
+  <form class="form-horizontal" method="POST">
     <div>
       <fieldset>
         <legend>账户信息</legend>
       </fieldset>
+      @Html.ValidationSummary()
       <div class="control-group">
       <label class="control-label" for="">请输入用户名</label>
       <div class="controls">
-        <input type="text" id="" name="" value=""/>
+        <input type="text" id="" name="userName" data-val-required="标题 字段是必需的。" class="required"/>
       </div>
     </div>
       <div class="control-group">
       <label class="control-label" for="">请输入验证码</label>
       <div class="controls">
-        <input type="text" class="input-small" id=""/>
+        <input type="text" class="input-small required" name="verifyCode" />
         <img id="validate" src="/ValidateCode/Validate_Code" alt="" style="height:24px"/>
       </div>
     </div>
@@ -35,3 +42,14 @@
     </div>
   </form>
 </div>
+
+@section scripts
+{
+  <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
+  <script>
+    $.validator.messages.required = "必填字段";
+  $(function () {
+    $('form').validate();
+  });
+  </script>
+}

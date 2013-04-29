@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using SecondHandMarket.Attribute;
 using SecondHandMarket.Models;
 using SecondHandMarket.ViewModels;
@@ -112,13 +113,74 @@ namespace SecondHandMarket.Controllers
                 return View();
             }
         }
-        public ActionResult Collect()
+        public ActionResult Collect(PageBarModel pageBar)
         {
-            return View();
+            if (pageBar.PageSize == 0)
+            {
+                pageBar.PageIndex = 1;
+                pageBar.PageSize = 15;
+            }
+
+            IQueryable<ReleaseCollect> releaseCollects;
+            IQueryable<BuyCollect> buyCollects;
+            using (Db)
+            {
+                var userName = User.Identity.Name;
+                releaseCollects = Db.ReleaseCollects.Include("Release").Where(r => r.UserName == userName);
+                buyCollects = Db.BuyCollects.Include("Buy").Where(b => b.UserName == userName);
+
+                var allCollects = releaseCollects
+                    .ToList()
+                    .Select(r => new CollectListItemModel(r))
+                    .Union(buyCollects.ToList().Select(b => new CollectListItemModel(b)))
+                    .ToList();
+
+                var models = allCollects
+                    .OrderByDescending(c => c.CollectTime)
+                    .Skip(pageBar.SkipCount)
+                    .Take(pageBar.PageSize)
+                    .ToList();
+
+                ViewBag.PageBarModel = new PageBarModel()
+                {
+                    PageIndex = pageBar.PageIndex,
+                    PageSize = pageBar.PageSize,
+                    Total = allCollects.Count(),
+                    Url = Url.Action("Collect")
+                };
+                return View(models);
+            }
         }
-        public ActionResult Evaluate()
+        public ActionResult Evaluate(string userName)
         {
-            return View();
+            using (Db)
+            {
+                var user = Db.UserInfo
+                    .Include("Authentication")
+                    .FirstOrDefault(u => u.UserName == userName);
+
+                var membershipUser = Membership.GetUser(userName);
+
+                var reputations = Db.Reputations
+                                    .Include("FromUser")
+                                    .Where(r => r.ToUser == userName)
+                                    .ToList();
+
+                var currUserName = User.Identity.Name;
+                var currUser = Db.UserInfo
+                                 .Include("Authentication")
+                                 .FirstOrDefault(u => u.UserName == currUserName);
+
+                var model = new EvaluateIndexModel()
+                    {
+                        Reputations = reputations,
+                        User = membershipUser,
+                        UserInfo = user,
+                        CurrentUser = currUser
+                    };
+
+                return View(model);
+            }
         }
 
         [HttpPost]
@@ -233,7 +295,7 @@ namespace SecondHandMarket.Controllers
                     ModelState.AddModelError("IDCard2Path", "请上传身份证背面照片");
                     isValid = false;
                 }
-                
+
                 if (isValid)
                 {
                     model.StudentNo = authenticate.StudentNo;

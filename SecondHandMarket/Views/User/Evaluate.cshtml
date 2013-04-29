@@ -1,6 +1,12 @@
-﻿@{
-  ViewBag.Title = "Evaluate";
+﻿@using SecondHandMarket.ViewModels
+@model SecondHandMarket.ViewModels.EvaluateIndexModel
+@{
+  ViewBag.Title = "用户信息";
   Layout = "~/Views/Shared/_FGLayout.cshtml";
+  var isAccepted = Model.CurrentUser != null && Model.CurrentUser.Authentication != null
+                   && Model.CurrentUser.Authentication.IsAccepted;
+  var formViewData = new ViewDataDictionary();
+  formViewData.Add("isAccepted", isAccepted);
 }
 @section head
 {
@@ -9,65 +15,68 @@
 
 <div class="content" >
   <div class="title">
-    <h3>**的个人资料</h3>
+    <h3>@(Model.User.UserName)的个人资料</h3>
   </div>
   <div class="userinfo-head">
     <ul>
-        <li>用户名：11111</li>
-        <li>注册时间：2013-01-01</li>
-        <li>认证信息：实名已认证 &nbsp;<i></i></li>
+        <li>用户名：@(Model.User.UserName)</li>
+        <li>注册时间：@(Model.User.CreationDate.ToString("yyyy-MM-dd"))</li>
+        <li>认证信息：@Html.Raw(Model.UserInfo != null
+        && Model.UserInfo.Authentication != null
+        && Model.UserInfo.Authentication.IsAccepted ? "已实名认证<i class='icon-certification'></i>"
+        : "未实名认证")</li>
       </ul>
   </div>
   <div class="evaluate">
-    <h3>**的信用</h3>
-    <span>好评率：好评 &nbsp 0 &nbsp;条，中评 &nbsp; 1 &nbsp;条，差评 &nbsp; 0 &nbsp; 条</span>
+    <h3>@(Model.User.UserName)的信用</h3>
+    <span>好评率：好评 &nbsp@(Model.Lvl1Count)&nbsp;条，中评 &nbsp;@(Model.Lvl2Count)&nbsp;条，差评 &nbsp;@(Model.Lvl3Count)&nbsp; 条</span>
     <h3>详细评价</h3>
-    <table class="table">
-      <tbody>
-        <tr>
-          <td>评价</td>
-          <td style="width:100px">username</td>
-        </tr>
-      </tbody>
-    </table>
+    @if (Model.Reputations != null && Model.Reputations.Count > 0)
+    {
+      <table class="table">
+        <tbody>
+          @foreach (var r in Model.Reputations)
+          {
+            <tr>
+              <td style="width: 15px;">
+                @if (r.Level == 1)
+                {
+                  <i class="icon icon-good"></i>
+                }
+                else if (r.Level == 2)
+                {
+                  <i class="icon icon-center"></i>
+                }
+                else
+                {
+                  <i class="icon icon-bad"></i>
+                }
+              </td>
+              <td>@r.Remark</td>
+              <td style="width: 130px;">@r.CreateTime.ToString("yyyy-MM-dd HH:mm")</td>
+              <td style="width: 100px">@r.FromUser.UserName</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+    else
+    {
+      <p class="alert alert-info">没有评价！</p>
+    }
     <div class="remark">
-      <form action="">
-        <h3>我要评价</h3>
-      <div class="remark-survey" style="margin-left:20px">
-        <label class="radio good">
-          <input type="radio" name="evaluate" value="" />
-          <a data-toggle="tooltip" data-placement="bottom" title="好评" >
-            <i class="icon icon-good"></i></a>
-        </label>
-        <label class="radio center">
-          <input type="radio" name="evaluate" value="" />
-          <a data-toggle="tooltip" data-placement="bottom" title="中评" >
-            <i class="icon icon-center"></i>
-          </a>
-        </label>
-        <label class="radio bad">
-          <input type="radio" name="evaluate" value="" />
-          <a data-toggle="tooltip" data-placement="bottom" data-original-title="差评">
-            <i class="icon icon-bad"></i>
-          </a>
-        </label>
-      </div>
-      <div class="remark-detail">
-        <h4>详细评价</h4>
-        <div>
-          <textarea rows="10" style="width:580px"></textarea>
-        </div>
-      </div>
-       <button type="submit" class="btn btn-primary" style="text-align:center">
-         <i class="icon-ok"></i>&nbsp;提交
-       </button>
-      </form>
-      
+      @Html.Partial("Partial/EvaluateAddForm", Model.AddModel, formViewData)
     </div>
   </div>
 </div>
 @section scripts{
+  <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
+  <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+
   <script>
+    $(function() {
+      $('form').validate();
+    })
     $("[data-toggle=tooltip]").tooltip();
   </script>
 }
