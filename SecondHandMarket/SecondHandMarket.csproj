@@ -129,14 +129,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201304271453386_dgd.cs" />
-    <Compile Include="Migrations\201304271453386_dgd.Designer.cs">
-      <DependentUpon>201304271453386_dgd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201304271540221_dgd1.cs" />
-    <Compile Include="Migrations\201304271540221_dgd1.Designer.cs">
-      <DependentUpon>201304271540221_dgd1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Address.cs" />
@@ -340,11 +332,9 @@
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\Buy\Edit.cshtml" />
     <Content Include="Views\User\Authenticate.cshtml" />
-    <Content Include="Views\Account\verify_first_step.cshtml" />
-    <Content Include="Views\Account\verify_second_step.cshtml" />
-    <Content Include="Views\Account\verify_third_step.cshtml" />
-    <Content Include="Views\Account\verify_ok_step.cshtml" />
     <Content Include="Views\Authenticate\List.cshtml" />
+    <Content Include="Views\Account\verify.cshtml" />
+    <Content Include="Views\Buy\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -353,14 +343,6 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201304271453386_dgd.resx">
-      <DependentUpon>201304271453386_dgd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201304271540221_dgd1.resx">
-      <DependentUpon>201304271540221_dgd1.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

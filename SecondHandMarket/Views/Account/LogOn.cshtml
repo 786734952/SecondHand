@@ -11,7 +11,7 @@
 }
 
 <div class="content">
-  <h3>登录</h3>
+  <h3 style="color:#52A82B">登录</h3>
 <p>
   请输入用户名和密码。如果您没有帐户，请 @Html.ActionLink("注册", "Register")。
 </p>
@@ -49,10 +49,11 @@
       </div>
       <a href="@Url.Action("verify_first_step")" style="margin-left:10px">忘记密码？</a>
 
-      <div class="editor-label">
+      <div class="editor-label checkbox">
         @Html.CheckBoxFor(m => m.RememberMe)
         @Html.LabelFor(m => m.RememberMe)
       </div>
+      
       <p>
         <button type="submit" class="btn">
           <i class="icon-user"></i>&nbsp;登录

@@ -218,23 +218,11 @@ namespace SecondHandMarket.Controllers
         {
             return View();
         }
-
-        public ActionResult verify_first_step()
+        public ActionResult verify()
         {
             return View();
         }
-        public ActionResult verify_second_step()
-        {
-            return View();
-        }
-        public ActionResult verify_third_step()
-        {
-            return View();
-        }
-        public ActionResult verify_ok_step()
-        {
-            return View();
-        }
+        
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {

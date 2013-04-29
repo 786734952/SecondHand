@@ -10,7 +10,7 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    background-color:black;
+    border-color:white;
     font-size: .85em;
     font-family: 微软雅黑,"Trebuchet MS", Verdana, Helvetica, Sans-Serif;
     margin: 0;
@@ -35,7 +35,6 @@ section {
 /* you can specify a greater or lesser percentage for the 
 page width. Or, you can specify an exact pixel width. */
 .page {
-    width: 90%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -226,4 +225,9 @@ div#title {
 
 .main {
     clear: both;
+}
+
+.top-banner{
+    background-color:black;
+    width:auto;
 }

@@ -42,7 +42,7 @@
                     <input type="checkbox" name="buysId" value="@buy.Id"/>
                   </label>
                 </td>
-                <td><a href="@Url.Action("Detail", "Goods")?id=@(buy.Id)&type=1">@buy.Title</a></td>
+                <td><a href="@Url.Action("List", "Buy")">@buy.Title</a></td>
                 <td>@buy.CreateTimeDesc</td>
                 <td>
                   <a class="btn btn-mini" href="@Url.Action("Edit", "Buy")?id=@buy.Id">

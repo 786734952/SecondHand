@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "verify";
+    Layout = "~/Views/Shared/_LayoutWithoutHead.cshtml";
+}
+
+@section head{
+  <link href="@Url.Content("~/Content/pagecss/Account/Register.less")" rel="stylesheet" />
+}
+
+<div class="content">
+  <h3 style="background-color:black;padding:10px;border-left:20px solid gray">找回密码</h3>
+  <form action="" class="form-horizontal">
+    <div>
+      <fieldset>
+        <legend>账户信息</legend>
+      </fieldset>
+      <div class="control-group">
+      <label class="control-label" for="">请输入用户名</label>
+      <div class="controls">
+        <input type="text" id="" name="" value=""/>
+      </div>
+    </div>
+      <div class="control-group">
+      <label class="control-label" for="">请输入验证码</label>
+      <div class="controls">
+        <input type="text" class="input-small" id=""/>
+        <img id="validate" src="/ValidateCode/Validate_Code" alt="" style="height:24px"/>
+      </div>
+    </div>
+      <div class="control-group">
+      <div class="controls">
+        <button type="submit" class="btn btn-primary">确定</button>
+      </div>
+    </div>
+    </div>
+  </form>
+</div>

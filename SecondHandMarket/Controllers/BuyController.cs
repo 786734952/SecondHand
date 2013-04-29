@@ -191,5 +191,10 @@ namespace SecondHandMarket.Controllers
             }
             return Content("修改失败");
         }
+
+        public ActionResult List()
+        {
+            return View();
+        }
     }
 }

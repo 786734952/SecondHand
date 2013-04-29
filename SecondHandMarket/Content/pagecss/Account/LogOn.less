@@ -1,7 +1,22 @@
-﻿.content{
-	width:980px;
+﻿@import url('../../less/variables.less');
+@import url('../../less/mixins.less');
+.content{
+	width:480px;
 	margin:auto;
+	background-color:black;
+	padding:20px;
+	margin-top:80px;
+	.box-shadow(0 0 10px #52A82B);
 }
 .page{
 	margin-top:30px;
 }
+.editor-label.checkbox{
+	margin-top:20px;
+	margin-bottom:18px;
+
+	label{
+	margin-left:20px;
+	margin-top:-16px;
+}
+} 
