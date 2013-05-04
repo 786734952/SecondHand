@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using SecondHandMarket.Models;
 using SecondHandMarket.common;
+using System.IO;
 
 namespace SecondHandMarket.ViewModels
 {
@@ -145,6 +146,11 @@ namespace SecondHandMarket.ViewModels
                     {
                         model.Pictures.Remove(p);
                         db.Pictures.Remove(p);
+                        try
+                        {
+                            File.Delete(HttpContext.Current.Server.MapPath(p.Path));
+                        }
+                        catch { }
                     });
             }
 

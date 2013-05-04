@@ -162,7 +162,7 @@ namespace SecondHandMarket.Controllers
                         Db.SaveChanges();
                     }
                 }
-                return Content("修改成功");
+                return View("Ok", model);
             }
             return Content("修改失败");
         }

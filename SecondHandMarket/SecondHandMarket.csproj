@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attribute\IgnoreModelErrorsAttribute.cs" />
+    <Compile Include="Attribute\RoleAuthorityAttribute.cs" />
     <Compile Include="common\DateTimeHelper.cs" />
     <Compile Include="common\SecurityHelper.cs" />
     <Compile Include="common\ValidateCode.cs" />
@@ -131,17 +132,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201304291045267_dda.cs" />
-    <Compile Include="Migrations\201304291045267_dda.Designer.cs">
-      <DependentUpon>201304291045267_dda.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201304291445531_adgd.cs" />
-    <Compile Include="Migrations\201304291445531_adgd.Designer.cs">
-      <DependentUpon>201304291445531_adgd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201304291451214_adgddd.cs" />
-    <Compile Include="Migrations\201304291451214_adgddd.Designer.cs">
-      <DependentUpon>201304291451214_adgddd.cs</DependentUpon>
+    <Compile Include="Migrations\201305040618520_daa.cs" />
+    <Compile Include="Migrations\201305040618520_daa.Designer.cs">
+      <DependentUpon>201305040618520_daa.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -367,14 +360,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201304291045267_dda.resx">
-      <DependentUpon>201304291045267_dda.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201304291445531_adgd.resx">
-      <DependentUpon>201304291445531_adgd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201304291451214_adgddd.resx">
-      <DependentUpon>201304291451214_adgddd.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201305040618520_daa.resx">
+      <DependentUpon>201305040618520_daa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

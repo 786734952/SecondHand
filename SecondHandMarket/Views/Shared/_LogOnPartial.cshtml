@@ -5,3 +5,7 @@
 else {
     @:[ @Html.ActionLink("登录", "LogOn", "Account") ]
 }
+@if (User.IsInRole("Administrator"))
+{
+  <text>[</text>@Html.ActionLink("管理", "List", "Authenticate")<text>]</text>
+}

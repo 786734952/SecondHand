@@ -148,6 +148,26 @@
 
 @section scripts
 {
+  <script src="@Url.Content("~/Scripts/noty/jquery.noty.js")"></script>
+  <script src="@Url.Content("~/Scripts/noty/layouts/top.js")"></script>
+  <script src="@Url.Content("~/Scripts/noty/themes/default.js")"></script>
+  <script>
+    var msg = "@TempData["SuccessMsg"]";
+    if (msg) {
+      $noty = noty({
+        layout: 'top',
+        type: 'success',
+        text: msg,
+        callback: {
+          afterShow: function () {
+            setTimeout(function () {
+              $noty.close();
+            }, 2500);
+          }
+        }
+      });
+    }
+  </script>
   <script>
     $(function() {
       $('[data-toggle="tooltip"]').tooltip();

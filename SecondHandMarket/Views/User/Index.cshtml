@@ -52,14 +52,42 @@
     <h3>我的信用</h3>
     <span>好评率：好评 &nbsp @Model.Lvl1Count &nbsp;条，中评 &nbsp; @Model.Lvl2Count &nbsp;条，差评 &nbsp; @Model.Lvl3Count &nbsp; 条</span>
     <h3>详细评价</h3>
+    @if (Model.Reputations != null && Model.Reputations.Count > 0)
+    { 
     <table class="table">
       <tbody>
-        <tr>
-          <td>评价</td>
-          <td style="width:100px">username</td>
-        </tr>
+        @foreach (var r in Model.Reputations)
+          {
+            <tr>
+              <td style="width: 15px;">
+                @if (r.Level == 1)
+                {
+                  <i class="icon icon-good"></i>
+                }
+                else if (r.Level == 2)
+                {
+                  <i class="icon icon-center"></i>
+                }
+                else
+                {
+                  <i class="icon icon-bad"></i>
+                }
+              </td>
+              <td>@r.Remark</td>
+              <td style="width: 130px;">@r.CreateTime.ToString("yyyy-MM-dd HH:mm")</td>
+              <td style="width: 100px">
+                @Html.ActionLink(r.FromUser.UserName, "Evaluate", "User",
+                new { userName = r.FromUser.UserName }, new { })
+              </td>
+            </tr>
+          }
       </tbody>
     </table>
+    }
+    else
+    {
+      <p class="alert alert-info">没有评价！</p>
+    }
   </div>
 </div>
 </div>

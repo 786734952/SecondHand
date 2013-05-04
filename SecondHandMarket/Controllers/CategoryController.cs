@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace SecondHandMarket.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class CategoryController : BaseController
     {
         //

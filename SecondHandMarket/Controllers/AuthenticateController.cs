@@ -8,6 +8,7 @@ using SecondHandMarket.ViewModels;
 
 namespace SecondHandMarket.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class AuthenticateController : BaseController
     {
         //

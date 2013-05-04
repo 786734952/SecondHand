@@ -54,7 +54,9 @@
               </td>
               <td>@r.Remark</td>
               <td style="width: 130px;">@r.CreateTime.ToString("yyyy-MM-dd HH:mm")</td>
-              <td style="width: 100px">@r.FromUser.UserName</td>
+              <td style="width: 100px">
+                @Html.ActionLink(r.FromUser.UserName, "Evaluate", "User",
+                new { userName = r.FromUser.UserName }, new { })</td>
             </tr>
           }
         </tbody>

@@ -8,6 +8,7 @@ using SecondHandMarket.ViewModels;
 
 namespace SecondHandMarket.Controllers
 {
+    [Authorize(Roles="Administrator")]
     public class AddressController : BaseController
     {
         //
@@ -67,6 +68,21 @@ namespace SecondHandMarket.Controllers
 
                 return RedirectToAction("List", new { addressId = parentId });
             }
+        }
+
+        [HttpPost]
+        public ActionResult Edit(int id, string address)
+        {
+            using (Db)
+            {
+                var addr = Db.Addresses.Find(id);
+                addr.Name = address;
+                Db.SaveChanges();
+            }
+            return RedirectToAction("List", new
+            {
+                addressId = Request["addressId"]
+            });
         }
 
         [HttpPost]

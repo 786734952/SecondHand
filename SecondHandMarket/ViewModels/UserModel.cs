@@ -16,7 +16,7 @@ namespace SecondHandMarket.ViewModels
     {
         public UserEditModel()
         {
-            
+
         }
         public UserEditModel(User user, string userName)
         {
@@ -154,7 +154,10 @@ namespace SecondHandMarket.ViewModels
 
         public UserDetailModel Prepare(MarketContext db)
         {
-
+            Reputations = db.Reputations
+                .Include("FromUser")
+                .Where(r => r.ToUser == UserName)
+                .ToList();
             return this;
         }
     }

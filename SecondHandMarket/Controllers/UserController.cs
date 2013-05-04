@@ -153,6 +153,10 @@ namespace SecondHandMarket.Controllers
         }
         public ActionResult Evaluate(string userName)
         {
+            if (userName == User.Identity.Name)
+            {
+                return RedirectToAction("Index");
+            }
             using (Db)
             {
                 var user = Db.UserInfo
@@ -188,12 +192,35 @@ namespace SecondHandMarket.Controllers
         {
             using (Db)
             {
-                var releases = Db.Releases.Where(r => releaseIds.Contains(r.Id)).ToList();
+                var releases = Db.Releases
+                    .Include("Pictures")
+                    .Where(r => releaseIds.Contains(r.Id)).ToList();
+
+                var filesToBeRemoved = new List<string>();
+
                 foreach (var release in releases)
                 {
+                    var pictures = release.Pictures.ToList();
                     Db.Releases.Remove(release);
+
+                    foreach (var pic in pictures)
+                    {
+                        Db.Pictures.Remove(pic);
+                        var path = Server.MapPath(pic.Path);
+                        filesToBeRemoved.Add(path);
+                    }
                 }
                 Db.SaveChanges();
+
+                try
+                {
+                    foreach (var file in filesToBeRemoved)
+                    {
+                        System.IO.File.Delete(file);
+                    }
+                }
+                catch { }
+
                 TempData["SuccessMsg"] = string.Format("成功删除{0}条记录", releases.Count);
                 return RedirectToAction("Release", new
                     {
