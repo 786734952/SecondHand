@@ -12,23 +12,23 @@ namespace SecondHandMarket.ViewModels
         public CollectListItemModel(ReleaseCollect collect)
         {
             Id = collect.Id;
-            Name = collect.Release.Title;
-            RelatedId = collect.Release.Id;
+            Name = collect.Release == null ? "商品信息已经被发布人删除" : collect.Release.Title;
+            RelatedId = collect.Release == null ? -1 : collect.Release.Id;
             CollectType = 0;
             CollectTime = collect.CreateTime;
             CollectTimeDesc = CollectTime.GetDateTimeDesc();
-            Price = collect.Release.Price;
+            Price = collect.Release == null ? 0 : collect.Release.Price;
         }
 
         public CollectListItemModel(BuyCollect collect)
         {
             Id = collect.Id;
-            Name = collect.Buy.Name;
-            RelatedId = collect.Buy.Id;
+            Name = collect.Buy == null ? "商品求购信息已经被发布人删除" : collect.Buy.Name;
+            RelatedId = collect.Buy == null ? -1 : collect.Buy.Id;
             CollectType = 1;
             CollectTime = collect.CreateTime;
             CollectTimeDesc = CollectTime.GetDateTimeDesc();
-            Price = collect.Buy.Price;
+            Price = collect.Buy == null ? 0 : collect.Buy.Price;
         }
 
         public int Id { get; set; }

@@ -107,3 +107,4 @@ UpgradeLog*.XML
 
 Migrations/
 imagecache/
+SecondHandMarket/App_Data/web.config

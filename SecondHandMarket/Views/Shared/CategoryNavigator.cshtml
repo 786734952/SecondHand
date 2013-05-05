@@ -9,19 +9,19 @@
     {
       <li class="dropdown-submenu">
         <span>
-          <a href="?categoryId=@category.Id" tabindex="-1">@category.Name</a>
+          <a href="@Url.Action("Index","Goods")?categoryId=@category.Id" tabindex="-1">@category.Name</a>
         </span>
         <ul class="dropdown-menu">
           @foreach (var secCategory in category.SubCategories)
           {
             <li>
               <dl>
-                <dt><a href="?categoryId=@secCategory.Id">@secCategory.Name</a></dt>
+                <dt><a href="@Url.Action("Index","Goods")?categoryId=@secCategory.Id">@secCategory.Name</a></dt>
                 <dd>
                   <ul>
                     @foreach (var thirdCategory in secCategory.SubCategories)
                     {
-                      <li><a href="?categoryId=@thirdCategory.Id">@thirdCategory.Name</a></li>
+                      <li><a href="@Url.Action("Index","Goods")?categoryId=@thirdCategory.Id">@thirdCategory.Name</a></li>
                     }
                   </ul>
                 </dd>
