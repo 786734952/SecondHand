@@ -110,7 +110,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attribute\IgnoreModelErrorsAttribute.cs" />
-    <Compile Include="Attribute\RoleAuthorityAttribute.cs" />
     <Compile Include="common\DateTimeHelper.cs" />
     <Compile Include="common\SecurityHelper.cs" />
     <Compile Include="common\ValidateCode.cs" />
@@ -168,6 +167,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font\fontawesome-webfont.svg" />
     <Content Include="Content\images\10.jpg" />
+    <Content Include="Content\images\home1.png" />
+    <Content Include="Content\images\home2.png" />
     <Content Include="Content\images\loading-bar.gif" />
     <Content Include="Content\images\6.jpg" />
     <Content Include="Content\images\bk2.jpg" />
@@ -184,8 +185,6 @@
     <Content Include="Content\images\404.gif" />
     <Content Include="Content\images\head.png" />
     <Content Include="Content\images\header-back.png" />
-    <Content Include="Content\images\home1.png" />
-    <Content Include="Content\images\home2.png" />
     <Content Include="Content\images\item1.jpg" />
     <Content Include="Content\images\item2.jpg" />
     <Content Include="Content\images\item3.jpg" />
@@ -251,7 +250,6 @@
     <Content Include="Content\font\fontawesome-webfont.ttf" />
     <Content Include="Content\font\fontawesome-webfont.woff" />
     <Content Include="Content\pagecss\Shared\header.less" />
-    <Content Include="Content\pagecss\Home\index.less" />
     <Content Include="Content\pagecss\Release\index.less" />
     <Content Include="Content\pagecss\User\index.less" />
     <Content Include="Content\pagecss\Account\LogOn.less" />
@@ -259,6 +257,7 @@
     <Content Include="Content\pagecss\Goods\detail.less" />
     <Content Include="Content\pagecss\Goods\index.less" />
     <Content Include="Content\pagecss\Buy\index.less" />
+    <Content Include="Content\pagecss\Home\index.less" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
