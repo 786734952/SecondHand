@@ -8,12 +8,12 @@ using System.Web.Mvc;
 
 namespace SecondHandMarket.Controllers
 {
-    [Authorize(Roles = "Administrator")]
     public class CategoryController : BaseController
     {
         //
         // GET: /Category/
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult List(int? categoryId)
         {
             using (Db)
@@ -37,6 +37,7 @@ namespace SecondHandMarket.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Add(string name, int? ParentId)
         {
             using (Db)
@@ -60,6 +61,7 @@ namespace SecondHandMarket.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int categoryId)
         {
             using (Db)
