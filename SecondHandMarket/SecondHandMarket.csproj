@@ -110,7 +110,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attribute\IgnoreModelErrorsAttribute.cs" />
-    <Compile Include="Attribute\RoleAuthorityAttribute.cs" />
     <Compile Include="common\DateTimeHelper.cs" />
     <Compile Include="common\SecurityHelper.cs" />
     <Compile Include="common\ValidateCode.cs" />
@@ -131,10 +130,6 @@
     <Compile Include="Controllers\ValidateCodeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201305040618520_daa.cs" />
-    <Compile Include="Migrations\201305040618520_daa.Designer.cs">
-      <DependentUpon>201305040618520_daa.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -358,11 +353,6 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201305040618520_daa.resx">
-      <DependentUpon>201305040618520_daa.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -70,6 +70,14 @@ namespace SecondHandMarket.Controllers
                 {
                     Db.Buys.Remove(buy);
                 }
+
+                //删除搜藏信息
+                var collects = Db.BuyCollects.Where(c => buysId.Contains(c.Buy.Id));
+                foreach (var collect in collects)
+                {
+                    collect.Buy = null;
+                }
+
                 Db.SaveChanges();
 
                 TempData["SuccessMsg"] = string.Format("成功删除了{0}条记录", buys.Count);
@@ -210,6 +218,14 @@ namespace SecondHandMarket.Controllers
                         filesToBeRemoved.Add(path);
                     }
                 }
+
+                //删除用户的搜藏信息，置搜藏信息的关联信息为null
+                var collects = Db.ReleaseCollects.Where(c => releaseIds.Contains(c.Release.Id));
+                foreach (var collect in collects)
+                {
+                    collect.Release = null;
+                }
+                
                 Db.SaveChanges();
 
                 try
