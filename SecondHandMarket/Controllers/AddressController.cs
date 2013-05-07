@@ -8,17 +8,12 @@ using SecondHandMarket.ViewModels;
 
 namespace SecondHandMarket.Controllers
 {
-    [Authorize(Roles="Administrator")]
     public class AddressController : BaseController
     {
         //
         // GET: /Address/
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+        [Authorize(Roles = "Administrator")]
         public ActionResult List(int? addressId)
         {
             using (Db)
@@ -45,6 +40,7 @@ namespace SecondHandMarket.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Add(string address, int? parentId)
         {
             using (Db)
@@ -71,6 +67,7 @@ namespace SecondHandMarket.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int id, string address)
         {
             using (Db)
@@ -86,6 +83,7 @@ namespace SecondHandMarket.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int addressId)
         {
             using (Db)
