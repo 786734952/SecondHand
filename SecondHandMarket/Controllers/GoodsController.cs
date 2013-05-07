@@ -14,7 +14,7 @@ namespace SecondHandMarket.Controllers
         //
         // GET: /Goods/
 
-        public ActionResult Index(PageBarModel pageBar, int? categoryId)
+        public ActionResult Index(PageBarModel pageBar, int? categoryId, string name)
         {
             using (Db)
             {
@@ -45,6 +45,12 @@ namespace SecondHandMarket.Controllers
                                    .Where(r => r.Category.Id == cId
                                                || r.Category.ParentCategory.Id == cId
                                                || r.Category.ParentCategory.ParentCategory.Id == cId);
+                }
+
+                if (!string.IsNullOrWhiteSpace(name))
+                {
+                    ViewBag.SearchName = name;
+                    allRelease = allRelease.Where(r => r.Title.Contains(name));
                 }
 
                 var model = allRelease

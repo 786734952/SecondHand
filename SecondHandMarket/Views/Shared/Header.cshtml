@@ -44,9 +44,10 @@
         @Html.Partial("_LogOnPartial")
       </div>
     </div>
-    <form action="" class="form-search">
+    <form action="@Url.Action("Index", "Goods")" class="form-search" method="GET">
       <div class="search input-append">
-        <input type="text" class="input-medium search-query" placeholder="请输入名称或关键字" />
+        <input name="name" type="text" class="input-medium search-query" 
+          placeholder="输入商品名称" value="@ViewBag.SearchName" />
         <button class="btn btn-small" type="submit">Go!</button>
       </div>
     </form>
