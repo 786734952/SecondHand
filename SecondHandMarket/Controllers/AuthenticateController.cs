@@ -23,12 +23,15 @@ namespace SecondHandMarket.Controllers
                 ViewBag.IncludeAll = all;
                 if (!all)
                 {
-                    allData = Db.Authentications.Where(a => !a.IsAccepted)
+                    allData = Db.Authentications
+                                .Where(a => !a.IsAccepted && a.IDCard1Path != null)
                                 .OrderBy(a => a.Id);
                 }
                 else
                 {
-                    allData = Db.Authentications.OrderBy(a => a.IsAccepted)
+                    allData = Db.Authentications
+                                .Where(a => a.IDCard1Path != null)
+                                .OrderBy(a => a.IsAccepted)
                                 .ThenBy(a => a.Id);
                 }
 
