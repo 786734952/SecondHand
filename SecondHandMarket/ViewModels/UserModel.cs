@@ -135,17 +135,26 @@ namespace SecondHandMarket.ViewModels
         /// <summary>
         /// 好评数
         /// </summary>
-        public int Lvl1Count { get; set; }
+        public int Lvl1Count
+        {
+            get { return Reputations.Count(r => r.Level == 1); }
+        }
 
         /// <summary>
         /// 中评数
         /// </summary>
-        public int Lvl2Count { get; set; }
+        public int Lvl2Count
+        {
+            get { return Reputations.Count(r => r.Level == 2); }
+        }
 
         /// <summary>
         /// 差评数
         /// </summary>
-        public int Lvl3Count { get; set; }
+        public int Lvl3Count
+        {
+            get { return Reputations.Count(r => r.Level == 3); }
+        }
 
         /// <summary>
         /// 评价详情
