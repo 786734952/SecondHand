@@ -174,9 +174,13 @@ namespace SecondHandMarket.Controllers
                     .Include("Category")
                     .Include("Place")
                     .First(b => b.Id == id);
-                var model = new BuyEditModel(buy);
+                if (buy.UserName == User.Identity.Name)
+                {
+                    var model = new BuyEditModel(buy);
+                    return View(model.Prepare(Db));
+                }
 
-                return View(model.Prepare(Db));
+                return Content("error!");
             }
         }
 
@@ -190,9 +194,12 @@ namespace SecondHandMarket.Controllers
                 using (Db)
                 {
                     var model = buy.Update(Db);
-                    Db.SaveChanges();
+                    if (model.UserName == User.Identity.Name)
+                    {
+                        Db.SaveChanges();
+                        return Content("修改成功");
+                    }
                 }
-                return Content("修改成功");
             }
             return Content("修改失败");
         }

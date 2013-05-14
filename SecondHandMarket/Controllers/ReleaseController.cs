@@ -122,7 +122,7 @@ namespace SecondHandMarket.Controllers
                     };
                     pictures.Add(picture);
                 }
-                
+
             }
             return pictures;
         }
@@ -133,10 +133,17 @@ namespace SecondHandMarket.Controllers
             using (Db)
             {
                 var release = Db.Releases.First(r => r.Id == id);
-                var model = new ReleaseEditModel(release);
-                var campuses = Db.Addresses.Where(a => a.ParentAddress == null).ToList();
-                ViewBag.Campuses = campuses;
-                return View(model);
+                if (release.UserName == User.Identity.Name)
+                {
+                    var model = new ReleaseEditModel(release);
+                    var campuses = Db.Addresses.Where(a => a.ParentAddress == null).ToList();
+                    ViewBag.Campuses = campuses;
+                    return View(model);
+                }
+                else
+                {
+                    return Content("error!");
+                }
             }
         }
 
@@ -149,7 +156,14 @@ namespace SecondHandMarket.Controllers
                 using (Db)
                 {
                     model = release.Update(Db);
-                    Db.SaveChanges();
+                    if (model.UserName == User.Identity.Name)
+                    {
+                        Db.SaveChanges();
+                    }
+                    else
+                    {
+                        return Content("error!");
+                    }
                 }
 
                 if (Request.Files.Count > 0)
