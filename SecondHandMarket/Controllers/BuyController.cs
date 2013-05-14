@@ -108,6 +108,7 @@ namespace SecondHandMarket.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult Add(int categoryId)
         {
             using (Db)
@@ -143,6 +144,7 @@ namespace SecondHandMarket.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult FirstStep()
         {
             using (Db)
@@ -151,6 +153,7 @@ namespace SecondHandMarket.Controllers
             }
             return View();
         }
+        [Authorize]
         public ActionResult SecondStep(int categoryId)
         {
             using (Db)
@@ -162,6 +165,7 @@ namespace SecondHandMarket.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Edit(int id)
         {
             using (Db)
@@ -177,6 +181,7 @@ namespace SecondHandMarket.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [IgnoreModelErrors("Category.*")]
         public ActionResult Edit(BuyEditModel buy)
         {

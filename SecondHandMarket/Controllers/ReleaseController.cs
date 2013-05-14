@@ -11,6 +11,7 @@ using SecondHandMarket.ViewModels;
 
 namespace SecondHandMarket.Controllers
 {
+    [Authorize]
     public class ReleaseController : BaseController
     {
         //
