@@ -138,7 +138,7 @@ namespace SecondHandMarket.Controllers
                     var model = buy.GetBuyModel(Db, User.Identity.Name);
                     Db.Buys.Add(model);
                     Db.SaveChanges();
-                    return View("Ok");
+                    return View("Ok", model);
                 }
                 return View(buy.Prepare(Db));
             }
@@ -197,7 +197,7 @@ namespace SecondHandMarket.Controllers
                     if (model.UserName == User.Identity.Name)
                     {
                         Db.SaveChanges();
-                        return Content("修改成功");
+                        return View("Ok", model);
                     }
                 }
             }
